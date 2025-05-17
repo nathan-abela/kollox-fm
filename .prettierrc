@@ -1,0 +1,9 @@
+{
+	"singleQuote": false,
+	"tabWidth": 4,
+	"useTabs": true,
+	"trailingComma": "es5",
+	"proseWrap": "preserve",
+	"quoteProps": "as-needed",
+	"plugins": ["prettier-plugin-tailwindcss"]
+}
