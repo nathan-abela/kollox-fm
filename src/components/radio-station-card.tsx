@@ -1,8 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalLink, Heart, Radio } from "lucide-react";
+import {
+	ExternalLink,
+	Heart,
+	PauseCircle,
+	PlayCircle,
+	Radio,
+} from "lucide-react";
 
+import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { RadioStation } from "@/lib/types/radio";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -21,9 +28,23 @@ interface RadioStationCardProps {
 export function RadioStationCard({ station }: RadioStationCardProps) {
 	const isFavourite = false; // Temporary placeholder for favourite state
 
+	const { currentStation, isPlaying, setStation, togglePlayPause } =
+		useAudioPlayer();
+	const isCurrentStation = currentStation?.id === station.id;
+	const handlePlayClick = () => {
+		if (isCurrentStation) {
+			togglePlayPause();
+		} else {
+			setStation(station);
+		}
+	};
+
 	return (
 		<Card className="group overflow-hidden pt-0 transition-all duration-300 hover:shadow-md">
-			<div className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden">
+			<div
+				className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden"
+				onClick={handlePlayClick}
+			>
 				<Image
 					src={station.image}
 					alt={station.name}
@@ -32,6 +53,21 @@ export function RadioStationCard({ station }: RadioStationCardProps) {
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 					className="object-cover transition-transform duration-500 group-hover:scale-105"
 				/>
+
+				<div
+					className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+					aria-label={
+						isPlaying && isCurrentStation
+							? "Pause station"
+							: "Play station"
+					}
+				>
+					{isPlaying && isCurrentStation ? (
+						<PauseCircle className="h-16 w-16 text-white" />
+					) : (
+						<PlayCircle className="h-16 w-16 text-white" />
+					)}
+				</div>
 			</div>
 
 			<CardContent className="p-4">
