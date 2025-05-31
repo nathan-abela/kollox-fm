@@ -6,4 +6,5 @@ export interface RadioStation {
 	website: string;
 	location: string;
 	genres?: string[];
+	popularity: number;
 }

@@ -9,6 +9,7 @@ export const stations: RadioStation[] = [
 		website: "https://bay.com.mt",
 		location: "Saint Julian's",
 		genres: ["Hits", "Pop", "Top 40"],
+		popularity: 1,
 	},
 	{
 		id: "2",
@@ -18,6 +19,7 @@ export const stations: RadioStation[] = [
 		website: "https://bayeasy.mt",
 		location: "Saint Julian's",
 		genres: ["Chill", "Relax", "00s"],
+		popularity: 3,
 	},
 	{
 		id: "3",
@@ -27,6 +29,7 @@ export const stations: RadioStation[] = [
 		website: "https://bay.com.mt",
 		location: "Saint Julian's",
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
+		popularity: 4,
 	},
 	{
 		id: "4",
@@ -36,5 +39,6 @@ export const stations: RadioStation[] = [
 		website: "https://bay.com.mt",
 		location: "Saint Julian's",
 		genres: ["Pop", "Dance", "LGBTQ+", "Pride"],
+		popularity: 5,
 	},
 ];
