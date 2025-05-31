@@ -16,6 +16,8 @@ import { SkeletonStation } from "@/components/ui/skeleton-station";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { RadioStationList } from "@/components/radio-station-list";
 
+type SortOption = "name" | "location" | "popularity";
+
 // TODO:
 // - Hook up favourite toggle
 // - Add Tab List UI (e.g. All, Favourites, Recently Played)
@@ -24,7 +26,7 @@ import { RadioStationList } from "@/components/radio-station-list";
 
 export default function Home() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [sortBy, setSortBy] = useState<"name" | "location">("name");
+	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
 
 	const filteredStations = stations
 		.filter(
@@ -35,12 +37,16 @@ export default function Home() {
 					.includes(searchTerm.toLowerCase())
 		)
 		.sort((a, b) => {
-			if (sortBy === "name") {
-				return a.name.localeCompare(b.name);
-			} else if (sortBy === "location") {
-				return a.location.localeCompare(b.location);
+			switch (sortBy) {
+				case "name":
+					return a.name.localeCompare(b.name);
+				case "location":
+					return a.location.localeCompare(b.location);
+				case "popularity":
+					return (a.popularity ?? 0) - (b.popularity ?? 0);
+				default:
+					return 0;
 			}
-			return 0;
 		});
 
 	return (
@@ -72,14 +78,15 @@ export default function Home() {
 					<Label htmlFor="sort">Sort By</Label>
 					<Select
 						value={sortBy}
-						onValueChange={(value) =>
-							setSortBy(value as "name" | "location")
-						}
+						onValueChange={(value: SortOption) => setSortBy(value)}
 					>
 						<SelectTrigger id="sort" className="w-[180px]">
 							<SelectValue placeholder="Sort by" />
 						</SelectTrigger>
 						<SelectContent>
+							<SelectItem value="popularity">
+								Popularity
+							</SelectItem>
 							<SelectItem value="name">Name</SelectItem>
 							<SelectItem value="location">Location</SelectItem>
 						</SelectContent>
