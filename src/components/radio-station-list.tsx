@@ -21,7 +21,9 @@ export function RadioStationList({ stations }: { stations: RadioStation[] }) {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		// Auto-fit grid: cards are at least 200px wide and expand to fill space
+		// At 2xl and up, limit to 5 columns for wide screens
+		<div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 2xl:grid-cols-5">
 			{stations.map((station) => (
 				<RadioStationCard key={station.id} station={station} />
 			))}
