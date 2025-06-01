@@ -40,7 +40,7 @@ export function RadioStationCard({ station }: RadioStationCardProps) {
 	};
 
 	return (
-		<Card className="group overflow-hidden pt-0 transition-all duration-300 hover:shadow-md">
+		<Card className="group overflow-hidden pt-0 pb-4 transition-all duration-300 hover:shadow-md">
 			<div
 				className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden"
 				onClick={handlePlayClick}
