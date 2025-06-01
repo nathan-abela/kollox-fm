@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AudioPlayerProvider } from "@/lib/hooks/audio-player";
 import { Header } from "@/components/ui/header";
+import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
 				>
 					<Header />
 					<AudioPlayerProvider>{children}</AudioPlayerProvider>
+					<Toaster richColors />
 				</ThemeProvider>
 				<BreakpointIndicator />
 			</body>

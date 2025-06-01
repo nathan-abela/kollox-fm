@@ -9,6 +9,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { toast } from "sonner";
 
 import { RadioStation } from "@/lib/types/radio";
 
@@ -59,6 +60,11 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				playPromise.catch((error) => {
 					console.error("Playback error:", error);
 					setIsPlaying(false);
+
+					toast.error("Playback Error", {
+						description:
+							"Failed to play this station. Please try again.",
+					});
 				});
 			}
 		} else {
@@ -90,6 +96,11 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				audioRef.current?.play().catch((error) => {
 					console.error("Error playing audio:", error);
 					setIsPlaying(false);
+
+					toast.error("Playback Error", {
+						description:
+							"Failed to play this station. Please try again.",
+					});
 				});
 			}
 		};
@@ -97,6 +108,10 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		const handleError = () => {
 			setIsLoading(false);
 			setIsPlaying(false);
+
+			toast.error(
+				"Unable to load the stream. This station may be offline."
+			);
 		};
 
 		audioRef.current.addEventListener("canplay", handleCanPlay);
