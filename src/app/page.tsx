@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { SkeletonStation } from "@/components/ui/skeleton-station";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { PlayerBar } from "@/components/player-bar";
 import { RadioStationList } from "@/components/radio-station-list";
 
 type SortOption = "name" | "location" | "popularity";
@@ -102,6 +103,8 @@ export default function Home() {
 					</Suspense>
 				</TabsContent>
 			</Tabs>
+
+			<PlayerBar />
 		</div>
 	);
 }

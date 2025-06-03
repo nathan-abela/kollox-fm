@@ -1,0 +1,164 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import {
+	ExternalLink,
+	Pause,
+	Play,
+	SkipBack,
+	SkipForward,
+	Volume2,
+} from "lucide-react";
+
+import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Slider } from "@/components/ui/slider";
+
+// TODO: Add volume control functionality
+// TODO: Add mute toggle functionality
+// TODO: Add previous/ next station functionality
+// TODO: Consider removing progress bar & progress component
+
+/**
+ * Renders a fixed player bar at the bottom of the screen, displaying the current radio station information,
+ * playback controls (play/pause, previous, next), and volume controls.
+ *
+ * The component uses the `useAudioPlayer` hook to access the current station, playback state, and toggle play/pause functionality.
+ * It also displays station details, including an image, name, and location.
+ *
+ * Features:
+ * - Station info with image, name, and location.
+ * - Playback controls: previous, play/pause, next.
+ * - External link to the station's website.
+ * - Volume control slider and mute button (UI only, not yet implemented).
+ */
+export function PlayerBar() {
+	const { currentStation, isPlaying, togglePlayPause } = useAudioPlayer();
+
+	const [progress, setProgress] = useState(0);
+
+	// Progress simulation
+	useEffect(() => {
+		if (!isPlaying || !currentStation) {
+			return;
+		}
+		const interval = setInterval(() => {
+			setProgress((prev) => (prev >= 100 ? 0 : prev + 0.1));
+		}, 100);
+		return () => clearInterval(interval);
+	}, [isPlaying, currentStation]);
+
+	if (!currentStation) {
+		return null;
+	}
+
+	return (
+		<div className="bg-card fixed right-0 bottom-0 left-0 z-40 border-t px-6 py-4">
+			<div className="container mx-auto">
+				<div className="flex items-center justify-between gap-4">
+					{/* Station Info */}
+					<div className="flex min-w-0 items-center gap-4">
+						<div className="bg-muted relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
+							<Image
+								src={currentStation.image}
+								alt={currentStation.name}
+								fill
+								className="object-cover"
+							/>
+						</div>
+						<div className="min-w-0 max-[425px]:hidden">
+							<h4 className="truncate font-medium">
+								{currentStation.name}
+							</h4>
+							<p className="text-muted-foreground truncate text-sm">
+								{currentStation.location}
+							</p>
+						</div>
+					</div>
+
+					{/* Playback Controls */}
+					<div className="mx-auto flex max-w-md flex-1 flex-col items-center">
+						<div className="flex items-center gap-4">
+							<Button
+								variant="ghost"
+								size="icon"
+								onClick={() => {}}
+								aria-label="Previous station"
+								className="cursor-pointer"
+							>
+								<SkipBack className="h-5 w-5" />
+							</Button>
+							<Button
+								variant="outline"
+								size="icon"
+								onClick={togglePlayPause}
+								className="h-11 w-11 cursor-pointer rounded-full"
+								aria-label={isPlaying ? "Pause" : "Play"}
+							>
+								{isPlaying ? (
+									<Pause className="h-5 w-5" />
+								) : (
+									<Play className="h-5 w-5" />
+								)}
+							</Button>
+							<Button
+								variant="ghost"
+								size="icon"
+								aria-label="Next station"
+								className="cursor-pointer"
+							>
+								<SkipForward className="h-5 w-5" />
+							</Button>
+						</div>
+						{/* Progress bar hidden on mobile */}
+						<Progress
+							value={progress}
+							className="mt-3 hidden h-1 w-full md:block"
+						/>
+					</div>
+
+					{/* Volume & Actions */}
+					<div className="flex items-center justify-end gap-3">
+						<Button
+							variant="ghost"
+							size="icon"
+							asChild
+							aria-label={`Open ${currentStation.name} website`}
+							className="cursor-pointer"
+						>
+							<a
+								href={currentStation.website}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<ExternalLink className="h-5 w-5" />
+							</a>
+						</Button>
+
+						<div className="flex min-w-[100px] items-center gap-2 max-[600px]:hidden md:min-w-[140px]">
+							<Button
+								variant="ghost"
+								size="icon"
+								onClick={() => {}} // TODO: Handle mute toggle
+								aria-label={"Mute"}
+								className="cursor-pointer"
+							>
+								<Volume2 className="h-5 w-5" />
+							</Button>
+							<Slider
+								value={[80]} // TODO: Implement volume state
+								max={100}
+								step={1}
+								onValueChange={() => {}}
+								className="w-16 cursor-pointer md:w-24"
+								aria-label="Volume control"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
