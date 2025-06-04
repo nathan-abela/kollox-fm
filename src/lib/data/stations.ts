@@ -18,8 +18,8 @@ export const stations: RadioStation[] = [
 		image: "/images/bay_easy.png",
 		website: "https://bayeasy.mt",
 		location: "St. Julian's",
-		genres: ["Chill", "Relax", "00s"],
-		popularity: 3,
+		genres: ["Chill", "Relax", "00s", "10s"],
+		popularity: 4,
 	},
 	{
 		id: "3",
@@ -29,7 +29,7 @@ export const stations: RadioStation[] = [
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
-		popularity: 4,
+		popularity: 5,
 	},
 	{
 		id: "4",
@@ -38,8 +38,8 @@ export const stations: RadioStation[] = [
 		image: "/images/bay_pride.png",
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
-		genres: ["Pop", "Dance", "LGBTQ+", "Pride"],
-		popularity: 5,
+		genres: ["Pop", "Dance", "Throwbacks", "LGBTQ+", "Pride"],
+		popularity: 6,
 	},
 	{
 		id: "5",
@@ -50,5 +50,15 @@ export const stations: RadioStation[] = [
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
+	},
+	{
+		id: "6",
+		name: "Magic Malta FM | 91.7",
+		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
+		image: "/images/magic_malta.png",
+		website: "https://magic.mt",
+		location: "Pieta",
+		genres: ["Hits", "Top 40", "Throwbacks"],
+		popularity: 3,
 	},
 ];
