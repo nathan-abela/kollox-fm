@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 
 import { stations } from "@/lib/data/stations";
+import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -26,9 +27,15 @@ type SortOption = "name" | "location" | "popularity";
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
 
 export default function Home() {
+	// State for search input
 	const [searchTerm, setSearchTerm] = useState("");
+	// State for sort option
 	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
 
+	// Get currentStation from audio player hook
+	const { currentStation } = useAudioPlayer();
+
+	// Filter and sort stations based on search and sort
 	const filteredStations = stations
 		.filter(
 			(station) =>
@@ -51,7 +58,11 @@ export default function Home() {
 		});
 
 	return (
-		<div className="container mx-auto pb-20">
+		// Main content container. Adds extra bottom padding if player bar is visible
+		<div
+			className={`container mx-auto ${currentStation ? "pb-40" : "pb-20"}`}
+		>
+			{/* Page header section */}
 			<section className="space-y-4 py-8 md:py-12">
 				<h2 className="text-3xl font-bold tracking-tight">
 					Browse Local Radio Stations
@@ -95,6 +106,7 @@ export default function Home() {
 				</div>
 			</div>
 
+			{/* Tabs for station lists */}
 			<Tabs defaultValue="local" className="w-full">
 				{/* TODO: Add Tab List - Stations - Favourites - Recently Played */}
 				<TabsContent value="local" className="mt-6">
@@ -104,6 +116,7 @@ export default function Home() {
 				</TabsContent>
 			</Tabs>
 
+			{/* Fixed audio player bar at the bottom of the screen */}
 			<PlayerBar />
 		</div>
 	);
