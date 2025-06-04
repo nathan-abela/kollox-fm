@@ -57,7 +57,7 @@ export function PlayerBar() {
 	return (
 		<div className="bg-card fixed right-0 bottom-0 left-0 z-40 border-t px-6 py-4">
 			<div className="container mx-auto">
-				<div className="flex items-center justify-between gap-4">
+				<div className="grid grid-cols-3 items-center gap-4">
 					{/* Station Info */}
 					<div className="flex min-w-0 items-center gap-4">
 						<div className="bg-muted relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
@@ -79,7 +79,7 @@ export function PlayerBar() {
 					</div>
 
 					{/* Playback Controls */}
-					<div className="mx-auto flex max-w-md flex-1 flex-col items-center">
+					<div className="flex flex-col items-center justify-center">
 						<div className="flex items-center gap-4">
 							<Button
 								variant="ghost"
@@ -120,7 +120,7 @@ export function PlayerBar() {
 					</div>
 
 					{/* Volume & Actions */}
-					<div className="flex items-center justify-end gap-3">
+					<div className="flex min-w-0 items-center justify-end gap-4">
 						<Button
 							variant="ghost"
 							size="icon"
