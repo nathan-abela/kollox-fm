@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 
-// TODO: Add volume control functionality
 // TODO: Add mute toggle functionality
 // TODO: Add previous/ next station functionality
 // TODO: Consider removing progress bar & progress component
@@ -35,11 +34,11 @@ import { Slider } from "@/components/ui/slider";
  * - Volume control slider and mute button (UI only, not yet implemented).
  */
 export function PlayerBar() {
-	const { currentStation, isPlaying, togglePlayPause } = useAudioPlayer();
+	const { currentStation, isPlaying, volume, togglePlayPause, setVolume } =
+		useAudioPlayer();
 
 	const [progress, setProgress] = useState(0);
 
-	// Progress simulation
 	useEffect(() => {
 		if (!isPlaying || !currentStation) {
 			return;
@@ -148,10 +147,10 @@ export function PlayerBar() {
 								<Volume2 className="h-5 w-5" />
 							</Button>
 							<Slider
-								value={[80]} // TODO: Implement volume state
+								value={[volume]}
 								max={100}
 								step={1}
-								onValueChange={() => {}}
+								onValueChange={(value) => setVolume(value[0])}
 								className="w-16 cursor-pointer md:w-24"
 								aria-label="Volume control"
 							/>

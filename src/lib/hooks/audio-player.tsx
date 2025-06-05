@@ -16,13 +16,18 @@ import { RadioStation } from "@/lib/types/radio";
 interface AudioPlayerContextType {
 	currentStation: RadioStation | null;
 	isPlaying: boolean;
+	isLoading: boolean;
+	volume: number;
 	setStation: (station: RadioStation) => void;
 	togglePlayPause: () => void;
+	setVolume: (volume: number) => void;
 }
 
 const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
 	undefined
 );
+
+// TODO: Add debounce for volume changes - useDebounce
 
 /**
  * Provides audio playback functionality for radio stations.
@@ -33,14 +38,14 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [volume, setVolume] = useState(70); // Initial volume set to 70%
 
 	const audioRef = useRef<HTMLAudioElement | null>(null);
-	const initialVolume = 0.8;
 
 	// Initialize audio element on mount
 	useEffect(() => {
 		audioRef.current = new Audio();
-		audioRef.current.volume = initialVolume;
+		audioRef.current.volume = volume / 100;
 
 		return () => {
 			audioRef.current?.pause();
@@ -48,7 +53,14 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		};
 	}, []);
 
-	// Control playback state
+	// Control volume change
+	useEffect(() => {
+		if (audioRef.current) {
+			audioRef.current.volume = volume / 100;
+		}
+	}, [volume]);
+
+	// Control playback state - Play/ Pause
 	useEffect(() => {
 		// Return early if audio is not ready, no station is selected, or if it's currently loading a new station.
 		// This prevents play attempts while the source is being updated or not yet playable.
@@ -162,8 +174,11 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 			value={{
 				currentStation,
 				isPlaying,
+				isLoading,
+				volume: volume,
 				setStation,
 				togglePlayPause,
+				setVolume,
 			}}
 		>
 			{children}
@@ -173,7 +188,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
 /**
  * Hook to access the audio player context.
- * Must be used inside an <AudioPlayerProvider>.
+ * Must be used inside an `<AudioPlayerProvider>`.
  */
 export function useAudioPlayer() {
 	const context = useContext(AudioPlayerContext);
