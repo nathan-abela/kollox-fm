@@ -166,11 +166,28 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		setIsMuted((prev) => !prev);
 	}, []);
 
-	// Toggle playback with spacebar
+	/**
+	 * Adds a global keyboard shortcut for toggling playback using the spacebar.
+	 * Prevents default scroll behavior when pressing spacebar.
+	 */
 	useEffect(() => {
-		const handler = (e: KeyboardEvent) => {
-			if (e.code === "Space") togglePlayPause();
+		// Determines whether the keyboard event target is an input, textarea, or contentEditable
+		const isTypingInInput = (e: KeyboardEvent) => {
+			const tag = (e.target as HTMLElement)?.tagName;
+			const isContentEditable = (e.target as HTMLElement)
+				?.isContentEditable;
+			return tag === "INPUT" || tag === "TEXTAREA" || isContentEditable;
 		};
+
+		const handler = (e: KeyboardEvent) => {
+			if (isTypingInInput(e)) return;
+
+			if (e.code === "Space") {
+				e.preventDefault(); // Prevent page bottom scroll
+				togglePlayPause();
+			}
+		};
+
 		window.addEventListener("keydown", handler);
 		return () => window.removeEventListener("keydown", handler);
 	}, [togglePlayPause]);
