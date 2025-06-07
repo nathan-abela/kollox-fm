@@ -8,7 +8,9 @@ import {
 	Play,
 	SkipBack,
 	SkipForward,
+	Volume1,
 	Volume2,
+	VolumeX,
 } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
@@ -16,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 
-// TODO: Add mute toggle functionality
+// TODO: Add tooltip for volume control
 // TODO: Add previous/ next station functionality
 // TODO: Consider removing progress bar & progress component
 
@@ -34,8 +36,15 @@ import { Slider } from "@/components/ui/slider";
  * - Volume control slider and mute button (UI only, not yet implemented).
  */
 export function PlayerBar() {
-	const { currentStation, isPlaying, volume, togglePlayPause, setVolume } =
-		useAudioPlayer();
+	const {
+		currentStation,
+		isPlaying,
+		volume,
+		isMuted,
+		togglePlayPause,
+		setVolume,
+		toggleMute,
+	} = useAudioPlayer();
 
 	const [progress, setProgress] = useState(0);
 
@@ -140,14 +149,20 @@ export function PlayerBar() {
 							<Button
 								variant="ghost"
 								size="icon"
-								onClick={() => {}} // TODO: Handle mute toggle
-								aria-label={"Mute"}
+								onClick={toggleMute}
+								aria-label={isMuted ? "Unmute" : "Mute"}
 								className="cursor-pointer"
 							>
-								<Volume2 className="h-5 w-5" />
+								{volume === 0 || isMuted ? (
+									<VolumeX className="h-5 w-5" />
+								) : volume < 40 ? (
+									<Volume1 className="h-5 w-5" />
+								) : (
+									<Volume2 className="h-5 w-5" />
+								)}
 							</Button>
 							<Slider
-								value={[volume]}
+								value={[isMuted ? 0 : volume]}
 								max={100}
 								step={1}
 								onValueChange={(value) => setVolume(value[0])}

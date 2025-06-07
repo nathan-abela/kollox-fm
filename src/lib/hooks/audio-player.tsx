@@ -18,9 +18,11 @@ interface AudioPlayerContextType {
 	isPlaying: boolean;
 	isLoading: boolean;
 	volume: number;
+	isMuted: boolean;
 	setStation: (station: RadioStation) => void;
 	togglePlayPause: () => void;
 	setVolume: (volume: number) => void;
+	toggleMute: () => void;
 }
 
 const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
@@ -39,6 +41,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [volume, setVolume] = useState(70); // Initial volume set to 70%
+	const [isMuted, setIsMuted] = useState(false);
 
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -53,12 +56,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		};
 	}, []);
 
-	// Control volume change
+	// Control volume change and mute toggle
 	useEffect(() => {
 		if (audioRef.current) {
-			audioRef.current.volume = volume / 100;
+			audioRef.current.volume = isMuted ? 0 : volume / 100;
 		}
-	}, [volume]);
+	}, [volume, isMuted]);
 
 	// Control playback state - Play/ Pause
 	useEffect(() => {
@@ -151,14 +154,17 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		[currentStation]
 	);
 
-	/**
-	 * Toggles between playing and paused states for the current station.
-	 */
+	// Toggles between playing and paused states for the current station
 	const togglePlayPause = useCallback(() => {
 		if (currentStation) {
 			setIsPlaying((prev) => !prev);
 		}
 	}, [currentStation]);
+
+	// Toggles the mute state
+	const toggleMute = useCallback(() => {
+		setIsMuted((prev) => !prev);
+	}, []);
 
 	// Toggle playback with spacebar
 	useEffect(() => {
@@ -175,10 +181,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				currentStation,
 				isPlaying,
 				isLoading,
-				volume: volume,
+				volume,
+				isMuted,
 				setStation,
 				togglePlayPause,
 				setVolume,
+				toggleMute,
 			}}
 		>
 			{children}
