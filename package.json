@@ -1,13 +1,14 @@
 {
 	"name": "kollox-fm",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
+		"build:preview": "npx serve out",
+		"lint": "next lint",
+		"clean": "rimraf .next && rimraf node_modules && rimraf out"
 	},
 	"dependencies": {
 		"@radix-ui/react-label": "^2.1.7",
@@ -41,5 +42,8 @@
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"typescript": "^5"
+	},
+	"engines": {
+		"node": ">=18"
 	}
 }

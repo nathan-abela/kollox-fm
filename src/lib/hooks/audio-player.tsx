@@ -54,6 +54,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 			audioRef.current?.pause();
 			audioRef.current = null;
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Control volume change and mute toggle
@@ -138,6 +139,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 			audioRef.current?.removeEventListener("error", handleError);
 		};
 		// Only re-run this effect if the currentStation ID actually changes
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentStation]);
 
 	/**
