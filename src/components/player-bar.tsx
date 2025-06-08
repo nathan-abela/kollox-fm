@@ -15,6 +15,7 @@ import {
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
@@ -34,8 +35,14 @@ import { Slider } from "@/components/ui/slider";
  * - Playback controls: previous, play/pause, next.
  * - External link to the station's website.
  * - Volume control slider and mute button (UI only, not yet implemented).
+ *
+ * @param stationsOrder - Optional. An array of radio stations in the order currently shown in the UI (e.g., popularity/ name). If not provided, falls back to the default stations order (ID).
  */
-export function PlayerBar() {
+export function PlayerBar({
+	stationsOrder = stations,
+}: {
+	stationsOrder?: RadioStation[];
+}) {
 	const {
 		currentStation,
 		isPlaying,
@@ -51,18 +58,18 @@ export function PlayerBar() {
 
 	const handleNextStation = () => {
 		if (!currentStation) return;
-		const idx = stations.findIndex((s) => s.id === currentStation.id);
-		const nextIdx = (idx + 1) % stations.length;
-
-		setStation(stations[nextIdx]);
+		// prettier-ignore
+		const nextIdx = getRelativeStationIndex(currentStation.id, stationsOrder, 1);
+		if (nextIdx === null) return;
+		setStation(stationsOrder[nextIdx]);
 	};
 
 	const handlePrevStation = () => {
 		if (!currentStation) return;
-		const idx = stations.findIndex((s) => s.id === currentStation.id);
-		const prevIdx = (idx - 1 + stations.length) % stations.length;
-
-		setStation(stations[prevIdx]);
+		// prettier-ignore
+		const prevIdx = getRelativeStationIndex(currentStation.id, stationsOrder, -1);
+		if (prevIdx === null) return;
+		setStation(stationsOrder[prevIdx]);
 	};
 
 	useEffect(() => {
@@ -193,4 +200,23 @@ export function PlayerBar() {
 			</div>
 		</div>
 	);
+}
+
+/**
+ * Returns the index of the next station in the list based on the current station ID and direction.
+ * If the current station is not found, returns null.
+ *
+ * @param currentId - The ID of the current station.
+ * @param stations - The list of radio stations.
+ * @param direction - 1 for next, -1 for previous.
+ * @returns The index of the next station or null if not found.
+ */
+function getRelativeStationIndex(
+	currentId: string,
+	stations: RadioStation[],
+	direction: 1 | -1
+): number | null {
+	const idx = stations.findIndex((s) => s.id === currentId);
+	if (idx === -1) return null;
+	return (idx + direction + stations.length) % stations.length;
 }

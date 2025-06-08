@@ -117,7 +117,7 @@ export default function Home() {
 			</Tabs>
 
 			{/* Fixed audio player bar at the bottom of the screen */}
-			<PlayerBar />
+			<PlayerBar stationsOrder={filteredStations} />
 		</div>
 	);
 }
