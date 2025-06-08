@@ -13,13 +13,13 @@ import {
 	VolumeX,
 } from "lucide-react";
 
+import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 
 // TODO: Add tooltip for volume control
-// TODO: Add previous/ next station functionality
 // TODO: Consider removing progress bar & progress component
 
 /**
@@ -41,6 +41,7 @@ export function PlayerBar() {
 		isPlaying,
 		volume,
 		isMuted,
+		setStation,
 		togglePlayPause,
 		setVolume,
 		toggleMute,
@@ -48,10 +49,25 @@ export function PlayerBar() {
 
 	const [progress, setProgress] = useState(0);
 
+	const handleNextStation = () => {
+		if (!currentStation) return;
+		const idx = stations.findIndex((s) => s.id === currentStation.id);
+		const nextIdx = (idx + 1) % stations.length;
+
+		setStation(stations[nextIdx]);
+	};
+
+	const handlePrevStation = () => {
+		if (!currentStation) return;
+		const idx = stations.findIndex((s) => s.id === currentStation.id);
+		const prevIdx = (idx - 1 + stations.length) % stations.length;
+
+		setStation(stations[prevIdx]);
+	};
+
 	useEffect(() => {
-		if (!isPlaying || !currentStation) {
-			return;
-		}
+		if (!isPlaying || !currentStation) return;
+
 		const interval = setInterval(() => {
 			setProgress((prev) => (prev >= 100 ? 0 : prev + 0.1));
 		}, 100);
@@ -92,7 +108,7 @@ export function PlayerBar() {
 							<Button
 								variant="ghost"
 								size="icon"
-								onClick={() => {}}
+								onClick={handlePrevStation}
 								aria-label="Previous station"
 								className="cursor-pointer"
 							>
@@ -114,12 +130,14 @@ export function PlayerBar() {
 							<Button
 								variant="ghost"
 								size="icon"
+								onClick={handleNextStation}
 								aria-label="Next station"
 								className="cursor-pointer"
 							>
 								<SkipForward className="h-5 w-5" />
 							</Button>
 						</div>
+
 						{/* Progress bar hidden on mobile */}
 						<Progress
 							value={progress}
