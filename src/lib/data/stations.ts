@@ -1,11 +1,13 @@
 import { RadioStation } from "@/lib/types/radio";
 
+const basePath = process.env.NODE_ENV === "production" ? "/kollox-fm" : "";
+
 export const stations: RadioStation[] = [
 	{
 		id: "1",
 		name: "Bay FM | 89.7",
 		streamUrl: "https://stream.v3.network/proxy/897bay/stream.mp3",
-		image: "/images/bay.png",
+		image: `${basePath}/images/bay.png`,
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
 		genres: ["Hits", "Pop", "Top 40"],
@@ -15,7 +17,7 @@ export const stations: RadioStation[] = [
 		id: "2",
 		name: "Bay Easy FM | 100.2",
 		streamUrl: "https://stream.v3.network/proxy/easy/stream.mp3",
-		image: "/images/bay_easy.png",
+		image: `${basePath}/images/bay_easy.png`,
 		website: "https://bayeasy.mt",
 		location: "St. Julian's",
 		genres: ["Chill", "Relax", "00s", "10s"],
@@ -25,7 +27,7 @@ export const stations: RadioStation[] = [
 		id: "3",
 		name: "Bay Retro FM",
 		streamUrl: "https://stream.v3.network/proxy/retro/stream.mp3",
-		image: "/images/bay_retro.png",
+		image: `${basePath}/images/bay_retro.png`,
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
@@ -35,7 +37,7 @@ export const stations: RadioStation[] = [
 		id: "4",
 		name: "Bay Pride FM",
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
-		image: "/images/bay_pride.png",
+		image: `${basePath}/images/bay_pride.png`,
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
 		genres: ["Pop", "Dance", "Throwbacks", "LGBTQ+", "Pride"],
@@ -45,7 +47,7 @@ export const stations: RadioStation[] = [
 		id: "5",
 		name: "Vibe FM | 88.7",
 		streamUrl: "https://s9.voscast.com:7825/1",
-		image: "/images/vibe.png",
+		image: `${basePath}/images/vibe.png`,
 		website: "https://vibe.mt",
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
@@ -55,7 +57,7 @@ export const stations: RadioStation[] = [
 		id: "6",
 		name: "Magic Malta FM | 91.7",
 		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
-		image: "/images/magic_malta.png",
+		image: `${basePath}/images/magic_malta.png`,
 		website: "https://magic.mt",
 		location: "Pieta",
 		genres: ["Hits", "Top 40", "Throwbacks"],
