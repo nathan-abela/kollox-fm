@@ -14,13 +14,14 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { SkeletonStation } from "@/components/ui/skeleton-station";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlayerBar } from "@/components/player-bar";
 import { RadioStationList } from "@/components/radio-station-list";
 
 type SortOption = "name" | "location" | "popularity";
 
 // TODO:
+// - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
 // - Hook up favourite toggle
 // - Add Tab List UI (e.g. All, Favourites, Recently Played)
 // - Add debounce for search input
@@ -107,12 +108,39 @@ export default function Home() {
 			</div>
 
 			{/* Tabs for station lists */}
-			<Tabs defaultValue="local" className="w-full">
-				{/* TODO: Add Tab List - Stations - Favourites - Recently Played */}
-				<TabsContent value="local" className="mt-6">
+			<Tabs defaultValue="local" className="mt-4 w-full">
+				<TabsList className="bg-input/30 dark:bg-input/30 flex gap-2 rounded-md border p-0">
+					{[
+						{ value: "local", label: "Local Stations" },
+						{ value: "favourites", label: "Favourites" },
+						{ value: "recent", label: "Recently Played" },
+					].map((tab) => (
+						<TabsTrigger
+							key={tab.value}
+							value={tab.value}
+							className="data-[state=active]:bg-background data-[state=active]:text-foreground text-muted-foreground flex cursor-pointer rounded-md px-3 py-1.5 text-sm transition-colors"
+						>
+							{tab.label}
+						</TabsTrigger>
+					))}
+				</TabsList>
+
+				<TabsContent value="local" className="mt-4">
 					<Suspense fallback={<SkeletonStation />}>
 						<RadioStationList stations={filteredStations} />
 					</Suspense>
+				</TabsContent>
+
+				{/* TODO: Update Placeholders */}
+				<TabsContent value="favourites" className="mt-6">
+					<p className="text-muted-foreground text-sm">
+						No favourites yet.
+					</p>
+				</TabsContent>
+				<TabsContent value="recent" className="mt-6">
+					<p className="text-muted-foreground text-sm">
+						No recently played stations yet.
+					</p>
 				</TabsContent>
 			</Tabs>
 
