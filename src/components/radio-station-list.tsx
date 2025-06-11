@@ -6,7 +6,15 @@ import { RadioStationCard } from "@/components/radio-station-card";
  *
  * @param stations - Array of `RadioStation` objects.
  */
-export function RadioStationList({ stations }: { stations: RadioStation[] }) {
+export function RadioStationList({
+	stations,
+	isFavourite,
+	onToggleFavourite,
+}: {
+	stations: RadioStation[];
+	isFavourite: (id: string) => boolean;
+	onToggleFavourite: (id: string) => void;
+}) {
 	if (stations.length === 0) {
 		return (
 			<div className="flex flex-col items-center justify-center py-12 text-center">
@@ -23,9 +31,15 @@ export function RadioStationList({ stations }: { stations: RadioStation[] }) {
 	return (
 		// Auto-fit grid: cards are at least 200px wide and expand to fill space
 		// At 2xl and up, limit to 5 columns for wide screens
+		// TODO: Fix responsive grid, when 1-2 stations are displayed, they should not stretch too wide
 		<div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 2xl:grid-cols-5">
 			{stations.map((station) => (
-				<RadioStationCard key={station.id} station={station} />
+				<RadioStationCard
+					key={station.id}
+					station={station}
+					isFavourite={isFavourite(station.id)}
+					onToggleFavourite={() => onToggleFavourite(station.id)}
+				/>
 			))}
 		</div>
 	);

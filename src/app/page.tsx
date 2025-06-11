@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
@@ -32,6 +32,8 @@ export default function Home() {
 	const [searchTerm, setSearchTerm] = useState("");
 	// State for sort option
 	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
+	// State for favourites
+	const [favourites, setFavourites] = useState<string[]>([]);
 
 	// Get currentStation from audio player hook
 	const { currentStation } = useAudioPlayer();
@@ -57,6 +59,32 @@ export default function Home() {
 					return 0;
 			}
 		});
+
+	/**
+	 * On mount initialize favourites from localStorage
+	 */
+	useEffect(() => {
+		const storedFavourites = JSON.parse(
+			localStorage.getItem("favourites") || "[]"
+		);
+		setFavourites(storedFavourites);
+	}, []);
+
+	/**
+	 * When favourites change update localStorage
+	 */
+	useEffect(() => {
+		localStorage.setItem("favourites", JSON.stringify(favourites));
+	}, [favourites]);
+
+	const isFavourite = (id: string) => favourites.includes(id);
+	const onToggleFavourite = (stationId: string) => {
+		setFavourites((currentFavourites) =>
+			currentFavourites.includes(stationId)
+				? currentFavourites.filter((id) => id !== stationId)
+				: [...currentFavourites, stationId]
+		);
+	};
 
 	return (
 		// Main content container. Adds extra bottom padding if player bar is visible
@@ -127,17 +155,33 @@ export default function Home() {
 
 				<TabsContent value="local" className="mt-4">
 					<Suspense fallback={<SkeletonStation />}>
-						<RadioStationList stations={filteredStations} />
+						<RadioStationList
+							stations={filteredStations}
+							isFavourite={isFavourite}
+							onToggleFavourite={onToggleFavourite}
+						/>
 					</Suspense>
 				</TabsContent>
 
-				{/* TODO: Update Placeholders */}
-				<TabsContent value="favourites" className="mt-6">
-					<p className="text-muted-foreground text-sm">
-						No favourites yet.
-					</p>
+				<TabsContent value="favourites" className="mt-4">
+					{favourites.length === 0 ? (
+						<p className="text-muted-foreground text-sm">
+							No favourites yet.
+						</p>
+					) : (
+						<Suspense fallback={<SkeletonStation />}>
+							<RadioStationList
+								stations={stations.filter((s) =>
+									favourites.includes(s.id)
+								)}
+								isFavourite={isFavourite}
+								onToggleFavourite={onToggleFavourite}
+							/>
+						</Suspense>
+					)}
 				</TabsContent>
-				<TabsContent value="recent" className="mt-6">
+
+				<TabsContent value="recent" className="mt-4">
 					<p className="text-muted-foreground text-sm">
 						No recently played stations yet.
 					</p>

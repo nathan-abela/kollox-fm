@@ -18,16 +18,22 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 interface RadioStationCardProps {
 	station: RadioStation;
+	isFavourite: boolean;
+	onToggleFavourite: () => void;
 }
 
-// TODO: Handle favourite toggle with actual state (isFavourite, toggle handler)
+// TODO: Consider adding station social links (Facebook, Instagram) if available
+// TODO: Consider that when playing the station, show that it is playing unless the player bar should show that
+// TODO: Consider adding a badge to show which stations are partners of each other - sister stations (e.g. Bay stations, Magic stations)
+// TODO: Consider adding a badge to show the frequency of the station if available
 // TODO: Show filled Heart icon and accessible label when station is already a favourite
-// TODO: Add playback controls (play/pause icon overlay) when player state is integrated
 // TODO: Fallback for station image if it fails to load
 
-export function RadioStationCard({ station }: RadioStationCardProps) {
-	const isFavourite = false; // Temporary placeholder for favourite state
-
+export function RadioStationCard({
+	station,
+	isFavourite,
+	onToggleFavourite,
+}: RadioStationCardProps) {
 	const { currentStation, isPlaying, setStation, togglePlayPause } =
 		useAudioPlayer();
 	const isCurrentStation = currentStation?.id === station.id;
@@ -75,6 +81,7 @@ export function RadioStationCard({ station }: RadioStationCardProps) {
 					<div>
 						<div className="flex items-center gap-2">
 							<Radio className="text-primary h-4 w-4" />
+							{/* TODO: Name is not being truncated */}
 							<h3 className="truncate text-lg font-semibold">
 								{station.name}
 							</h3>
@@ -92,7 +99,7 @@ export function RadioStationCard({ station }: RadioStationCardProps) {
 								? "Remove from favourites"
 								: "Add to favourites"
 						}
-						onClick={() => {}} // TODO: Implement toggle handler
+						onClick={onToggleFavourite}
 						className={cn(
 							"cursor-pointer",
 							isFavourite && "text-red-500"
