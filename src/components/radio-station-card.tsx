@@ -101,12 +101,14 @@ export function RadioStationCard({
 						}
 						onClick={onToggleFavourite}
 						className={cn(
-							"cursor-pointer",
-							isFavourite && "text-red-500"
+							"cursor-pointer transition-colors duration-200",
+							isFavourite
+								? "text-red-500"
+								: "text-gray-400 hover:text-red-500"
 						)}
 					>
 						<Heart
-							className="h-5 w-5 transition-transform duration-200"
+							className="h-5 w-5"
 							fill={isFavourite ? "currentColor" : "none"}
 						/>
 					</Button>
