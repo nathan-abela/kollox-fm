@@ -19,6 +19,7 @@ interface AudioPlayerContextType {
 	isLoading: boolean;
 	volume: number;
 	isMuted: boolean;
+	recentlyPlayed: string[];
 	setStation: (station: RadioStation) => void;
 	togglePlayPause: () => void;
 	setVolume: (volume: number) => void;
@@ -30,19 +31,20 @@ const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
 );
 
 // TODO: Add debounce for volume changes - useDebounce
+// TODO: Add volume level to localStorage
 
 /**
  * Provides audio playback functionality for radio stations.
  */
 export function AudioPlayerProvider({ children }: { children: ReactNode }) {
-	const [currentStation, setCurrentStation] = useState<RadioStation | null>(
-		null
-	);
+	const [currentStation, setCurrentStation] = useState<RadioStation | null>(null); // prettier-ignore
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [volume, setVolume] = useState(70); // Initial volume set to 70%
 	const [isMuted, setIsMuted] = useState(false);
+	const [recentlyPlayed, setRecentlyPlayed] = useState<string[]>([]);
 
+	// Ref to hold the audio element
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	// Initialize audio element on mount
@@ -142,25 +144,73 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentStation]);
 
-	/**
-	 * Sets the current station and begins playback.
-	 */
-	const setStation = useCallback(
-		(station: RadioStation) => {
-			if (currentStation?.id !== station.id) {
-				setIsLoading(true);
-			}
-			setCurrentStation(station);
-			setIsPlaying(true);
-		},
-		[currentStation]
-	);
+	// Load recently played stations from localStorage on mount
+	useEffect(() => {
+		const recentlyPlayed = localStorage.getItem("recentlyPlayed");
+		if (recentlyPlayed) {
+			setRecentlyPlayed(JSON.parse(recentlyPlayed));
+		}
+	}, []);
 
 	// Toggles between playing and paused states for the current station
 	const togglePlayPause = useCallback(() => {
 		if (currentStation) {
 			setIsPlaying((prev) => !prev);
 		}
+	}, [currentStation]);
+
+	// Sets the current station and begins playback
+	const setStation = useCallback(
+		(station: RadioStation) => {
+			// If the same station is selected again, toggle play/pause instead of reloading
+			if (currentStation?.id === station.id) {
+				togglePlayPause();
+				return;
+			}
+
+			setCurrentStation(station);
+
+			/**
+			 * - Update the recently played list:
+			 * - Place the new station at the beginning
+			 * - Filter out duplicates of the current one
+			 * - Limit the list to the 10 most recent
+			 */
+			const recentPlayedStations = [
+				station.id,
+				...(
+					JSON.parse(
+						localStorage.getItem("recentlyPlayed") || "[]"
+					) as string[]
+				).filter((id) => id !== station.id),
+			].slice(0, 10);
+
+			localStorage.setItem(
+				"recentlyPlayed",
+				JSON.stringify(recentPlayedStations)
+			);
+			setRecentlyPlayed(recentPlayedStations);
+		},
+		[currentStation, togglePlayPause]
+	);
+
+	// Plays the current station when it changes
+	useEffect(() => {
+		if (!audioRef.current || !currentStation) return;
+
+		audioRef.current.src = currentStation.streamUrl;
+
+		const playAfterLoad = async () => {
+			try {
+				await audioRef.current?.play();
+				setIsPlaying(true);
+			} catch (err) {
+				console.error("Playback failed:", err);
+				setIsPlaying(false);
+			}
+		};
+
+		playAfterLoad();
 	}, [currentStation]);
 
 	// Toggles the mute state
@@ -202,6 +252,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				isLoading,
 				volume,
 				isMuted,
+				recentlyPlayed,
 				setStation,
 				togglePlayPause,
 				setVolume,

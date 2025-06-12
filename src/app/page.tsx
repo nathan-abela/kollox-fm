@@ -22,10 +22,9 @@ type SortOption = "name" | "location" | "popularity";
 
 // TODO:
 // - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
-// - Hook up favourite toggle
-// - Add Tab List UI (e.g. All, Favourites, Recently Played)
 // - Add debounce for search input
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
+// - Clear button for recently played stations
 
 export default function Home() {
 	// State for search input
@@ -36,7 +35,15 @@ export default function Home() {
 	const [favourites, setFavourites] = useState<string[]>([]);
 
 	// Get currentStation from audio player hook
-	const { currentStation } = useAudioPlayer();
+	const { currentStation, recentlyPlayed } = useAudioPlayer();
+
+	// Get recently played stations in the order they were played
+	const recentStations = stations
+		.filter((station) => recentlyPlayed.includes(station.id))
+		.sort(
+			(a, b) =>
+				recentlyPlayed.indexOf(a.id) - recentlyPlayed.indexOf(b.id)
+		);
 
 	// Filter and sort stations based on search and sort
 	const filteredStations = stations
@@ -60,9 +67,7 @@ export default function Home() {
 			}
 		});
 
-	/**
-	 * On mount initialize favourites from localStorage
-	 */
+	// On mount initialize favourites from localStorage
 	useEffect(() => {
 		const storedFavourites = JSON.parse(
 			localStorage.getItem("favourites") || "[]"
@@ -70,9 +75,7 @@ export default function Home() {
 		setFavourites(storedFavourites);
 	}, []);
 
-	/**
-	 * When favourites change update localStorage
-	 */
+	// When favourites change update localStorage
 	useEffect(() => {
 		localStorage.setItem("favourites", JSON.stringify(favourites));
 	}, [favourites]);
@@ -181,10 +184,21 @@ export default function Home() {
 					)}
 				</TabsContent>
 
+				{/* Disable Search Sort By in this view */}
 				<TabsContent value="recent" className="mt-4">
-					<p className="text-muted-foreground text-sm">
-						No recently played stations yet.
-					</p>
+					{recentlyPlayed.length === 0 ? (
+						<p className="text-muted-foreground text-sm">
+							No recently played stations yet.
+						</p>
+					) : (
+						<Suspense fallback={<SkeletonStation />}>
+							<RadioStationList
+								stations={recentStations}
+								isFavourite={isFavourite}
+								onToggleFavourite={onToggleFavourite}
+							/>
+						</Suspense>
+					)}
 				</TabsContent>
 			</Tabs>
 

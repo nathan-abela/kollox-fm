@@ -94,6 +94,11 @@ export function RadioStationCard({
 					<Button
 						variant="ghost"
 						size="icon"
+						title={
+							isFavourite
+								? "Remove from favourites"
+								: "Add to favourites"
+						}
 						aria-label={
 							isFavourite
 								? "Remove from favourites"
