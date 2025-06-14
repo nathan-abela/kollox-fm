@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,6 +26,7 @@ type SortOption = "name" | "location" | "popularity";
 // - Add debounce for search input
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
 // - Clear button for recently played stations
+// - Tooltip for disabled Search + Sort controls in Recent tab
 
 export default function Home() {
 	// State for search input
@@ -33,6 +35,8 @@ export default function Home() {
 	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
 	// State for favourites
 	const [favourites, setFavourites] = useState<string[]>([]);
+	// State for selected tab
+	const [selectedTab, setSelectedTab] = useState("home");
 
 	// Get currentStation from audio player hook
 	const { currentStation, recentlyPlayed } = useAudioPlayer();
@@ -89,6 +93,10 @@ export default function Home() {
 		);
 	};
 
+	// Tabs for which search/ sort controls should be disabled
+	const disabledSearchSortTabs = ["favourites", "recent"];
+	const isSearchSortDisabled = disabledSearchSortTabs.includes(selectedTab);
+
 	return (
 		// Main content container. Adds extra bottom padding if player bar is visible
 		<div
@@ -107,18 +115,28 @@ export default function Home() {
 
 			{/* Search + Sort Controls */}
 			<div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-				<div className="flex-1 space-y-4">
+				<div
+					className={cn(
+						"flex-1 space-y-4",
+						isSearchSortDisabled && "pointer-events-none opacity-50"
+					)}
+				>
 					<Label htmlFor="search">Search Stations</Label>
 					<Input
 						id="search"
 						placeholder="Search by name or location"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="max-w-md"
+						className="max-w-md transition-opacity"
 					/>
 				</div>
 
-				<div className="w-full space-y-4 md:w-[180px]">
+				<div
+					className={cn(
+						"w-full space-y-4 md:w-[180px]",
+						isSearchSortDisabled && "pointer-events-none opacity-50"
+					)}
+				>
 					<Label htmlFor="sort">Sort By</Label>
 					<Select
 						value={sortBy}
@@ -139,7 +157,11 @@ export default function Home() {
 			</div>
 
 			{/* Tabs for station lists */}
-			<Tabs defaultValue="local" className="mt-4 w-full">
+			<Tabs
+				defaultValue="local"
+				onValueChange={setSelectedTab}
+				className="mt-4 w-full"
+			>
 				<TabsList className="bg-input/30 dark:bg-input/30 flex gap-2 rounded-md border p-0">
 					{[
 						{ value: "local", label: "Local Stations" },
