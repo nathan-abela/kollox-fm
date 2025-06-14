@@ -40,7 +40,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	const [currentStation, setCurrentStation] = useState<RadioStation | null>(null); // prettier-ignore
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [volume, setVolume] = useState(70); // Initial volume set to 70%
+	const [volume, setVolume] = useState(() => {
+		const localVolume =
+			typeof window !== "undefined"
+				? localStorage.getItem("playerVolume")
+				: null;
+		return localVolume !== null ? Number(localVolume) : 70;
+	}); // Initial volume set to 70%
 	const [isMuted, setIsMuted] = useState(false);
 	const [recentlyPlayed, setRecentlyPlayed] = useState<string[]>([]);
 
@@ -151,6 +157,11 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 			setRecentlyPlayed(JSON.parse(recentlyPlayed));
 		}
 	}, []);
+
+	// Set volume to localStorage when volume changes
+	useEffect(() => {
+		localStorage.setItem("playerVolume", volume.toString());
+	}, [volume]);
 
 	// Toggles between playing and paused states for the current station
 	const togglePlayPause = useCallback(() => {
