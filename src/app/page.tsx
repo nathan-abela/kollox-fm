@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,6 +39,9 @@ export default function Home() {
 	// State for selected tab
 	const [selectedTab, setSelectedTab] = useState("home");
 
+	// Debounce the search input to avoid frequent ui changes
+	const debouncedSearchTerm = useDebounce(searchTerm, 50);
+
 	// Get currentStation from audio player hook
 	const { currentStation, recentlyPlayed } = useAudioPlayer();
 
@@ -53,10 +57,12 @@ export default function Home() {
 	const filteredStations = stations
 		.filter(
 			(station) =>
-				station.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				station.name
+					.toLowerCase()
+					.includes(debouncedSearchTerm.toLowerCase()) ||
 				station.location
 					.toLowerCase()
-					.includes(searchTerm.toLowerCase())
+					.includes(debouncedSearchTerm.toLowerCase())
 		)
 		.sort((a, b) => {
 			switch (sortBy) {
