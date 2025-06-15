@@ -24,7 +24,6 @@ type SortOption = "name" | "location" | "popularity";
 
 // TODO:
 // - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
-// - Add debounce for search input
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
 // - Clear button for recently played stations
 // - Tooltip for disabled Search + Sort controls in Recent tab
@@ -111,11 +110,11 @@ export default function Home() {
 			{/* Page header section */}
 			<section className="space-y-4 py-8 md:py-12">
 				<h2 className="text-3xl font-bold tracking-tight">
-					Browse Local Radio Stations
+					Explore Malta's Radio Stations
 				</h2>
 				<p className="text-muted-foreground">
-					Discover and listen to your favourite Maltese radio
-					stations!
+					All your favourite Maltese stations in one place. Free,
+					live, and local!
 				</p>
 			</section>
 
