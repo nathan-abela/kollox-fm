@@ -11,6 +11,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import { RadioStation } from "@/lib/types/radio";
 
 interface AudioPlayerContextType {
@@ -30,9 +31,6 @@ const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
 	undefined
 );
 
-// TODO: Add debounce for volume changes - useDebounce
-// TODO: Add volume level to localStorage
-
 /**
  * Provides audio playback functionality for radio stations.
  */
@@ -46,9 +44,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				? localStorage.getItem("playerVolume")
 				: null;
 		return localVolume !== null ? Number(localVolume) : 70;
-	}); // Initial volume set to 70%
+	}); // Initial volume set to 70% or fetched from localStorage
 	const [isMuted, setIsMuted] = useState(false);
 	const [recentlyPlayed, setRecentlyPlayed] = useState<string[]>([]);
+
+	// Debounce the volume change to avoid frequent updates
+	const debouncedVolume = useDebounce(volume, 50);
 
 	// Ref to hold the audio element
 	const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -160,8 +161,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
 	// Set volume to localStorage when volume changes
 	useEffect(() => {
-		localStorage.setItem("playerVolume", volume.toString());
-	}, [volume]);
+		localStorage.setItem("playerVolume", debouncedVolume.toString());
+	}, [debouncedVolume]);
 
 	// Toggles between playing and paused states for the current station
 	const togglePlayPause = useCallback(() => {
