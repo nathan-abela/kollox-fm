@@ -5,7 +5,8 @@ const basePath = process.env.NODE_ENV === "production" ? "/kollox-fm" : "";
 export const stations: RadioStation[] = [
 	{
 		id: "1",
-		name: "Bay FM | 89.7",
+		name: "Bay FM",
+		fmFrequency: "89.7",
 		streamUrl: "https://stream.v3.network/proxy/897bay/stream.mp3",
 		image: `${basePath}/images/bay.png`,
 		website: "https://bay.com.mt",
@@ -15,7 +16,8 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "2",
-		name: "Bay Easy FM | 100.2",
+		name: "Bay Easy FM",
+		fmFrequency: "100.2",
 		streamUrl: "https://stream.v3.network/proxy/easy/stream.mp3",
 		image: `${basePath}/images/bay_easy.png`,
 		website: "https://bayeasy.mt",
@@ -25,7 +27,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "3",
-		name: "Bay Retro FM",
+		name: "Bay Retro",
 		streamUrl: "https://stream.v3.network/proxy/retro/stream.mp3",
 		image: `${basePath}/images/bay_retro.png`,
 		website: "https://bay.com.mt",
@@ -35,7 +37,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "4",
-		name: "Bay Pride FM",
+		name: "Bay Pride",
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
 		image: `${basePath}/images/bay_pride.png`,
 		website: "https://bay.com.mt",
@@ -45,7 +47,8 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "5",
-		name: "Vibe FM | 88.7",
+		name: "Vibe FM",
+		fmFrequency: "88.7",
 		streamUrl: "https://s9.voscast.com:7825/1",
 		image: `${basePath}/images/vibe.png`,
 		website: "https://vibe.mt",
@@ -55,7 +58,8 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "6",
-		name: "Magic Malta FM | 91.7",
+		name: "Magic Malta FM",
+		fmFrequency: "91.7",
 		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
 		image: `${basePath}/images/magic_malta.png`,
 		website: "https://magic.mt",
