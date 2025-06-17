@@ -8,4 +8,10 @@ export interface RadioStation {
 	location: string;
 	genres?: string[];
 	popularity: number;
+	metadata?: RadioStationMetadata;
+}
+
+export interface RadioStationMetadata {
+	currentSongUrl?: string;
+	currentSongMethod?: "shoutcast";
 }

@@ -13,6 +13,11 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
+		metadata: {
+			// prettier-ignore
+			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong",
+			currentSongMethod: "shoutcast",
+		},
 	},
 	{
 		id: "2",
@@ -24,6 +29,10 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Chill", "Relax", "00s", "10s"],
 		popularity: 4,
+		metadata: {
+			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
+			currentSongMethod: "shoutcast",
+		},
 	},
 	{
 		id: "3",
@@ -34,6 +43,10 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
 		popularity: 5,
+		metadata: {
+			currentSongUrl: "https://stream.v3.network/proxy/retro/currentsong",
+			currentSongMethod: "shoutcast",
+		},
 	},
 	{
 		id: "4",
@@ -44,6 +57,11 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Pop", "Dance", "Throwbacks", "LGBTQ+", "Pride"],
 		popularity: 6,
+		metadata: {
+			// prettier-ignore
+			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong",
+			currentSongMethod: "shoutcast",
+		},
 	},
 	{
 		id: "5",
@@ -66,5 +84,9 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
+		metadata: {
+			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
+			currentSongMethod: "shoutcast",
+		},
 	},
 ];
