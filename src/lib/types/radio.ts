@@ -1,3 +1,17 @@
+/**
+ * Represents a radio station with its relevant details.
+ *
+ * @property id - Unique identifier for the radio station.
+ * @property name - The display name of the radio station.
+ * @property fmFrequency - (Optional) The FM frequency of the station.
+ * @property streamUrl - The URL to the station stream.
+ * @property image - URL to an image representing the radio station.
+ * @property website - The official website of the radio station.
+ * @property location - The location of the radio station.
+ * @property genres - (Optional) List of genres associated with the station.
+ * @property popularity - A numeric value representing the station popularity.
+ * @property metadata - (Optional) Metadata about the radio station.
+ */
 export interface RadioStation {
 	id: string;
 	name: string;
@@ -11,7 +25,15 @@ export interface RadioStation {
 	metadata?: RadioStationMetadata;
 }
 
+/**
+ * Metadata information for a radio station.
+ *
+ * - currentSongUrl: The URL to fetch the current song metadata.
+ * - currentSongMethod: The method to use for fetching the current song.
+ *   - "shoutcast": Fetches metadata using the Shoutcast protocol.
+ *   - "voscast": Fetches metadata using the Voscast protocol
+ */
 export interface RadioStationMetadata {
 	currentSongUrl?: string;
-	currentSongMethod?: "shoutcast";
+	currentSongMethod?: "shoutcast" | "voscast";
 }

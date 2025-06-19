@@ -73,6 +73,10 @@ export const stations: RadioStation[] = [
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
+		metadata: {
+			currentSongUrl: "https://s9.voscast.com:7825/status-json.xsl",
+			currentSongMethod: "voscast",
+		},
 	},
 	{
 		id: "6",

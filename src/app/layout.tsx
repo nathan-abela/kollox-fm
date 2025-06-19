@@ -40,8 +40,10 @@ export default function RootLayout({
 					enableSystem={false}
 					disableTransitionOnChange
 				>
-					<Header />
-					<AudioPlayerProvider>{children}</AudioPlayerProvider>
+					<AudioPlayerProvider>
+						<Header />
+						{children}
+					</AudioPlayerProvider>
 					<Toaster richColors />
 				</ThemeProvider>
 				<BreakpointIndicator />
