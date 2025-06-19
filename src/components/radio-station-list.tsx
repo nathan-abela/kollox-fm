@@ -29,10 +29,7 @@ export function RadioStationList({
 	}
 
 	return (
-		// Auto-fit grid: cards are at least 200px wide and expand to fill space
-		// At 2xl and up, limit to 5 columns for wide screens
-		// TODO: Fix responsive grid, when 1-2 stations are displayed, they should not stretch too wide
-		<div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 2xl:grid-cols-5">
+		<div className="grid gap-6 min-[425px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
 			{stations.map((station) => (
 				<RadioStationCard
 					key={station.id}
