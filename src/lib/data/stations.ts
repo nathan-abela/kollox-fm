@@ -93,4 +93,14 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "7",
+		name: "Pure Radio",
+		streamUrl: "https://sp1.19cloudsnetwork.gr/8010/stream",
+		image: `${basePath}/images/pure_radio.png`,
+		website: "https://pureradio.mt",
+		location: "Balzan",
+		genres: ["EDM", "House", "Techno"],
+		popularity: 7,
+	},
 ];

@@ -110,7 +110,7 @@ export default function Home() {
 			{/* Page header section */}
 			<section className="space-y-4 py-8 md:py-12">
 				<h2 className="text-3xl font-bold tracking-tight">
-					Explore Malta's Radio Stations
+					Explore Malta&apos;s Radio Stations
 				</h2>
 				<p className="text-muted-foreground">
 					All your favourite Maltese stations in one place. Free,
