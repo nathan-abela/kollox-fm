@@ -24,8 +24,6 @@ interface RadioStationCardProps {
 
 // TODO: Consider adding station social links (Facebook, Instagram) if available
 // TODO: Consider that when playing the station, show that it is playing unless the player bar should show that
-// TODO: Consider adding a badge to show which stations are partners of each other - sister stations (e.g. Bay stations, Magic stations)
-// TODO: Consider adding a badge to show the frequency of the station if available
 // TODO: Show filled Heart icon and accessible label when station is already a favourite
 // TODO: Fallback for station image if it fails to load
 
@@ -59,6 +57,17 @@ export function RadioStationCard({
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 					className="object-cover transition-transform duration-500 group-hover:scale-105"
 				/>
+
+				{station.fmFrequency && (
+					<div className="absolute top-2 right-2 z-10">
+						<Badge
+							variant="secondary"
+							className="font-semibold shadow-md backdrop-blur-sm dark:bg-black/70"
+						>
+							{station.fmFrequency} FM
+						</Badge>
+					</div>
+				)}
 
 				<div
 					className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
