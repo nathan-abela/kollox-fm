@@ -23,8 +23,6 @@ interface RadioStationCardProps {
 }
 
 // TODO: Consider adding station social links (Facebook, Instagram) if available
-// TODO: Consider that when playing the station, show that it is playing unless the player bar should show that
-// TODO: Show filled Heart icon and accessible label when station is already a favourite
 // TODO: Fallback for station image if it fails to load
 
 export function RadioStationCard({
@@ -83,6 +81,17 @@ export function RadioStationCard({
 						<PlayCircle className="h-16 w-16 text-white" />
 					)}
 				</div>
+
+				{isPlaying && isCurrentStation && (
+					<div className="absolute top-2 left-2 z-10">
+						<Badge
+							variant="secondary"
+							className="bg-green-500/80 font-semibold text-white shadow-md backdrop-blur-sm"
+						>
+							Playing
+						</Badge>
+					</div>
+				)}
 			</div>
 
 			<CardContent className="p-4">
