@@ -19,8 +19,12 @@ import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-// TODO: Add tooltip for volume control
 // TODO: Consider removing progress bar & progress component
 
 /**
@@ -34,7 +38,7 @@ import { Slider } from "@/components/ui/slider";
  * - Station info with image, name, and location.
  * - Playback controls: previous, play/pause, next.
  * - External link to the station's website.
- * - Volume control slider and mute button (UI only, not yet implemented).
+ * - Volume control slider and mute button.
  *
  * @param stationsOrder - Optional. An array of radio stations in the order currently shown in the UI (e.g., popularity/ name). If not provided, falls back to the default stations order (ID).
  */
@@ -171,21 +175,30 @@ export function PlayerBar({
 						</Button>
 
 						<div className="flex min-w-[100px] items-center gap-2 max-[600px]:hidden md:min-w-[140px]">
-							<Button
-								variant="ghost"
-								size="icon"
-								onClick={toggleMute}
-								aria-label={isMuted ? "Unmute" : "Mute"}
-								className="cursor-pointer"
-							>
-								{volume === 0 || isMuted ? (
-									<VolumeX className="h-5 w-5" />
-								) : volume < 40 ? (
-									<Volume1 className="h-5 w-5" />
-								) : (
-									<Volume2 className="h-5 w-5" />
-								)}
-							</Button>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="ghost"
+										size="icon"
+										onClick={toggleMute}
+										aria-label={isMuted ? "Unmute" : "Mute"}
+										className="cursor-pointer"
+									>
+										{volume === 0 || isMuted ? (
+											<VolumeX className="h-5 w-5" />
+										) : volume < 40 ? (
+											<Volume1 className="h-5 w-5" />
+										) : (
+											<Volume2 className="h-5 w-5" />
+										)}
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent side="top">
+									{isMuted || volume === 0
+										? "Unmute"
+										: "Mute"}
+								</TooltipContent>
+							</Tooltip>
 							<Slider
 								value={[isMuted ? 0 : volume]}
 								max={100}
