@@ -67,15 +67,15 @@ export const stations: RadioStation[] = [
 		id: "5",
 		name: "Vibe FM",
 		fmFrequency: "88.7",
-		streamUrl: "https://s9.voscast.com:7825/1",
+		streamUrl: "https://vibefm.radioca.st/vibe_live",
 		image: `${basePath}/images/vibe.png`,
 		website: "https://vibe.mt",
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
 		metadata: {
-			currentSongUrl: "https://s9.voscast.com:7825/status-json.xsl",
-			currentSongMethod: "voscast",
+			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
+			currentSongMethod: "icecast",
 		},
 	},
 	{

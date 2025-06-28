@@ -40,10 +40,15 @@ export function useStationMetadata(
 
 				switch (station?.metadata?.currentSongMethod) {
 					case "voscast":
+					case "icecast":
 						const json = JSON.parse(text);
-						const source = Array.isArray(json.icestats?.source)
-							? json.icestats.source[0]
-							: json.icestats?.source;
+						const sources = Array.isArray(json.icestats?.source)
+							? json.icestats.source
+							: [];
+						const source = sources.find(
+							(s: { title?: string }) => s.title !== undefined
+						); // Filter source containing title
+
 						parsed = source?.title ?? null;
 						break;
 					case "shoutcast":

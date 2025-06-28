@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/tooltip";
 
 // TODO: Consider removing progress bar & progress component
+// TODO: Handle loading state for audio better - check Vibe due to high loading time
 
 /**
  * Renders a fixed player bar at the bottom of the screen, displaying the current radio station information,
