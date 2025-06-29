@@ -1,6 +1,10 @@
 import { RadioStation } from "@/lib/types/radio";
 
-const basePath = process.env.NODE_ENV === "production" ? "/kollox-fm" : "";
+const isProd = process.env.NODE_ENV === "production";
+const useGitHubPages = false;
+const repoName = "kollox-fm";
+
+export const basePath = isProd && useGitHubPages ? `/${repoName}` : "";
 
 export const stations: RadioStation[] = [
 	{
