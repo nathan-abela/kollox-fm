@@ -18,6 +18,11 @@ export function useStationMetadata(
 ) {
 	const [currentSong, setCurrentSong] = useState<string | null>(null);
 
+	// Reset song when station changes
+	useEffect(() => {
+		setCurrentSong(null);
+	}, [station]);
+
 	useEffect(() => {
 		// Skip fetching if SSR, dev, metadata unavailable, or not playing
 		if (
