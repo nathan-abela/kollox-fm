@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
+import { Radio } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
@@ -26,7 +27,6 @@ type SortOption = "name" | "location" | "popularity";
 // - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
 // - Clear button for recently played stations
-// - Tooltip for disabled Search + Sort controls in Recent tab
 
 export default function Home() {
 	// State for search input
@@ -108,14 +108,40 @@ export default function Home() {
 			className={`container mx-auto ${currentStation ? "pb-40" : "pb-20"}`}
 		>
 			{/* Page header section */}
-			<section className="space-y-4 py-8 md:py-12">
-				<h2 className="text-3xl font-bold tracking-tight">
-					Explore Malta&apos;s Radio Stations
-				</h2>
-				<p className="text-muted-foreground">
-					All your favourite Maltese stations in one place. Free,
-					live, and local!
-				</p>
+			<section className="py-6 md:py-8">
+				<div className="bg-card relative overflow-hidden rounded-xl border p-6 md:p-8">
+					<div className="relative z-10 flex flex-col items-center gap-6 md:flex-row">
+						<div className="flex flex-1 flex-col gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
+							<div className="flex-1 space-y-3">
+								{/* Main title and description */}
+								<h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
+									Explore Malta&apos;s Radio Stations
+								</h2>
+								<p className="text-muted-foreground max-w-2xl text-sm md:text-lg">
+									All your favourite Maltese stations in one
+									place. Free, live, and local!
+								</p>
+
+								{/* Status indicators */}
+								<div className="text-muted-foreground flex flex-wrap items-center justify-center gap-4 text-xs md:justify-start md:text-sm">
+									<div className="flex items-center gap-2">
+										<div className="h-2 w-2 rounded-full bg-green-500"></div>
+										<span>
+											{stations.length} Available Stations
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div
+								className="hidden items-center justify-center md:flex md:items-center md:justify-end"
+								aria-hidden="true"
+							>
+								<Radio className="h-24 w-24 opacity-[0.02] dark:opacity-[0.05]" />
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
 
 			{/* Search + Sort Controls */}
@@ -168,6 +194,7 @@ export default function Home() {
 				className="mt-4 w-full"
 			>
 				<TabsList className="bg-input/30 dark:bg-input/30 flex gap-2 rounded-md border p-0">
+					{/* TODO: Consider adding tab count, example, Favourites (2) */}
 					{[
 						{ value: "local", label: "Local Stations" },
 						{ value: "favourites", label: "Favourites" },
