@@ -18,8 +18,8 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
 		metadata: {
-			// prettier-ignore
-			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong",
+			isEnabled: false,
+			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
 	},
@@ -34,6 +34,7 @@ export const stations: RadioStation[] = [
 		genres: ["Chill", "Relax", "00s", "10s"],
 		popularity: 4,
 		metadata: {
+			isEnabled: false,
 			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
 			currentSongMethod: "shoutcast",
 		},
@@ -48,6 +49,7 @@ export const stations: RadioStation[] = [
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
 		popularity: 5,
 		metadata: {
+			isEnabled: false,
 			currentSongUrl: "https://stream.v3.network/proxy/retro/currentsong",
 			currentSongMethod: "shoutcast",
 		},
@@ -62,8 +64,8 @@ export const stations: RadioStation[] = [
 		genres: ["Pop", "Dance", "Throwbacks", "LGBTQ+", "Pride"],
 		popularity: 6,
 		metadata: {
-			// prettier-ignore
-			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong",
+			isEnabled: false,
+			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
 	},
@@ -78,6 +80,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
 		metadata: {
+			isEnabled: true,
 			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
@@ -93,6 +96,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
 		metadata: {
+			isEnabled: false,
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
 			currentSongMethod: "shoutcast",
 		},

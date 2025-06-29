@@ -19,10 +19,11 @@ export function useStationMetadata(
 	const [currentSong, setCurrentSong] = useState<string | null>(null);
 
 	useEffect(() => {
-		// Disable in SSR, local dev, or if metadata unavailable or not playing
+		// Skip fetching if SSR, dev, metadata unavailable, or not playing
 		if (
 			typeof window === "undefined" ||
 			process.env.NODE_ENV === "development" ||
+			!station?.metadata?.isEnabled ||
 			!station?.metadata?.currentSongUrl ||
 			!isPlaying
 		) {

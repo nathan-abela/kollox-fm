@@ -28,6 +28,7 @@ export interface RadioStation {
 /**
  * Metadata information for a radio station.
  *
+ * - isEnabled: A boolean indicating if metadata fetching is enabled.
  * - currentSongUrl: The URL to fetch the current song metadata.
  * - currentSongMethod: The method to use for fetching the current song.
  *   - "shoutcast": Fetches metadata using the Shoutcast protocol.
@@ -35,6 +36,7 @@ export interface RadioStation {
  *   - "voscast": Fetches metadata using the Voscast protocol
  */
 export interface RadioStationMetadata {
+	isEnabled: boolean;
 	currentSongUrl?: string;
 	currentSongMethod?: "shoutcast" | "icecast" | "voscast";
 }

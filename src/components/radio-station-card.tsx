@@ -104,7 +104,7 @@ export function RadioStationCard({
 								{station.name}
 							</h3>
 							{/* Metadata indicator */}
-							{station?.metadata && (
+							{station?.metadata?.isEnabled && (
 								<div
 									className="h-2 w-2 animate-pulse rounded-full bg-purple-500"
 									title="Live Metadata"
