@@ -103,6 +103,14 @@ export function RadioStationCard({
 							<h3 className="truncate text-lg font-semibold">
 								{station.name}
 							</h3>
+							{/* Metadata indicator */}
+							{station?.metadata && (
+								<div
+									className="h-2 w-2 animate-pulse rounded-full bg-purple-500"
+									title="Live Metadata"
+									aria-label="Live Metadata"
+								/>
+							)}
 						</div>
 						<p className="text-muted-foreground truncate text-sm">
 							{station.location}

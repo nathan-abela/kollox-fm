@@ -130,6 +130,10 @@ export default function Home() {
 											{stations.length} Available Stations
 										</span>
 									</div>
+									<div className="flex items-center gap-2">
+										<div className="h-2 w-2 rounded-full bg-purple-500"></div>
+										<span>Live Metadata</span>
+									</div>
 								</div>
 							</div>
 
