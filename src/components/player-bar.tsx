@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
 	ExternalLink,
+	Loader2,
 	Pause,
 	Play,
 	SkipBack,
@@ -51,6 +52,7 @@ export function PlayerBar({
 	const {
 		currentStation,
 		isPlaying,
+		isLoading,
 		volume,
 		isMuted,
 		setStation,
@@ -123,6 +125,7 @@ export function PlayerBar({
 								onClick={handlePrevStation}
 								aria-label="Previous station"
 								className="cursor-pointer"
+								disabled={isLoading}
 							>
 								<SkipBack className="h-5 w-5" />
 							</Button>
@@ -132,8 +135,11 @@ export function PlayerBar({
 								onClick={togglePlayPause}
 								className="h-11 w-11 cursor-pointer rounded-full"
 								aria-label={isPlaying ? "Pause" : "Play"}
+								disabled={isLoading}
 							>
-								{isPlaying ? (
+								{isLoading ? (
+									<Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
+								) : isPlaying ? (
 									<Pause className="h-5 w-5" />
 								) : (
 									<Play className="h-5 w-5" />
@@ -145,6 +151,7 @@ export function PlayerBar({
 								onClick={handleNextStation}
 								aria-label="Next station"
 								className="cursor-pointer"
+								disabled={isLoading}
 							>
 								<SkipForward className="h-5 w-5" />
 							</Button>

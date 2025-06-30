@@ -4,6 +4,7 @@ import Image from "next/image";
 import {
 	ExternalLink,
 	Heart,
+	Loader2,
 	PauseCircle,
 	PlayCircle,
 	Radio,
@@ -30,8 +31,13 @@ export function RadioStationCard({
 	isFavourite,
 	onToggleFavourite,
 }: RadioStationCardProps) {
-	const { currentStation, isPlaying, setStation, togglePlayPause } =
-		useAudioPlayer();
+	const {
+		currentStation,
+		isPlaying,
+		isLoading,
+		setStation,
+		togglePlayPause,
+	} = useAudioPlayer();
 	const isCurrentStation = currentStation?.id === station.id;
 	const handlePlayClick = () => {
 		if (isCurrentStation) {
@@ -68,27 +74,49 @@ export function RadioStationCard({
 				)}
 
 				<div
-					className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+					className={cn(
+						"absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300",
+						isCurrentStation && isLoading
+							? "opacity-100" // always show loader while loading
+							: "opacity-0 group-hover:opacity-100" // show loader on hover otherwise
+					)}
 					aria-label={
-						isPlaying && isCurrentStation
-							? "Pause station"
+						isCurrentStation
+							? isLoading
+								? "Loading station"
+								: isPlaying
+									? "Pause station"
+									: "Play station"
 							: "Play station"
 					}
 				>
-					{isPlaying && isCurrentStation ? (
+					{isCurrentStation && isLoading ? (
+						<Loader2 className="h-12 w-12 animate-spin text-white" />
+					) : isCurrentStation && isPlaying ? (
 						<PauseCircle className="h-16 w-16 text-white" />
 					) : (
 						<PlayCircle className="h-16 w-16 text-white" />
 					)}
 				</div>
 
-				{isPlaying && isCurrentStation && (
+				{isCurrentStation && (
 					<div className="absolute top-2 left-2 z-10">
 						<Badge
 							variant="secondary"
-							className="bg-green-500/80 font-semibold text-white shadow-md backdrop-blur-sm"
+							className={cn(
+								"font-semibold text-white shadow-md backdrop-blur-sm",
+								isLoading
+									? "bg-yellow-500/80"
+									: isPlaying
+										? "bg-green-500/80"
+										: "bg-red-500/80"
+							)}
 						>
-							Playing
+							{isLoading
+								? "Loading..."
+								: isPlaying
+									? "Playing"
+									: "Offline"}
 						</Badge>
 					</div>
 				)}
