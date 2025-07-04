@@ -109,14 +109,14 @@ export function RadioStationCard({
 									? "bg-yellow-500/80"
 									: isPlaying
 										? "bg-green-500/80"
-										: "bg-red-500/80"
+										: "bg-blue-500/80"
 							)}
 						>
 							{isLoading
 								? "Loading..."
 								: isPlaying
 									? "Playing"
-									: "Offline"}
+									: "Idle"}
 						</Badge>
 					</div>
 				)}
