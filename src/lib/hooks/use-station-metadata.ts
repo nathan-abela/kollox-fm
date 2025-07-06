@@ -44,13 +44,25 @@ export function useStationMetadata(
 
 				let parsed: string | null = null;
 
+				/**
+				 * Parses the current song title based on the streaming provider
+				 *
+				 * Supported methods:
+				 * - voscast/ icecast: Parses JSON containing `icestats.source`, which may be
+				 *   an array or a single object. Extracts the first source with a `title`.
+				 * - radioco: Extracts the `title` from `json.data.title`.
+				 * - shoutcast/ default: Falls back to trimming the raw response text.
+				 *
+				 * @param text - The raw response body from the streaming server.
+				 * @returns `parsed` - assigned the extracted song title, or `null` if not found.
+				 */
 				switch (station?.metadata?.currentSongMethod) {
 					case "voscast":
 					case "icecast": {
 						const json = JSON.parse(text);
 						const sources = Array.isArray(json.icestats?.source)
 							? json.icestats.source
-							: [];
+							: [json.icestats?.source].filter(Boolean);
 						const source = sources.find(
 							(s: { title?: string }) => s.title !== undefined
 						); // Filter source containing title
