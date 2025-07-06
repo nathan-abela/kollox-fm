@@ -46,7 +46,7 @@ export function useStationMetadata(
 
 				switch (station?.metadata?.currentSongMethod) {
 					case "voscast":
-					case "icecast":
+					case "icecast": {
 						const json = JSON.parse(text);
 						const sources = Array.isArray(json.icestats?.source)
 							? json.icestats.source
@@ -57,6 +57,12 @@ export function useStationMetadata(
 
 						parsed = source?.title ?? null;
 						break;
+					}
+					case "radioco": {
+						const json = JSON.parse(text);
+						parsed = json.data?.title ?? null;
+						break;
+					}
 					case "shoutcast":
 					default:
 						parsed = text.trim();
