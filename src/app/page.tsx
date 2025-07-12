@@ -194,7 +194,7 @@ export default function Home() {
 				onValueChange={setSelectedTab}
 				className="mt-4 w-full"
 			>
-				<TabsList className="bg-input/30 dark:bg-input/30 flex gap-2 rounded-md border p-0">
+				<TabsList className="bg-input/30 dark:bg-input/30 flex flex-wrap gap-2 rounded-md border p-0 md:flex-nowrap">
 					{/* TODO: Consider adding tab count, example, Favourites (2) */}
 					{[
 						{ value: "local", label: "Local Stations" },
@@ -211,7 +211,10 @@ export default function Home() {
 					))}
 				</TabsList>
 
-				<TabsContent value="local" className="mt-4">
+				<TabsContent
+					value="local"
+					className="mt-12 [@media(min-width:348px)]:mt-4"
+				>
 					<Suspense fallback={<SkeletonStation />}>
 						<RadioStationList
 							stations={filteredStations}
