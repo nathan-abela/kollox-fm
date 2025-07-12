@@ -41,8 +41,8 @@ export default function Home() {
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
 
-	// Get currentStation from audio player hook
-	const { currentStation, recentlyPlayed } = useAudioPlayer();
+	// Get recentlyPlayed from audio player hook
+	const { recentlyPlayed } = useAudioPlayer();
 
 	// Get recently played stations in the order they were played
 	const recentStations = stations
@@ -103,10 +103,7 @@ export default function Home() {
 	const isSearchSortDisabled = disabledSearchSortTabs.includes(selectedTab);
 
 	return (
-		// Main content container. Adds extra bottom padding if player bar is visible
-		<div
-			className={`container mx-auto ${currentStation ? "pb-40" : "pb-20"}`}
-		>
+		<div className="container mx-auto pb-12">
 			{/* Page header section */}
 			<section className="py-6 md:py-8">
 				<div className="bg-card relative overflow-hidden rounded-xl border p-6 md:p-8">
