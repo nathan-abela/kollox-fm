@@ -6,6 +6,7 @@ import { AudioPlayerProvider } from "@/lib/hooks/audio-player";
 import { Header } from "@/components/ui/header";
 import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
+import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -43,6 +44,7 @@ export default function RootLayout({
 					<AudioPlayerProvider>
 						<Header />
 						{children}
+						<Footer />
 					</AudioPlayerProvider>
 					<Toaster richColors />
 				</ThemeProvider>
