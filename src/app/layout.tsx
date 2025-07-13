@@ -3,10 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 import { AudioPlayerProvider } from "@/lib/hooks/audio-player";
-import { Header } from "@/components/ui/header";
 import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({

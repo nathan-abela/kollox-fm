@@ -5,8 +5,7 @@ import { Music2, Radio } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useStationMetadata } from "@/lib/hooks/use-station-metadata";
-
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
 	const { currentStation, isPlaying } = useAudioPlayer();

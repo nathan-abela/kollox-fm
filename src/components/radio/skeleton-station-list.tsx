@@ -1,4 +1,4 @@
-import { SkeletonStation } from "./skeleton-station";
+import { SkeletonStation } from "@/components/radio/skeleton-station";
 
 export function SkeletonStationList() {
 	return (

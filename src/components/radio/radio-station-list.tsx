@@ -1,5 +1,5 @@
 import { RadioStation } from "@/lib/types/radio";
-import { RadioStationCard } from "@/components/radio-station-card";
+import { RadioStationCard } from "@/components/radio/radio-station-card";
 
 /**
  * Renders a grid of radio stations using `RadioStationCard`, or a fallback message if none are available.

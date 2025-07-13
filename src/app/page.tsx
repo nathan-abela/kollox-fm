@@ -16,10 +16,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { SkeletonStation } from "@/components/ui/skeleton-station";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlayerBar } from "@/components/player-bar";
-import { RadioStationList } from "@/components/radio-station-list";
+import { PlayerBar } from "@/components/layout/player-bar";
+import { RadioStationList } from "@/components/radio/radio-station-list";
+import { SkeletonStation } from "@/components/radio/skeleton-station";
 
 type SortOption = "name" | "location" | "popularity";
 
