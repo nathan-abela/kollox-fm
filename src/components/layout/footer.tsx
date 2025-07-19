@@ -89,14 +89,6 @@ export function Footer() {
 									Terms of Use
 								</Link>
 							</li>
-							<li>
-								<Link
-									href="/dmca"
-									className="text-muted-foreground hover:text-primary transition-colors"
-								>
-									DMCA Policy
-								</Link>
-							</li>
 						</ul>
 					</nav>
 				</div>
