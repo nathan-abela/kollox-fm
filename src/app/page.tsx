@@ -36,7 +36,7 @@ export default function Home() {
 	// State for favourites
 	const [favourites, setFavourites] = useState<string[]>([]);
 	// State for selected tab
-	const [selectedTab, setSelectedTab] = useState("home");
+	const [selectedTab, setSelectedTab] = useState("local");
 
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
