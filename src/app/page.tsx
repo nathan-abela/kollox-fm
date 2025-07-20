@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Radio } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
@@ -17,7 +17,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlayerBar } from "@/components/layout/player-bar";
 import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
 
@@ -41,40 +40,54 @@ export default function Home() {
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
 
-	// Get recentlyPlayed from audio player hook
-	const { recentlyPlayed } = useAudioPlayer();
-
-	// Get recently played stations in the order they were played
-	const recentStations = stations
-		.filter((station) => recentlyPlayed.includes(station.id))
-		.sort(
-			(a, b) =>
-				recentlyPlayed.indexOf(a.id) - recentlyPlayed.indexOf(b.id)
-		);
+	// Get recentlyPlayed and  from audio player hook
+	const { recentlyPlayed, setStationsOrder } = useAudioPlayer();
 
 	// Filter and sort stations based on search and sort
-	const filteredStations = stations
-		.filter(
-			(station) =>
-				station.name
-					.toLowerCase()
-					.includes(debouncedSearchTerm.toLowerCase()) ||
-				station.location
-					.toLowerCase()
-					.includes(debouncedSearchTerm.toLowerCase())
-		)
-		.sort((a, b) => {
-			switch (sortBy) {
-				case "name":
-					return a.name.localeCompare(b.name);
-				case "location":
-					return a.location.localeCompare(b.location);
-				case "popularity":
-					return (a.popularity ?? 0) - (b.popularity ?? 0);
-				default:
-					return 0;
-			}
-		});
+	const filteredStations = useMemo(
+		() =>
+			stations
+				.filter(
+					(station) =>
+						station.name
+							.toLowerCase()
+							.includes(debouncedSearchTerm.toLowerCase()) ||
+						station.location
+							.toLowerCase()
+							.includes(debouncedSearchTerm.toLowerCase())
+				)
+				.sort((a, b) => {
+					switch (sortBy) {
+						case "name":
+							return a.name.localeCompare(b.name);
+						case "location":
+							return a.location.localeCompare(b.location);
+						case "popularity":
+							return (a.popularity ?? 0) - (b.popularity ?? 0);
+						default:
+							return 0;
+					}
+				}),
+		[debouncedSearchTerm, sortBy]
+	);
+
+	const favouriteStations = useMemo(
+		() => stations.filter((s) => favourites.includes(s.id)),
+		[favourites]
+	);
+
+	// Get recently played stations in the order they were played
+	const recentStations = useMemo(
+		() =>
+			stations
+				.filter((station) => recentlyPlayed.includes(station.id))
+				.sort(
+					(a, b) =>
+						recentlyPlayed.indexOf(a.id) -
+						recentlyPlayed.indexOf(b.id)
+				),
+		[recentlyPlayed]
+	);
 
 	// On mount initialize favourites from localStorage
 	useEffect(() => {
@@ -88,6 +101,23 @@ export default function Home() {
 	useEffect(() => {
 		localStorage.setItem("favourites", JSON.stringify(favourites));
 	}, [favourites]);
+
+	// Update stations order in audio player context when filtered stations change
+	useEffect(() => {
+		if (selectedTab === "local") {
+			setStationsOrder(filteredStations);
+		} else if (selectedTab === "favourites") {
+			setStationsOrder(favouriteStations);
+		} else if (selectedTab === "recent") {
+			setStationsOrder(recentStations);
+		}
+	}, [
+		selectedTab,
+		filteredStations,
+		favouriteStations,
+		recentStations,
+		setStationsOrder,
+	]);
 
 	const isFavourite = (id: string) => favourites.includes(id);
 	const onToggleFavourite = (stationId: string) => {
@@ -232,9 +262,7 @@ export default function Home() {
 					) : (
 						<Suspense fallback={<SkeletonStation />}>
 							<RadioStationList
-								stations={stations.filter((s) =>
-									favourites.includes(s.id)
-								)}
+								stations={favouriteStations}
 								isFavourite={isFavourite}
 								onToggleFavourite={onToggleFavourite}
 							/>
