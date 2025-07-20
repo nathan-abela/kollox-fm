@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { PlayerBar } from "@/components/layout/player-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default function RootLayout({
 						<Header />
 						{children}
 						<Footer />
+						<PlayerBar />
 					</AudioPlayerProvider>
 					<Toaster richColors />
 				</ThemeProvider>

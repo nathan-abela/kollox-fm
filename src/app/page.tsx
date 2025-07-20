@@ -259,9 +259,6 @@ export default function Home() {
 					)}
 				</TabsContent>
 			</Tabs>
-
-			{/* Fixed audio player bar at the bottom of the screen */}
-			<PlayerBar />
 		</div>
 	);
 }
