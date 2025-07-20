@@ -11,6 +11,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 
+import { stations } from "@/lib/data/stations";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { RadioStation } from "@/lib/types/radio";
 
@@ -21,10 +22,12 @@ interface AudioPlayerContextType {
 	volume: number;
 	isMuted: boolean;
 	recentlyPlayed: string[];
+	stationsOrder: RadioStation[];
 	setStation: (station: RadioStation) => void;
 	togglePlayPause: () => void;
 	setVolume: (volume: number) => void;
 	toggleMute: () => void;
+	setStationsOrder: (stations: RadioStation[]) => void;
 }
 
 const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
@@ -47,6 +50,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	}); // Initial volume set to 70% or fetched from localStorage
 	const [isMuted, setIsMuted] = useState(false);
 	const [recentlyPlayed, setRecentlyPlayed] = useState<string[]>([]);
+	const [stationsOrder, setStationsOrder] =
+		useState<RadioStation[]>(stations);
 
 	// Debounce the volume change to avoid frequent updates
 	const debouncedVolume = useDebounce(volume, 50);
@@ -265,10 +270,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				volume,
 				isMuted,
 				recentlyPlayed,
+				stationsOrder,
 				setStation,
 				togglePlayPause,
 				setVolume,
 				toggleMute,
+				setStationsOrder,
 			}}
 		>
 			{children}

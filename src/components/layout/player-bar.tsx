@@ -14,7 +14,6 @@ import {
 	VolumeX,
 } from "lucide-react";
 
-import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
@@ -41,20 +40,15 @@ import {
  * - Playback controls: previous, play/pause, next.
  * - External link to the station's website.
  * - Volume control slider and mute button.
- *
- * @param stationsOrder - Optional. An array of radio stations in the order currently shown in the UI (e.g., popularity/ name). If not provided, falls back to the default stations order (ID).
  */
-export function PlayerBar({
-	stationsOrder = stations,
-}: {
-	stationsOrder?: RadioStation[];
-}) {
+export function PlayerBar() {
 	const {
 		currentStation,
 		isPlaying,
 		isLoading,
 		volume,
 		isMuted,
+		stationsOrder,
 		setStation,
 		togglePlayPause,
 		setVolume,
