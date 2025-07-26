@@ -256,9 +256,14 @@ export default function Home() {
 
 				<TabsContent value="favourites" className="mt-4">
 					{favourites.length === 0 ? (
-						<p className="text-muted-foreground text-sm">
-							No favourites yet.
-						</p>
+						<div className="flex flex-col items-center justify-center py-12 text-center">
+							<h3 className="mb-2 text-xl font-semibold">
+								No favourite stations yet.
+							</h3>
+							<p className="text-muted-foreground">
+								Mark stations as favourites to see them here.
+							</p>
+						</div>
 					) : (
 						<Suspense fallback={<SkeletonStation />}>
 							<RadioStationList
@@ -273,9 +278,15 @@ export default function Home() {
 				{/* Disable Search Sort By in this view */}
 				<TabsContent value="recent" className="mt-4">
 					{recentlyPlayed.length === 0 ? (
-						<p className="text-muted-foreground text-sm">
-							No recently played stations yet.
-						</p>
+						<div className="flex flex-col items-center justify-center py-12 text-center">
+							<h3 className="mb-2 text-xl font-semibold">
+								No recently played stations yet.
+							</h3>
+							<p className="text-muted-foreground">
+								Start listening to stations and they will appear
+								here.
+							</p>
+						</div>
 					) : (
 						<Suspense fallback={<SkeletonStation />}>
 							<RadioStationList
