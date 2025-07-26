@@ -113,42 +113,69 @@ export function PlayerBar() {
 					{/* Playback Controls */}
 					<div className="flex flex-col items-center justify-center">
 						<div className="flex items-center gap-4">
-							<Button
-								variant="ghost"
-								size="icon"
-								onClick={handlePrevStation}
-								aria-label="Previous station"
-								className="cursor-pointer"
-								disabled={isLoading}
-							>
-								<SkipBack className="h-5 w-5" />
-							</Button>
-							<Button
-								variant="outline"
-								size="icon"
-								onClick={togglePlayPause}
-								className="h-11 w-11 cursor-pointer rounded-full"
-								aria-label={isPlaying ? "Pause" : "Play"}
-								disabled={isLoading}
-							>
-								{isLoading ? (
-									<Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
-								) : isPlaying ? (
-									<Pause className="h-5 w-5" />
-								) : (
-									<Play className="h-5 w-5" />
-								)}
-							</Button>
-							<Button
-								variant="ghost"
-								size="icon"
-								onClick={handleNextStation}
-								aria-label="Next station"
-								className="cursor-pointer"
-								disabled={isLoading}
-							>
-								<SkipForward className="h-5 w-5" />
-							</Button>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="ghost"
+										size="icon"
+										onClick={handlePrevStation}
+										aria-label="Previous station"
+										className="cursor-pointer"
+										disabled={isLoading}
+									>
+										<SkipBack className="h-5 w-5" />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent side="top">
+									Previous station
+								</TooltipContent>
+							</Tooltip>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="outline"
+										size="icon"
+										onClick={togglePlayPause}
+										className="h-11 w-11 cursor-pointer rounded-full"
+										aria-label={
+											isPlaying ? "Pause" : "Play"
+										}
+										disabled={isLoading}
+									>
+										{isLoading ? (
+											<Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
+										) : isPlaying ? (
+											<Pause className="h-5 w-5" />
+										) : (
+											<Play className="h-5 w-5" />
+										)}
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent side="top">
+									{isLoading
+										? "Loading..."
+										: isPlaying
+											? "Pause"
+											: "Play"}
+								</TooltipContent>
+							</Tooltip>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="ghost"
+										size="icon"
+										onClick={handleNextStation}
+										aria-label="Next station"
+										className="cursor-pointer"
+										disabled={isLoading}
+									>
+										<SkipForward className="h-5 w-5" />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent side="top">
+									Next station
+								</TooltipContent>
+							</Tooltip>
 						</div>
 
 						{/* Progress bar hidden on mobile */}
@@ -160,21 +187,28 @@ export function PlayerBar() {
 
 					{/* Volume & Actions */}
 					<div className="flex min-w-0 items-center justify-end gap-4">
-						<Button
-							variant="ghost"
-							size="icon"
-							asChild
-							aria-label={`Open ${currentStation.name} website`}
-							className="cursor-pointer"
-						>
-							<a
-								href={currentStation.website}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<ExternalLink className="h-5 w-5" />
-							</a>
-						</Button>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									size="icon"
+									asChild
+									aria-label={`Open ${currentStation.name} website`}
+									className="cursor-pointer"
+								>
+									<a
+										href={currentStation.website}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<ExternalLink className="h-5 w-5" />
+									</a>
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent side="top">
+								Visit {currentStation.name}
+							</TooltipContent>
+						</Tooltip>
 
 						<div className="flex min-w-[100px] items-center gap-2 max-[600px]:hidden md:min-w-[140px]">
 							<Tooltip>

@@ -33,6 +33,7 @@ export function Footer() {
 						<div className="flex items-center gap-4">
 							<Link
 								href="mailto:nathanabela7@gmail.com"
+								title="Send an email"
 								aria-label="Contact us"
 								className="text-muted-foreground hover:text-primary transition-colors"
 							>
@@ -40,6 +41,7 @@ export function Footer() {
 							</Link>
 							<Link
 								href="https://github.com/nathan-abela"
+								title="View on GitHub"
 								aria-label="GitHub"
 								className="text-muted-foreground hover:text-primary transition-colors"
 							>

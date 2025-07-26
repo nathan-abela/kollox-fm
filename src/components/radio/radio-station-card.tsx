@@ -16,6 +16,11 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface RadioStationCardProps {
 	station: RadioStation;
@@ -133,11 +138,17 @@ export function RadioStationCard({
 							</h3>
 							{/* Metadata indicator */}
 							{station?.metadata?.isEnabled && (
-								<div
-									className="h-2 w-2 animate-pulse rounded-full bg-purple-500"
-									title="Live Metadata"
-									aria-label="Live Metadata"
-								/>
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<div
+											className="h-2 w-2 animate-pulse cursor-help rounded-full bg-purple-500"
+											aria-label="Live Metadata"
+										/>
+									</TooltipTrigger>
+									<TooltipContent side="top">
+										Live song information available
+									</TooltipContent>
+								</Tooltip>
 							)}
 						</div>
 						<p className="text-muted-foreground truncate text-sm">
@@ -145,32 +156,36 @@ export function RadioStationCard({
 						</p>
 					</div>
 
-					<Button
-						variant="ghost"
-						size="icon"
-						title={
-							isFavourite
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="ghost"
+								size="icon"
+								aria-label={
+									isFavourite
+										? "Remove from favourites"
+										: "Add to favourites"
+								}
+								onClick={onToggleFavourite}
+								className={cn(
+									"cursor-pointer transition-colors duration-200",
+									isFavourite
+										? "text-red-500"
+										: "text-gray-400 hover:text-red-500"
+								)}
+							>
+								<Heart
+									className="h-5 w-5"
+									fill={isFavourite ? "currentColor" : "none"}
+								/>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="top">
+							{isFavourite
 								? "Remove from favourites"
-								: "Add to favourites"
-						}
-						aria-label={
-							isFavourite
-								? "Remove from favourites"
-								: "Add to favourites"
-						}
-						onClick={onToggleFavourite}
-						className={cn(
-							"cursor-pointer transition-colors duration-200",
-							isFavourite
-								? "text-red-500"
-								: "text-gray-400 hover:text-red-500"
-						)}
-					>
-						<Heart
-							className="h-5 w-5"
-							fill={isFavourite ? "currentColor" : "none"}
-						/>
-					</Button>
+								: "Add to favourites"}
+						</TooltipContent>
+					</Tooltip>
 				</div>
 			</CardContent>
 
@@ -187,21 +202,28 @@ export function RadioStationCard({
 					))}
 				</div>
 
-				<Button
-					variant="ghost"
-					size="icon"
-					asChild
-					aria-label={`Open ${station.name} website`}
-					className="h-8 w-8 p-0"
-				>
-					<a
-						href={station.website}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<ExternalLink className="h-4 w-4" />
-					</a>
-				</Button>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon"
+							asChild
+							aria-label={`Open ${station.name} website`}
+							className="h-8 w-8 p-0"
+						>
+							<a
+								href={station.website}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<ExternalLink className="h-4 w-4" />
+							</a>
+						</Button>
+					</TooltipTrigger>
+					<TooltipContent side="top">
+						Visit {station.name}
+					</TooltipContent>
+				</Tooltip>
 			</CardFooter>
 		</Card>
 	);
