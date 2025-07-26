@@ -91,6 +91,7 @@ export function useStationMetadata(
 		const interval = setInterval(fetchMetadata, 60_000);
 		return () => clearInterval(interval);
 	}, [
+		station?.metadata?.isEnabled,
 		station?.metadata?.currentSongUrl,
 		station?.metadata?.currentSongMethod,
 		isPlaying,
