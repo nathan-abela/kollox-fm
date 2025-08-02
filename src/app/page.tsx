@@ -1,12 +1,13 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { Radio } from "lucide-react";
+import { Radio, Trash2 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,7 +26,6 @@ type SortOption = "name" | "location" | "popularity";
 // TODO:
 // - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
 // - Consider extracting Search + Sort controls into a <SearchSortControls /> component
-// - Clear button for recently played stations
 
 export default function Home() {
 	// State for search input
@@ -40,8 +40,9 @@ export default function Home() {
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
 
-	// Get recentlyPlayed and  from audio player hook
-	const { recentlyPlayed, setStationsOrder } = useAudioPlayer();
+	// Get values from audio player hook
+	const { recentlyPlayed, setStationsOrder, clearRecentlyPlayed } =
+		useAudioPlayer();
 
 	// Filter and sort stations based on search and sort
 	const filteredStations = useMemo(
@@ -288,13 +289,29 @@ export default function Home() {
 							</p>
 						</div>
 					) : (
-						<Suspense fallback={<SkeletonStation />}>
-							<RadioStationList
-								stations={recentStations}
-								isFavourite={isFavourite}
-								onToggleFavourite={onToggleFavourite}
-							/>
-						</Suspense>
+						<div className="space-y-4">
+							<div className="flex items-center justify-between">
+								<h3 className="text-lg font-medium">
+									Recently Played ({recentlyPlayed.length})
+								</h3>
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={clearRecentlyPlayed}
+									className="text-muted-foreground hover:text-destructive cursor-pointer"
+								>
+									<Trash2 className="h-4 w-4" />
+									Clear All
+								</Button>
+							</div>
+							<Suspense fallback={<SkeletonStation />}>
+								<RadioStationList
+									stations={recentStations}
+									isFavourite={isFavourite}
+									onToggleFavourite={onToggleFavourite}
+								/>
+							</Suspense>
+						</div>
 					)}
 				</TabsContent>
 			</Tabs>

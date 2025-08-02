@@ -27,6 +27,7 @@ interface AudioPlayerContextType {
 	togglePlayPause: () => void;
 	setVolume: (volume: number) => void;
 	toggleMute: () => void;
+	clearRecentlyPlayed: () => void;
 	setStationsOrder: (stations: RadioStation[]) => void;
 }
 
@@ -235,6 +236,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		setIsMuted((prev) => !prev);
 	}, []);
 
+	// Clears all recently played stations
+	const clearRecentlyPlayed = useCallback(() => {
+		setRecentlyPlayed([]);
+		localStorage.removeItem("recentlyPlayed");
+	}, []);
+
 	/**
 	 * Adds a global keyboard shortcut for toggling playback using the spacebar.
 	 * Prevents default scroll behavior when pressing spacebar.
@@ -275,6 +282,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				togglePlayPause,
 				setVolume,
 				toggleMute,
+				clearRecentlyPlayed,
 				setStationsOrder,
 			}}
 		>
