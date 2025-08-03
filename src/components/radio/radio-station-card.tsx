@@ -6,7 +6,6 @@ import {
 	ExternalLink,
 	Heart,
 	Loader2,
-	Mic2,
 	PauseCircle,
 	PlayCircle,
 	Radio,
