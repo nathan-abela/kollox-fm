@@ -7,6 +7,7 @@ import {
 	Loader2,
 	Pause,
 	Play,
+	RadioTower,
 	SkipBack,
 	SkipForward,
 	Volume1,
@@ -54,6 +55,9 @@ export function PlayerBar() {
 		toggleMute,
 	} = useAudioPlayer();
 
+	// State to handle image loading failure
+	const [imageError, setImageError] = useState(false);
+
 	const [progress, setProgress] = useState(0);
 
 	const handleNextStation = () => {
@@ -81,6 +85,10 @@ export function PlayerBar() {
 		return () => clearInterval(interval);
 	}, [isPlaying, currentStation]);
 
+	useEffect(() => {
+		setImageError(false);
+	}, [currentStation?.image]);
+
 	if (!currentStation) {
 		return null;
 	}
@@ -92,12 +100,19 @@ export function PlayerBar() {
 					{/* Station Info */}
 					<div className="flex min-w-0 items-center gap-4">
 						<div className="bg-muted relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
-							<Image
-								src={currentStation.image}
-								alt={currentStation.name}
-								fill
-								className="object-cover"
-							/>
+							{imageError ? (
+								<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
+									<RadioTower className="h-5 w-5" />
+								</div>
+							) : (
+								<Image
+									src={currentStation.image}
+									alt={currentStation.name}
+									fill
+									className="object-cover"
+									onError={() => setImageError(true)}
+								/>
+							)}
 						</div>
 						<div className="min-w-0 max-[425px]:hidden">
 							<h4 className="truncate font-medium">

@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import {
 	ExternalLink,
 	Heart,
 	Loader2,
+	Mic2,
 	PauseCircle,
 	PlayCircle,
 	Radio,
+	RadioTower,
 } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
@@ -29,7 +32,6 @@ interface RadioStationCardProps {
 }
 
 // TODO: Consider adding station social links (Facebook, Instagram) if available
-// TODO: Fallback for station image if it fails to load
 
 export function RadioStationCard({
 	station,
@@ -52,20 +54,33 @@ export function RadioStationCard({
 		}
 	};
 
+	// State to handle image loading failure
+	const [imageError, setImageError] = useState(false);
+
 	return (
 		<Card className="group overflow-hidden pt-0 pb-4 transition-all duration-300 hover:shadow-md">
 			<div
 				className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden"
 				onClick={handlePlayClick}
 			>
-				<Image
-					src={station.image}
-					alt={station.name}
-					fill
-					priority
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					className="object-cover transition-transform duration-500 group-hover:scale-105"
-				/>
+				{imageError ? (
+					<div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-1">
+						<RadioTower className="h-5 w-5" />
+						<span className="w-full truncate text-center text-lg font-semibold">
+							{station.name}
+						</span>
+					</div>
+				) : (
+					<Image
+						src={station.image}
+						alt={station.name}
+						fill
+						priority
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						className="object-cover transition-transform duration-500 group-hover:scale-105"
+						onError={() => setImageError(true)}
+					/>
+				)}
 
 				{station.fmFrequency && (
 					<div className="absolute top-2 right-2 z-10">
