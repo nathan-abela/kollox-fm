@@ -143,11 +143,10 @@ export function RadioStationCard({
 
 			<CardContent className="p-4">
 				<div className="flex items-start justify-between gap-2">
-					<div>
-						<div className="flex items-center gap-2">
+					<div className="min-w-0 flex-1">
+						<div className="flex min-w-0 items-center gap-2">
 							<Radio className="text-primary h-4 w-4" />
-							{/* TODO: Name is not being truncated */}
-							<h3 className="truncate text-lg font-semibold">
+							<h3 className="min-w-0 truncate text-lg font-semibold">
 								{station.name}
 							</h3>
 							{/* Metadata indicator */}
@@ -182,7 +181,7 @@ export function RadioStationCard({
 								}
 								onClick={onToggleFavourite}
 								className={cn(
-									"cursor-pointer transition-colors duration-200",
+									"shrink-0 cursor-pointer transition-colors duration-200",
 									isFavourite
 										? "text-red-500"
 										: "text-gray-400 hover:text-red-500"
