@@ -45,14 +45,10 @@ export interface SurveyMeta {
  * Overall, high-level KPIs for the edition.
  *
  * @property populationListening - Radio-listening population 12+.
- * @property pctPopulationListening - % of the 12+ population listening to radio.
- * @property avgDailyListeners - Daily average listeners.
  * @property totalRadioListeners - Total radio listeners.
  */
 export interface SurveyMetrics {
-	populationListening: number;
-	pctPopulationListening?: Percent;
-	avgDailyListeners?: ListenerCount | null;
+	populationListening: number | null;
 	totalRadioListeners?: ListenerCount | null;
 }
 
@@ -64,7 +60,7 @@ export interface SurveyMetrics {
  * @property fmFrequency - FM frequency.
  * @property mostFollowedPct - % of respondents who marked station as "most followed".
  * @property weeklySharePct - Weekly average audience share across timeband.
- * @property extrapolatedListeners - Extrapolated listener count.
+ * @property stationListeners - Listeners count - 3 stations listened to previous day.
  */
 export interface StationSummary {
 	id: StationId;
@@ -72,7 +68,7 @@ export interface StationSummary {
 	fmFrequency?: string | null;
 	mostFollowedPct?: Percent | null;
 	weeklySharePct?: Percent | null;
-	extrapolatedListeners?: ListenerCount | null;
+	stationListeners?: ListenerCount | null;
 }
 
 /**
@@ -94,7 +90,7 @@ export interface TimebandSummary {
 export interface SurveyHighlights {
 	/** Most followed station in this survey. */
 	mostFollowedStation?: {
-		/** Station id or label; prefer slug if available. */
+		/** Station id. Align with the `name` property of `RadioStation`. */
 		id: string;
 		/** % marked as most followed. */
 		mostFollowedPct?: Percent | null;
@@ -112,6 +108,23 @@ export interface SurveyHighlights {
 }
 
 /**
+ * Represents how respondents access radio content.
+ *
+ * @property id - Canonical id/slug, ex. "radio-set".
+ * @property label - Human-friendly display name.
+ * @property shortLabel - Shortened label for concise display (e.g., tooltips).
+ * @property respondents - Number of survey respondents using this type.
+ * @property percentage - Percentage of total respondents using this type.
+ */
+export interface ReceptionType {
+	id: string;
+	label: string;
+	shortLabel: string;
+	respondents: number;
+	percentage: number;
+}
+
+/**
  * Root object for a survey edition.
  *
  * @property meta - Basic metadata and routing info.
@@ -119,7 +132,8 @@ export interface SurveyHighlights {
  * @property highlights - Quick highlights to surface in the UI.
  * @property stations - Top-level station summaries.
  * @property timebands - Overall timeband summaries.
- * @property programs - Optional program-level summaries.
+ * @property programs - Program-level summaries.
+ * @property receptionTypes - How respondents access radio content.
  */
 export interface Survey {
 	meta: SurveyMeta;
@@ -128,4 +142,5 @@ export interface Survey {
 	stations?: StationSummary[];
 	timebands?: TimebandSummary[];
 	programs?: ProgramSummary[] | null;
+	receptionTypes?: ReceptionType[];
 }
