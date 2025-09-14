@@ -1,7 +1,10 @@
+import { survey2024 } from "@/lib/data/surveys/2024";
 import { Survey } from "@/lib/types/survey";
 
-// TODO: Add survey results
-const SURVEYS: Record<string, Survey> = {};
+// TODO: Add 2020-2023 survey results
+const SURVEYS: Record<string, Survey> = {
+	[survey2024.meta.id]: survey2024 as Survey,
+};
 
 /**
  * Retrieves a survey by its unique ID.
