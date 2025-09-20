@@ -55,6 +55,8 @@ export function SurveyOverviewTab({ survey }: { survey: Survey }) {
 
 			<div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
 				<TopStationsChart survey={survey} />
+
+				<ReceptionTypesChart survey={survey} />
 			</div>
 		</div>
 	);
