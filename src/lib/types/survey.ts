@@ -58,6 +58,7 @@ export interface SurveyMetrics {
  * @property id - Canonical id/slug, ex. "one-radio".
  * @property label - Display label, ex. "ONE Radio".
  * @property fmFrequency - FM frequency.
+ * @property location - Station location, ex. "Rabat".
  * @property mostFollowedPct - % of respondents who marked station as "most followed".
  * @property weeklySharePct - Weekly average audience share across timeband.
  * @property stationListeners - Listeners count - 3 stations listened to previous day.
@@ -66,6 +67,7 @@ export interface StationSummary {
 	id: StationId;
 	label: string;
 	fmFrequency?: string | null;
+	location?: string;
 	mostFollowedPct?: Percent | null;
 	weeklySharePct?: Percent | null;
 	stationListeners?: ListenerCount | null;
