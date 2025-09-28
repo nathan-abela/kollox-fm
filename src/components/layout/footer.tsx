@@ -70,6 +70,14 @@ export function Footer() {
 									About
 								</Link>
 							</li>
+							<li>
+								<Link
+									href="/survey-results"
+									className="text-muted-foreground hover:text-primary transition-colors"
+								>
+									Survey Results
+								</Link>
+							</li>
 						</ul>
 					</nav>
 
