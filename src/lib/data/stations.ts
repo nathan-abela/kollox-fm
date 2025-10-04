@@ -18,7 +18,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
 		metadata: {
-			isEnabled: false,
+			isEnabled: true,
 			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
@@ -34,7 +34,7 @@ export const stations: RadioStation[] = [
 		genres: ["Chill", "Relax", "00s", "10s"],
 		popularity: 4,
 		metadata: {
-			isEnabled: false,
+			isEnabled: true,
 			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
 			currentSongMethod: "shoutcast",
 		},
@@ -64,7 +64,7 @@ export const stations: RadioStation[] = [
 		genres: ["Pop", "Dance", "Throwbacks", "Pride", "LGBTQ+"],
 		popularity: 6,
 		metadata: {
-			isEnabled: false,
+			isEnabled: true,
 			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
@@ -96,7 +96,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
 		metadata: {
-			isEnabled: false,
+			isEnabled: true,
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
 			currentSongMethod: "shoutcast",
 		},
