@@ -25,7 +25,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "2",
-		name: "Bay Easy FM",
+		name: "Bay Easy",
 		fmFrequency: "100.2",
 		streamUrl: "https://stream.v3.network/proxy/easy/stream.mp3",
 		image: `${basePath}/images/bay_easy.png`,
@@ -161,7 +161,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "11",
-		name: "One Radio",
+		name: "ONE Radio",
 		fmFrequency: "92.7",
 		streamUrl: "https://s10.voscast.com:8203/stream",
 		image: `${basePath}/images/one_radio.png`,
@@ -177,7 +177,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "12",
-		name: "Net FM",
+		name: "NET FM",
 		fmFrequency: "101.0",
 		streamUrl: "https://s2.voscast.com:11393/default",
 		image: `${basePath}/images/net.png`,
@@ -217,7 +217,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Chill", "Relax"],
 		popularity: 7,
 		metadata: {
-			isEnabled: false, // No song metadata provided by station.
+			isEnabled: true,
 			currentSongUrl: "https://s3.voscast.com:9259/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
