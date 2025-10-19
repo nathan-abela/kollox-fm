@@ -96,7 +96,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
 		metadata: {
-			isEnabled: true,
+			isEnabled: false,
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
 			currentSongMethod: "shoutcast",
 		},
