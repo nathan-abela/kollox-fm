@@ -8,6 +8,7 @@ import { BreakpointIndicator } from "@/components/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { PlayerBar } from "@/components/layout/player-bar";
+import { PostHogAnalytics } from "@/components/posthog-analytics";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default function RootLayout({
 					<AudioPlayerProvider>
 						<Header />
 						<main className="flex-grow">{children}</main>
+						<PostHogAnalytics />
 						<Footer />
 						<PlayerBar />
 					</AudioPlayerProvider>
