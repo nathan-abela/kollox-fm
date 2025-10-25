@@ -1,4 +1,4 @@
-export default {
+const prettierConfig = {
 	endOfLine: "lf",
 	semi: true,
 	singleQuote: false,
@@ -34,3 +34,5 @@ export default {
 		"prettier-plugin-tailwindcss",
 	],
 };
+
+export default prettierConfig;
