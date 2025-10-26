@@ -237,4 +237,19 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "voscast",
 		},
 	},
+	{
+		id: "16",
+		name: "Maltin Biss",
+		streamUrl: "https://s4.voscast.com:8837/default",
+		image: `${basePath}/images/maltin_biss.png`,
+		website: "https://maltinbiss.mt",
+		location: "Mosta",
+		genres: ["Maltese", "Local", "Folk"],
+		popularity: 16,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://s4.voscast.com:8837/status-json.xsl",
+			currentSongMethod: "voscast",
+		},
+	},
 ];
