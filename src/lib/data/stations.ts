@@ -268,4 +268,20 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "18",
+		name: "Radju Luminaria",
+		fmFrequency: "106.9",
+		streamUrl: "https://az.wannastream.com/radio/8000/radjuluminaria",
+		image: `${basePath}/images/radju_luminaria.png`,
+		website: "https://www.nadurparish.com/media/radju-luminaria",
+		location: "Nadur",
+		genres: ["Classic Hits", "Religion", "Cultural"],
+		popularity: 18,
+		metadata: {
+			isEnabled: false, // No song metadata provided by station.
+			currentSongUrl: "http://az.wannastream.com/radio/8000/status-json.xsl", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
 ];
