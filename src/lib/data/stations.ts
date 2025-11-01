@@ -252,4 +252,20 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "voscast",
 		},
 	},
+	{
+		id: "17",
+		name: "BKR Radio",
+		streamUrl: "https://s3.voscast.com:10893/stream",
+		fmFrequency: "94.5",
+		image: `${basePath}/images/bkr_radio.png`,
+		website: "https://bkr.mt",
+		location: "Pieta",
+		genres: ["Oldies", "Religion", "Cultural", "Pop"],
+		popularity: 17,
+		metadata: {
+			isEnabled: false, // No song metadata provided by station.
+			currentSongUrl: "http://stream.bkr.mt:90/currentsong",
+			currentSongMethod: "shoutcast",
+		},
+	},
 ];
