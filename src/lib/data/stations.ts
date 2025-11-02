@@ -284,4 +284,19 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "19",
+		name: "MICS Radio",
+		streamUrl: "http://micsradio.ddns.net:90/;",
+		image: `${basePath}/images/mics_radio.png`,
+		website: "http://micsradiomalta.com",
+		location: "Rabat",
+		genres: ["Classic Hits", "Hits", "Pop", "Chill"],
+		popularity: 19,
+		metadata: {
+			isEnabled: false, // No song metadata provided by station.
+			currentSongUrl: "http://micsradio.ddns.net:90/7.html",
+			currentSongMethod: "shoutcast",
+		},
+	},
 ];
