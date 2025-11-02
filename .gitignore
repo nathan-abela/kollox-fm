@@ -52,7 +52,6 @@ venv.bak/
 # IDEs and Editors
 .DS_Store
 .idea/
-.vscode/
 *.sublime*
 
 # Backups and Temp Files
