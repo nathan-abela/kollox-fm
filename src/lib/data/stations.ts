@@ -287,6 +287,7 @@ export const stations: RadioStation[] = [
 	{
 		id: "19",
 		name: "MICS Radio",
+		isEnabled: false, // CORS
 		streamUrl: "http://micsradio.ddns.net:90/;",
 		image: `${basePath}/images/mics_radio.png`,
 		website: "http://micsradiomalta.com",
