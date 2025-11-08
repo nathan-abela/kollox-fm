@@ -3,6 +3,7 @@
  *
  * @property id - Unique identifier for the radio station.
  * @property name - The display name of the radio station.
+ * @property isEnabled - (Optional) Whether the station is enabled.
  * @property fmFrequency - (Optional) The FM frequency of the station.
  * @property streamUrl - The URL to the station stream.
  * @property image - URL to an image representing the radio station.
@@ -15,6 +16,7 @@
 export interface RadioStation {
 	id: string;
 	name: string;
+	isEnabled?: boolean;
 	fmFrequency?: string;
 	streamUrl: string;
 	image: string;

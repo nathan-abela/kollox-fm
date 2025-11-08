@@ -3,8 +3,6 @@ import { RadioStationCard } from "@/components/radio/radio-station-card";
 
 /**
  * Renders a grid of radio stations using `RadioStationCard`, or a fallback message if none are available.
- *
- * @param stations - Array of `RadioStation` objects.
  */
 export function RadioStationList({
 	stations,
@@ -15,6 +13,8 @@ export function RadioStationList({
 	isFavourite: (id: string) => boolean;
 	onToggleFavourite: (id: string) => void;
 }) {
+	stations = stations.filter((s) => s.isEnabled !== false);
+
 	if (stations.length === 0) {
 		return (
 			<div className="flex flex-col items-center justify-center py-12 text-center">
