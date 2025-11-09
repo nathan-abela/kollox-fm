@@ -232,7 +232,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Pop", "Chill"],
 		popularity: 10,
 		metadata: {
-			isEnabled: false, // No song metadata provided by station.
+			isEnabled: true,
 			currentSongUrl: "https://s1.voscast.com:11085/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
