@@ -62,6 +62,7 @@ export interface SurveyMetrics {
  * @property mostFollowedPct - % of respondents who marked station as "most followed".
  * @property weeklySharePct - Weekly average audience share across timeband.
  * @property stationListeners - Listeners count - 3 stations listened to previous day.
+ * @property dailyListeners - Mapping of ISO date strings to daily listener counts.
  */
 export interface StationSummary {
 	id: StationId;
@@ -71,6 +72,7 @@ export interface StationSummary {
 	mostFollowedPct?: Percent | null;
 	weeklySharePct?: Percent | null;
 	stationListeners?: ListenerCount | null;
+	dailyListeners?: Record<ISODateString, ListenerCount>;
 }
 
 /**
