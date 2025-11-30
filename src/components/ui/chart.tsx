@@ -170,6 +170,13 @@ function ChartTooltipContent({
 
 	const nestLabel = payload.length === 1 && indicator !== "dot";
 
+	// Sort payload by value in descending order
+	const sortedPayload = [...payload].sort((a, b) => {
+		const aValue = typeof a.value === "number" ? a.value : 0;
+		const bValue = typeof b.value === "number" ? b.value : 0;
+		return bValue - aValue;
+	});
+
 	return (
 		<div
 			className={cn(
@@ -179,7 +186,7 @@ function ChartTooltipContent({
 		>
 			{!nestLabel ? tooltipLabel : null}
 			<div className="grid gap-1.5">
-				{payload.map((item, index) => {
+				{sortedPayload.map((item, index) => {
 					const key = `${nameKey || item.name || item.dataKey || "value"}`;
 					const itemConfig = getPayloadConfigFromPayload(
 						config,
@@ -244,7 +251,7 @@ function ChartTooltipContent({
 									)}
 									<div
 										className={cn(
-											"flex flex-1 justify-between leading-none",
+											"flex flex-1 justify-between gap-2 leading-none",
 											nestLabel
 												? "items-end"
 												: "items-center"
