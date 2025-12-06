@@ -5,6 +5,7 @@ import { TrendingUp } from "lucide-react";
 
 import { Survey } from "@/lib/types/survey";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SurveyDailyAudienceTab } from "@/components/survey-results/survey-daily-audience-tab";
 import { SurveyInfo } from "@/components/survey-results/survey-info";
 import { SurveyMostFollowedTab } from "@/components/survey-results/survey-most-followed-tab";
 import { SurveyOverviewTab } from "@/components/survey-results/survey-overview-tab";
@@ -63,13 +64,11 @@ export default function SurveyResults({ survey }: { survey: Survey }) {
 					<SurveyMostFollowedTab survey={survey} />
 				</TabsContent>
 
-				{/* TODO: Placeholder tabs */}
 				<TabsContent value="audience" className="space-y-6">
-					<div className="text-muted-foreground py-8 text-center">
-						Daily Audience data coming soon...
-					</div>
+					<SurveyDailyAudienceTab survey={survey} />
 				</TabsContent>
 
+				{/* TODO: Placeholder tabs */}
 				<TabsContent value="share" className="space-y-6">
 					<div className="text-muted-foreground py-8 text-center">
 						Audience Share data coming soon...
