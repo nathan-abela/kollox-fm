@@ -2,6 +2,7 @@ import React from "react";
 
 import { Survey } from "@/lib/types/survey";
 import { DailyAudienceChart } from "@/components/survey-results/charts/daily-audience-chart";
+import { WeeklyAveragesTable } from "@/components/survey-results/charts/weekly-averages-table";
 
 export function SurveyDailyAudienceTab({ survey }: { survey: Survey }) {
 	const stations = survey.stations || [];
@@ -23,6 +24,8 @@ export function SurveyDailyAudienceTab({ survey }: { survey: Survey }) {
 	return (
 		<>
 			<DailyAudienceChart stations={stations} days={days} />
+
+			<WeeklyAveragesTable stations={stations} days={days} />
 		</>
 	);
 }
