@@ -42,7 +42,7 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortBy, setSortBy] = useState<{
-		key: "station" | "average";
+		key: "station" | "average" | "share";
 		direction: "asc" | "desc";
 	}>({
 		key: "average",
@@ -56,7 +56,8 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 				const daily = station.dailyListeners || {};
 				const sum = days.reduce((acc, d) => acc + (daily[d] ?? 0), 0);
 				const avg = days.length > 0 ? Math.round(sum / days.length) : 0;
-				return { ...station, avg };
+				const weeklyShare = station.weeklySharePct;
+				return { ...station, avg, weeklyShare };
 			})
 			.sort((a, b) => b.avg - a.avg)
 			.map((station, index) => ({ ...station, rank: index + 1 }));
@@ -73,11 +74,13 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 
 				switch (key) {
 					case "station":
-						return (
-							order * stationA.label.localeCompare(stationB.label)
-						);
+						// prettier-ignore
+						return (order * stationA.label.localeCompare(stationB.label));
 					case "average":
 						return order * (stationA.avg - stationB.avg);
+					case "share":
+						// prettier-ignore
+						return (order * ((stationA.weeklyShare ?? 0) - (stationB.weeklyShare ?? 0)));
 					default:
 						return 0;
 				}
@@ -158,8 +161,15 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 								className="hover:bg-accent cursor-pointer rounded-sm px-2"
 								onClick={() => handleSort("average")}
 							>
-								Weekly Avg. Listeners{" "}
+								Weekly Avg. Listeners
 								{renderSortIcon("average")}
+							</TableHead>
+							<TableHead
+								className="hover:bg-accent cursor-pointer rounded-sm px-2"
+								onClick={() => handleSort("share")}
+							>
+								Audience Share (%)
+								{renderSortIcon("share")}
 							</TableHead>
 
 							<TableHead className="w-[140px] px-2 text-right">
@@ -182,6 +192,9 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 								</TableCell>
 								<TableCell className="tabular-nums">
 									{station.avg.toLocaleString()}
+								</TableCell>
+								<TableCell className="tabular-nums">
+									{`${station.weeklyShare}%` || "N/A"}
 								</TableCell>
 								<TableCell className="text-right">
 									{station.fmFrequency || "N/A"}

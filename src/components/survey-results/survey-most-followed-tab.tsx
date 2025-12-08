@@ -35,7 +35,7 @@ import { TabsContent } from "@/components/ui/tabs";
 export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortBy, setSortBy] = useState<{
-		key: "station" | "followers" | "share" | "listeners";
+		key: "station" | "followers" | "listeners";
 		direction: "asc" | "desc";
 	}>({
 		key: "followers",
@@ -71,9 +71,6 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 					case "followers":
 						// prettier-ignore
 						return (order * ((stationA.mostFollowedPct ?? 0) - (stationB.mostFollowedPct ?? 0)));
-					case "share":
-						// prettier-ignore
-						return (order * ((stationA.weeklySharePct ?? 0) - (stationB.weeklySharePct ?? 0)));
 					case "listeners":
 						// prettier-ignore
 						return (order * ((stationA.stationListeners ?? 0) - (stationB.stationListeners ?? 0)));
@@ -158,17 +155,11 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 
 								<TableHead
 									className="hover:bg-accent cursor-pointer rounded-sm px-2"
-									onClick={() => handleSort("share")}
-								>
-									Weekly Share % {renderSortIcon("share")}
-								</TableHead>
-
-								<TableHead
-									className="hover:bg-accent cursor-pointer rounded-sm px-2"
 									onClick={() => handleSort("listeners")}
 								>
 									Listeners {renderSortIcon("listeners")}
 								</TableHead>
+
 								<TableHead className="w-[140px] px-2 text-right">
 									FM Frequency
 								</TableHead>
@@ -192,11 +183,7 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 											? `${station.mostFollowedPct.toFixed(1)}%`
 											: "N/A"}
 									</TableCell>
-									<TableCell>
-										{station.weeklySharePct != null
-											? `${station.weeklySharePct.toFixed(1)}%`
-											: "N/A"}
-									</TableCell>
+
 									{/* prettier-ignore */}
 									<TableCell>
 										{station.stationListeners?.toLocaleString() ?? "N/A"}
