@@ -84,7 +84,7 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 			<CardContent className="flex-1">
 				<ChartContainer
 					config={chartConfig}
-					className="[&_.recharts-text]:fill-background mx-auto"
+					className="mx-auto [&_.recharts-text]:fill-white"
 				>
 					<ResponsiveContainer width="100%" height="100%">
 						<PieChart>
