@@ -81,7 +81,7 @@ export function DailyAudienceChart({
 	days,
 }: DailyAudienceChartProps) {
 	const availableStations = useMemo(
-		() => stations.filter((s) => s.dailyListeners),
+		() => stations.filter((s) => s.dailyListeners && s.id !== "no-radio"),
 		[stations]
 	);
 
@@ -198,14 +198,15 @@ export function DailyAudienceChart({
 								className="bg-muted flex h-8 items-center gap-2 rounded-md px-3 py-2 text-xs font-medium"
 							>
 								{label}
-								<button
-									aria-label={`Remove ${label}`}
-									className="text-muted-foreground hover:text-destructive cursor-pointer"
+								<Button
+									variant="ghost"
+									size="icon"
+									className="text-muted-foreground hover:text-destructive h-4 w-4 cursor-pointer p-0"
 									onClick={() => handleRemoveStation(label)}
-									type="button"
+									aria-label={`Remove ${label}`}
 								>
-									<XIcon className="h-3 w-3" />
-								</button>
+									<XIcon className="h-4 w-4" />
+								</Button>
 							</span>
 						))}
 					</div>

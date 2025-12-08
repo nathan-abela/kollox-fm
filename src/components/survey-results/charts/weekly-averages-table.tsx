@@ -51,6 +51,7 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 
 	const stationsWithAverages = useMemo(() => {
 		return stations
+			.filter((station) => station.id !== "no-radio")
 			.map((station) => {
 				const daily = station.dailyListeners || {};
 				const sum = days.reduce((acc, d) => acc + (daily[d] ?? 0), 0);

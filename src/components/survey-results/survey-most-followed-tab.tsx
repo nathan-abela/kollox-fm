@@ -47,6 +47,7 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 
 		// Static rank based on the default sorting (followers descending)
 		const rankedStations = stations
+			.filter((station) => station.id !== "no-radio")
 			.map((station, index) => ({ ...station, rank: index + 1 }))
 			.sort((stationA, stationB) => {
 				return (

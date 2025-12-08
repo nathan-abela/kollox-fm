@@ -22,15 +22,12 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 		const stations = survey.stations.filter(
 			(s) => s.stationListeners && s.id !== "no-radio"
 		);
-		const noRadio = survey.stations.find((s) => s.id === "no-radio");
 
 		const sortedStations = stations
 			.sort(
 				(a, b) => (b.stationListeners ?? 0) - (a.stationListeners ?? 0)
 			)
-			.slice(0, 9);
-
-		if (noRadio) sortedStations.push(noRadio); // Ensures "No Radio" is added last
+			.slice(0, 10);
 
 		return sortedStations.map((s) => ({
 			station: s.label,
