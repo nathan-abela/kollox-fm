@@ -19,7 +19,6 @@ const SURVEY_TABS: TabConfig[] = [
 	{ value: "overview", label: "Overview" },
 	{ value: "followers", label: "Most Followed" },
 	{ value: "audience", label: "Daily Audience" },
-	{ value: "share", label: "Audience Share" },
 	{ value: "programs", label: "Programs" },
 	{ value: "reception", label: "Reception" },
 ] as const;
@@ -66,13 +65,6 @@ export default function SurveyResults({ survey }: { survey: Survey }) {
 
 				<TabsContent value="audience" className="space-y-6">
 					<SurveyDailyAudienceTab survey={survey} />
-				</TabsContent>
-
-				{/* TODO: Placeholder tabs */}
-				<TabsContent value="share" className="space-y-6">
-					<div className="text-muted-foreground py-8 text-center">
-						Audience Share data coming soon...
-					</div>
 				</TabsContent>
 
 				<TabsContent value="programs" className="space-y-6">
