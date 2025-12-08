@@ -8,7 +8,9 @@ import { TopStationsChart } from "@/components/survey-results/charts/top-station
 import { SurveyMetricCard } from "@/components/survey-results/survey-metric-card";
 
 export function SurveyOverviewTab({ survey }: { survey: Survey }) {
-	const totalStations = survey.stations?.length;
+	const totalStations = survey.stations?.filter(
+		(s) => s.id !== "no-radio" && s.id !== "foreign-station"
+	).length;
 	const mostFollowed = survey.highlights?.mostFollowedStation;
 	const population = survey.metrics?.populationListening;
 	const peak = survey.highlights?.peakTimeband;
