@@ -10,7 +10,7 @@
  * @property website - The official website of the radio station.
  * @property location - The location of the radio station.
  * @property genres - (Optional) List of genres associated with the station.
- * @property popularity - A numeric value representing the station popularity.
+ * @property popularity - (Optional) A numeric value representing the station popularity.
  * @property metadata - (Optional) Metadata about the radio station.
  */
 export interface RadioStation {
@@ -23,7 +23,7 @@ export interface RadioStation {
 	website: string;
 	location: string;
 	genres?: string[];
-	popularity: number;
+	popularity?: number;
 	metadata?: RadioStationMetadata;
 }
 
