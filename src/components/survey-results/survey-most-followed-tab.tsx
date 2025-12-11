@@ -42,8 +42,10 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 		direction: "desc",
 	});
 
+	const stations = useMemo(() => survey.stations || [], [survey.stations]);
+
 	const filteredStations = useMemo(() => {
-		const stations = survey.stations || [];
+		if (!stations.length) return [];
 
 		// Static rank based on the default sorting (followers descending)
 		const rankedStations = stations
@@ -78,7 +80,7 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 						return 0;
 				}
 			});
-	}, [survey.stations, searchQuery, sortBy]);
+	}, [stations, searchQuery, sortBy]);
 
 	const handleSort = (key: typeof sortBy.key) => {
 		setSortBy((prevCriteria: typeof sortBy) => ({
@@ -109,6 +111,14 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 			<ChevronDown className="ml-2 inline-block h-3 w-3" />
 		);
 	};
+
+	if (!filteredStations.length && !searchQuery) {
+		return (
+			<div className="text-muted-foreground py-8 text-center">
+				No most followed data available.
+			</div>
+		);
+	}
 
 	return (
 		<TabsContent value="followers" className="space-y-6">
