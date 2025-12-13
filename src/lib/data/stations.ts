@@ -306,6 +306,7 @@ export const stations: RadioStation[] = [
 		// Bay Pride station is being repurposed for Bay Xmas during the Christmas season.
 		id: "20",
 		name: "Bay Xmas",
+		isFeatured: true,
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
 		image: `${basePath}/images/bay_xmas.png`,
 		website: "https://bay.com.mt/xmas",
@@ -320,6 +321,7 @@ export const stations: RadioStation[] = [
 	{
 		id: "21",
 		name: "Magic Christmas",
+		isFeatured: true,
 		streamUrl: "https://s40.myradiostream.com:24046/stream",
 		image: `${basePath}/images/magic_christmas.png`,
 		website: "https://magic.mt/magic-christmas",

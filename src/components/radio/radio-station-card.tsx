@@ -7,6 +7,7 @@ import {
 	Heart,
 	Loader2,
 	PauseCircle,
+	Pin,
 	PlayCircle,
 	Radio,
 	RadioTower,
@@ -81,16 +82,26 @@ export function RadioStationCard({
 					/>
 				)}
 
-				{station.fmFrequency && (
-					<div className="absolute top-2 right-2 z-10">
+				<div className="absolute top-2 right-2 z-10 flex flex-col items-end gap-2">
+					{station.isFeatured && (
+						<Badge
+							variant="secondary"
+							className="flex animate-pulse items-center gap-1 bg-yellow-500 font-semibold text-black shadow-lg dark:bg-yellow-400"
+						>
+							<Pin className="rotate-45 fill-current" />
+							Featured
+						</Badge>
+					)}
+
+					{station.fmFrequency && (
 						<Badge
 							variant="secondary"
 							className="font-semibold shadow-md backdrop-blur-sm dark:bg-black/70"
 						>
 							{station.fmFrequency} FM
 						</Badge>
-					</div>
-				)}
+					)}
+				</div>
 
 				<div
 					className={cn(
