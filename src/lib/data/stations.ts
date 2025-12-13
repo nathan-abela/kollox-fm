@@ -317,4 +317,18 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "21",
+		name: "Magic Christmas",
+		streamUrl: "https://s40.myradiostream.com:24046/stream",
+		image: `${basePath}/images/magic_christmas.png`,
+		website: "https://magic.mt/magic-christmas",
+		location: "Pieta",
+		genres: ["Christmas", "Holiday", "Seasonal"],
+		metadata: {
+			isEnabled: false, // No song metadata provided by station.
+			currentSongUrl: "https://s40.myradiostream.com:24046/currentsong",
+			currentSongMethod: "shoutcast",
+		},
+	},
 ];
