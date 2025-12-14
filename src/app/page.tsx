@@ -20,7 +20,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
-import { SurveyToast } from "@/components/survey-banner";
 
 type SortOption = "name" | "location" | "popularity";
 
@@ -322,8 +321,6 @@ export default function Home() {
 					)}
 				</TabsContent>
 			</Tabs>
-
-			<SurveyToast />
 		</div>
 	);
 }
