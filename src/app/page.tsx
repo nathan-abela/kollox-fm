@@ -20,6 +20,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
+import { SurveyToast } from "@/components/survey-banner";
 
 type SortOption = "name" | "location" | "popularity";
 
@@ -45,32 +46,38 @@ export default function Home() {
 		useAudioPlayer();
 
 	// Filter and sort stations based on search and sort
-	const filteredStations = useMemo(
-		() =>
-			stations
-				.filter(
-					(station) =>
-						station.name
-							.toLowerCase()
-							.includes(debouncedSearchTerm.toLowerCase()) ||
-						station.location
-							.toLowerCase()
-							.includes(debouncedSearchTerm.toLowerCase())
-				)
-				.sort((a, b) => {
-					switch (sortBy) {
-						case "name":
-							return a.name.localeCompare(b.name);
-						case "location":
-							return a.location.localeCompare(b.location);
-						case "popularity":
-							return (a.popularity ?? 0) - (b.popularity ?? 0);
-						default:
-							return 0;
-					}
-				}),
-		[debouncedSearchTerm, sortBy]
-	);
+	const filteredStations = useMemo(() => {
+		const filtered = stations.filter(
+			(station) =>
+				station.name
+					.toLowerCase()
+					.includes(debouncedSearchTerm.toLowerCase()) ||
+				station.location
+					.toLowerCase()
+					.includes(debouncedSearchTerm.toLowerCase())
+		);
+
+		// Separate featured and standard stations
+		const featured = filtered.filter((s) => s.isFeatured);
+		const standard = filtered.filter((s) => !s.isFeatured);
+
+		// Sort standard stations based on sort option
+		standard.sort((a, b) => {
+			switch (sortBy) {
+				case "name":
+					return a.name.localeCompare(b.name);
+				case "location":
+					return a.location.localeCompare(b.location);
+				case "popularity":
+					return (a.popularity ?? 0) - (b.popularity ?? 0);
+				default:
+					return 0;
+			}
+		});
+
+		// Return featured stations first, then sorted standard stations
+		return [...featured, ...standard];
+	}, [debouncedSearchTerm, sortBy]);
 
 	const favouriteStations = useMemo(
 		() => stations.filter((s) => favourites.includes(s.id)),
@@ -315,6 +322,8 @@ export default function Home() {
 					)}
 				</TabsContent>
 			</Tabs>
+
+			<SurveyToast />
 		</div>
 	);
 }
