@@ -12,7 +12,19 @@ export function SurveyInfo({ survey }: { survey: Survey }) {
 		<div className="bg-muted/50 mt-6 flex items-start gap-2 rounded-lg border p-4">
 			<Info className="text-muted-foreground mt-0.5 h-4 w-4 flex-shrink-0" />
 			<div className="text-muted-foreground text-sm">
-				<p className="mb-1 font-medium">Data Source & Methodology</p>
+				<p className="mb-2 font-medium">Data Source & Methodology</p>
+				<p className="mb-2">
+					Official audience assessments available at{" "}
+					<a
+						href="https://ba.org.mt/audience-assessments"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-primary underline"
+					>
+						Broadcasting Authority of Malta
+					</a>
+					.
+				</p>
 				<ul className="list-inside list-disc space-y-1">
 					{/* prettier-ignore */}
 					<li>

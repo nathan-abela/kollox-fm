@@ -25,6 +25,18 @@ export function SurveyHero({ latestSurveyId }: SurveyHeroProps) {
 							analytics, listener preferences, and broadcasting
 							trends across Malta&apos;s radio landscape.
 						</p>
+						<p className="text-muted-foreground mb-2 text-sm">
+							Official audience assessments available at{" "}
+							<a
+								href="https://ba.org.mt/audience-assessments"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-primary underline"
+							>
+								Broadcasting Authority of Malta
+							</a>
+							.
+						</p>
 						{latestSurveyId && (
 							<div className="mt-6 flex justify-center">
 								<Link
