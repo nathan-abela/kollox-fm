@@ -126,3 +126,15 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+[data-sonner-toast] [data-description] {
+  margin-top: 8px;
+}
+
+[data-sonner-toast][data-styled=true] [data-button] {
+  padding: 16px !important;
+}
+
+[data-sonner-toast][data-styled=true] {
+  gap: 16px !important;
+}
