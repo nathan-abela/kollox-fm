@@ -11,8 +11,6 @@ export type StationId = string;
 export type TimebandLabel = string;
 /** Count of listeners, non-negative integer */
 export type ListenerCount = number;
-// Placeholder for future program-level summaries.
-export type ProgramSummary = unknown;
 
 /**
  * Basic survey metadata shown in headers and used for routing.
@@ -129,6 +127,59 @@ export interface ReceptionType {
 }
 
 /**
+ * Demographic breakdown by age bracket.
+ *
+ * @property age12to20 - Age 12-20 count and percentage
+ * @property age21to30 - Age 21-30 count and percentage
+ * @property age31to40 - Age 31-40 count and percentage
+ * @property age41to50 - Age 41-50 count and percentage
+ * @property age51to60 - Age 51-60 count and percentage
+ * @property age61to70 - Age 61-70 count and percentage
+ * @property age71plus - Age 71+   count and percentage
+ */
+export interface AgeDemographics {
+	age12to20: { count: number; percentage: Percent | null };
+	age21to30: { count: number; percentage: Percent | null };
+	age31to40: { count: number; percentage: Percent | null };
+	age41to50: { count: number; percentage: Percent | null };
+	age51to60: { count: number; percentage: Percent | null };
+	age61to70: { count: number; percentage: Percent | null };
+	age71plus: { count: number; percentage: Percent | null };
+}
+
+/**
+ * Demographic breakdown by gender.
+ *
+ * @property male - Male count and percentage
+ * @property female - Female count and percentage
+ */
+export interface GenderDemographics {
+	male: { count: number; percentage: Percent | null };
+	female: { count: number; percentage: Percent | null };
+}
+
+/**
+ * Programme-level data including demographic breakdown.
+ *
+ * @property id - Unique programme identifier (slug).
+ * @property name - Programme name.
+ * @property station - Station name or identifier.
+ * @property totalRespondents - Total number of respondents who prefer this programme.
+ * @property percentage - Overall preference percentage.
+ * @property ageDemographics - Breakdown by age brackets.
+ * @property genderDemographics - Breakdown by gender.
+ */
+export interface ProgrammeSummary {
+	id: string;
+	name: string;
+	station: string | null;
+	totalRespondents: number;
+	percentage: Percent;
+	ageDemographics?: AgeDemographics;
+	genderDemographics?: GenderDemographics;
+}
+
+/**
  * Root object for a survey edition.
  *
  * @property meta - Basic metadata and routing info.
@@ -136,7 +187,7 @@ export interface ReceptionType {
  * @property highlights - Quick highlights to surface in the UI.
  * @property stations - Top-level station summaries.
  * @property timebands - Overall timeband summaries.
- * @property programs - Program-level summaries.
+ * @property programmes - Programme-level summaries.
  * @property receptionTypes - How respondents access radio content.
  */
 export interface Survey {
@@ -145,6 +196,6 @@ export interface Survey {
 	highlights?: SurveyHighlights;
 	stations?: StationSummary[];
 	timebands?: TimebandSummary[];
-	programs?: ProgramSummary[] | null;
+	programmes?: ProgrammeSummary[] | null;
 	receptionTypes?: ReceptionType[];
 }
