@@ -9,6 +9,7 @@ import { SurveyDailyAudienceTab } from "@/components/survey-results/survey-daily
 import { SurveyInfo } from "@/components/survey-results/survey-info";
 import { SurveyMostFollowedTab } from "@/components/survey-results/survey-most-followed-tab";
 import { SurveyOverviewTab } from "@/components/survey-results/survey-overview-tab";
+import { SurveyProgrammesTab } from "@/components/survey-results/survey-programmes-tab";
 
 interface TabConfig {
 	value: string;
@@ -19,7 +20,7 @@ const SURVEY_TABS: TabConfig[] = [
 	{ value: "overview", label: "Overview" },
 	{ value: "followers", label: "Most Followed" },
 	{ value: "audience", label: "Daily Audience" },
-	{ value: "programs", label: "Programs" },
+	{ value: "programmes", label: "Programmes" },
 	{ value: "reception", label: "Reception" },
 ] as const;
 
@@ -67,10 +68,8 @@ export default function SurveyResults({ survey }: { survey: Survey }) {
 					<SurveyDailyAudienceTab survey={survey} />
 				</TabsContent>
 
-				<TabsContent value="programs" className="space-y-6">
-					<div className="text-muted-foreground py-8 text-center">
-						Programs data coming soon...
-					</div>
+				<TabsContent value="programmes" className="space-y-6">
+					<SurveyProgrammesTab survey={survey} />
 				</TabsContent>
 
 				<TabsContent value="reception" className="space-y-6">
