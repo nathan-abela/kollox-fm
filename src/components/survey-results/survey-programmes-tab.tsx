@@ -1,6 +1,7 @@
 "use client";
 
 import { Survey } from "@/lib/types/survey";
+import { StationDemographicsHeatmapChart } from "@/components/survey-results/charts/station-demographics-heatmap-chart";
 import { TopProgrammesChart } from "@/components/survey-results/charts/top-programmes-chart";
 import { SurveyTopProgrammes } from "@/components/survey-results/survey-top-programmes";
 
@@ -22,6 +23,9 @@ export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
 
 			{/* Top 15 Chart */}
 			<TopProgrammesChart survey={survey} />
+
+			{/* Station Demographics Heatmap */}
+			<StationDemographicsHeatmapChart survey={survey} />
 		</>
 	);
 }
