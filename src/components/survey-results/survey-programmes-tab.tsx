@@ -2,6 +2,7 @@
 
 import { Survey } from "@/lib/types/survey";
 import { StationDemographicsHeatmapChart } from "@/components/survey-results/charts/station-demographics-heatmap-chart";
+import { TopProgrammesByAgeChart } from "@/components/survey-results/charts/top-programmes-by-age-chart";
 import { TopProgrammesChart } from "@/components/survey-results/charts/top-programmes-chart";
 import { SurveyTopProgrammes } from "@/components/survey-results/survey-top-programmes";
 
@@ -23,6 +24,9 @@ export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
 
 			{/* Top 15 Chart */}
 			<TopProgrammesChart survey={survey} />
+
+			{/* Top Programmes by Age - Radial Charts */}
+			<TopProgrammesByAgeChart survey={survey} />
 
 			{/* Station Demographics Heatmap */}
 			<StationDemographicsHeatmapChart survey={survey} />
