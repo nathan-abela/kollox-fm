@@ -263,6 +263,50 @@ export function DailyAudienceChart({
 							right: 12,
 						}}
 					>
+						<defs>
+							{/* Light dotted background */}
+							<pattern
+								id="stations-dotted-bg"
+								x="0"
+								y="0"
+								width="10"
+								height="10"
+								patternUnits="userSpaceOnUse"
+							>
+								<circle
+									className="dark:text-muted/40 text-muted"
+									cx="2"
+									cy="2"
+									r="1"
+									fill="currentColor"
+								/>
+							</pattern>
+							{/* Glow effect to line strokes */}
+							<filter
+								id="rainbow-line-glow"
+								x="-20%"
+								y="-20%"
+								width="140%"
+								height="140%"
+							>
+								<feGaussianBlur
+									stdDeviation="10"
+									result="blur"
+								/>
+								<feComposite
+									in="SourceGraphic"
+									in2="blur"
+									operator="over"
+								/>
+							</filter>
+						</defs>
+						<rect
+							x="0"
+							y="0"
+							width="100%"
+							height="100%"
+							fill="url(#stations-dotted-bg)"
+						/>
 						<CartesianGrid vertical={false} />
 						<XAxis
 							dataKey="day"
@@ -306,25 +350,6 @@ export function DailyAudienceChart({
 								/>
 							) : null
 						)}
-						<defs>
-							<filter
-								id="rainbow-line-glow"
-								x="-20%"
-								y="-20%"
-								width="140%"
-								height="140%"
-							>
-								<feGaussianBlur
-									stdDeviation="10"
-									result="blur"
-								/>
-								<feComposite
-									in="SourceGraphic"
-									in2="blur"
-									operator="over"
-								/>
-							</filter>
-						</defs>
 					</LineChart>
 				</ChartContainer>
 			</CardContent>
