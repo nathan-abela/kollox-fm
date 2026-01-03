@@ -117,6 +117,8 @@ export interface SurveyHighlights {
  * @property shortLabel - Shortened label for concise display (e.g., tooltips).
  * @property respondents - Number of survey respondents using this type.
  * @property percentage - Percentage of total respondents using this type.
+ * @property ageDemographics - Breakdown by age brackets.
+ * @property genderDemographics - Breakdown by gender.
  */
 export interface ReceptionType {
 	id: string;
@@ -124,6 +126,8 @@ export interface ReceptionType {
 	shortLabel: string;
 	respondents: number;
 	percentage: number;
+	ageDemographics?: AgeDemographics;
+	genderDemographics?: GenderDemographics;
 }
 
 /**
