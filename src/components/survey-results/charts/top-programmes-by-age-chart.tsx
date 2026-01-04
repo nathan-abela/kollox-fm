@@ -10,7 +10,7 @@ import {
 	Tooltip,
 } from "recharts";
 
-import type { Survey } from "@/lib/types/survey";
+import { Survey } from "@/lib/types/survey";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -85,6 +85,7 @@ export function TopProgrammesByAgeChart({ survey }: { survey: Survey }) {
 					Top 5 most popular programmes in each age bracket
 				</p>
 			</CardHeader>
+
 			<CardContent className="pt-2">
 				<div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
 					{bracketChampions.map(({ bracket, winner, chartData }) => (

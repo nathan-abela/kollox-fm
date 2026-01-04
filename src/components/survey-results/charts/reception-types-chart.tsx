@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 import { ChartPie } from "lucide-react";
@@ -29,7 +29,10 @@ import {
  * @param {Survey} props.survey - The survey data containing reception types.
  */
 export function ReceptionTypesChart({ survey }: { survey: Survey }) {
-	const receptionTypes = survey?.receptionTypes ?? [];
+	const receptionTypes = useMemo(
+		() => survey?.receptionTypes ?? [],
+		[survey?.receptionTypes]
+	);
 
 	// Transforms reception types data into a format suitable for the pie chart.
 	const receptionTypeData = useMemo(() => {
@@ -48,7 +51,7 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 				percentageOfResponses: totalRespondents
 					? (receptionType.respondents / totalRespondents) * 100
 					: 0,
-				fill: `var(--chart-${(index % 6) + 1})`,
+				fill: `var(--chart-${(index % 4) + 1})`,
 			}));
 	}, [receptionTypes]);
 
