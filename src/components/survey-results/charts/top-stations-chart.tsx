@@ -47,6 +47,7 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 					Leading stations by estimated listeners
 				</p>
 			</CardHeader>
+
 			<CardContent className="pt-2">
 				<div className="h-[420px] w-full">
 					<ResponsiveContainer width="100%" height="100%">
@@ -63,7 +64,7 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 							{/* Light dotted background */}
 							<defs>
 								<pattern
-									id="stations-dotted-bg"
+									id="top-stations-dotted-bg"
 									x="0"
 									y="0"
 									width="10"
@@ -71,7 +72,7 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 									patternUnits="userSpaceOnUse"
 								>
 									<circle
-										className="dark:text-muted/40 text-muted"
+										className="text-muted dark:text-muted/40"
 										cx="2"
 										cy="2"
 										r="1"
@@ -84,9 +85,8 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 								y="0"
 								width="100%"
 								height="100%"
-								fill="url(#stations-dotted-bg)"
+								fill="url(#top-stations-dotted-bg)"
 							/>
-
 							<XAxis
 								dataKey="station"
 								tickLine={false}
@@ -114,12 +114,10 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 									position: "insideBottomLeft",
 								}}
 							/>
-
 							<Tooltip
 								cursor={{ fill: "transparent" }}
 								content={<ChartTooltip />}
 							/>
-
 							<Bar
 								dataKey="stationListeners"
 								fill="var(--chart-1)"
