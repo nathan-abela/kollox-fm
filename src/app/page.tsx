@@ -84,6 +84,11 @@ export default function Home() {
 		[favourites]
 	);
 
+	const enabledStationsCount = useMemo(
+		() => stations.filter((s) => s.isEnabled !== false).length,
+		[]
+	);
+
 	// Get recently played stations in the order they were played
 	const recentStations = useMemo(
 		() =>
@@ -161,8 +166,9 @@ export default function Home() {
 								<div className="text-muted-foreground flex flex-wrap items-center justify-center gap-4 text-xs md:justify-start md:text-sm">
 									<div className="flex items-center gap-2">
 										<div className="h-2 w-2 rounded-full bg-green-500"></div>
+										{/* prettier-ignore */}
 										<span>
-											{stations.length} Available Stations
+											{enabledStationsCount} Available Stations
 										</span>
 									</div>
 									<div className="flex items-center gap-2">
