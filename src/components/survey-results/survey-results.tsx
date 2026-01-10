@@ -10,6 +10,7 @@ import { SurveyInfo } from "@/components/survey-results/survey-info";
 import { SurveyMostFollowedTab } from "@/components/survey-results/survey-most-followed-tab";
 import { SurveyOverviewTab } from "@/components/survey-results/survey-overview-tab";
 import { SurveyProgrammesTab } from "@/components/survey-results/survey-programmes-tab";
+import { SurveyReceptionTab } from "@/components/survey-results/survey-reception-tab";
 
 interface TabConfig {
 	value: string;
@@ -73,9 +74,7 @@ export default function SurveyResults({ survey }: { survey: Survey }) {
 				</TabsContent>
 
 				<TabsContent value="reception" className="space-y-6">
-					<div className="text-muted-foreground py-8 text-center">
-						Reception data coming soon...
-					</div>
+					<SurveyReceptionTab survey={survey} />
 				</TabsContent>
 			</Tabs>
 
