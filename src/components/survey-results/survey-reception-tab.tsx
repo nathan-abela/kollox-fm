@@ -1,4 +1,5 @@
 import { Survey } from "@/lib/types/survey";
+import { ReceptionDemographicsChart } from "@/components/survey-results/charts/reception-demographics-chart";
 import { ReceptionMethodsOverview } from "@/components/survey-results/charts/reception-methods-overview";
 
 export function SurveyReceptionTab({ survey }: { survey: Survey }) {
@@ -14,6 +15,9 @@ export function SurveyReceptionTab({ survey }: { survey: Survey }) {
 		<>
 			{/* Reception Methods Overview: Pie Chart + Details List */}
 			<ReceptionMethodsOverview survey={survey} />
+
+			{/* Demographic Breakdown by Platform */}
+			<ReceptionDemographicsChart survey={survey} />
 		</>
 	);
 }
