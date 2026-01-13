@@ -1,9 +1,10 @@
 import { survey2024 } from "@/lib/data/surveys/2024";
+import { survey2025 } from "@/lib/data/surveys/2025";
 import { Survey } from "@/lib/types/survey";
 
-// TODO: Add 2020-2023 survey results
 const SURVEYS: Record<string, Survey> = {
 	[survey2024.meta.id]: survey2024 as Survey,
+	[survey2025.meta.id]: survey2025 as Survey,
 };
 
 /**
