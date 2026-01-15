@@ -1,8 +1,10 @@
+import { survey2023 } from "@/lib/data/surveys/2023";
 import { survey2024 } from "@/lib/data/surveys/2024";
 import { survey2025 } from "@/lib/data/surveys/2025";
 import { Survey } from "@/lib/types/survey";
 
 const SURVEYS: Record<string, Survey> = {
+	[survey2023.meta.id]: survey2023 as Survey,
 	[survey2024.meta.id]: survey2024 as Survey,
 	[survey2025.meta.id]: survey2025 as Survey,
 };
