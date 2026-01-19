@@ -57,7 +57,7 @@ export const stations: RadioStation[] = [
 	{
 		id: "4",
 		name: "Bay Pride",
-		isEnabled: false, // Bay Pride station is used for Bay Xmas during the Christmas season.
+		isEnabled: false,
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
 		image: `${basePath}/images/bay_pride.png`,
 		website: "https://bay.com.mt",
@@ -303,9 +303,9 @@ export const stations: RadioStation[] = [
 	},
 	// Seasonal/ Special Stations
 	{
-		// Bay Pride station is being repurposed for Bay Xmas during the Christmas season.
 		id: "20",
 		name: "Bay Xmas",
+		isEnabled: false,
 		isFeatured: true,
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
 		image: `${basePath}/images/bay_xmas.png`,
@@ -321,6 +321,7 @@ export const stations: RadioStation[] = [
 	{
 		id: "21",
 		name: "Magic Christmas",
+		isEnabled: false,
 		isFeatured: true,
 		streamUrl: "https://s40.myradiostream.com:24046/stream",
 		image: `${basePath}/images/magic_christmas.png`,
