@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -5,17 +6,28 @@ import { getAllSurveys, getSurveyById } from "@/lib/data/surveys";
 import { Button } from "@/components/ui/button";
 import SurveyResults from "@/components/survey-results/survey-results";
 
+type SurveyPageProps = { params: Promise<{ year: string }> };
+
+export async function generateMetadata({
+	params,
+}: SurveyPageProps): Promise<Metadata> {
+	const { year } = await params;
+	return {
+		title: `Malta's ${year} Radio Survey Results`,
+		description: `View the Maltese radio survey results for ${year} - listener demographics, station popularity, and broadcasting trends in Malta.`,
+		alternates: {
+			canonical: `/survey-results/${year}`,
+		},
+	};
+}
+
 export async function generateStaticParams() {
 	return getAllSurveys()
 		.filter((s) => getSurveyById(s.meta.id))
 		.map((s) => ({ year: s.meta.id }));
 }
 
-export default async function SurveyPage({
-	params,
-}: {
-	params: Promise<{ year: string }>;
-}) {
+export default async function SurveyPage({ params }: SurveyPageProps) {
 	const { year } = await params;
 	const survey = getSurveyById(year);
 
