@@ -268,6 +268,15 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		return () => window.removeEventListener("keydown", handler);
 	}, [togglePlayPause]);
 
+	useEffect(() => {
+		if (isPlaying && currentStation) {
+			document.title = `Kollox FM | ${currentStation.name}`;
+		} else {
+			document.title =
+				"Kollox FM | Maltese Radio Stations in One Place";
+		}
+	}, [isPlaying, currentStation]);
+
 	return (
 		<AudioPlayerContext.Provider
 			value={{
