@@ -301,6 +301,21 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "22",
+		name: "Malta Sunshine Radio",
+		streamUrl: "https://stream.zeno.fm/14gzk46p7yzuv",
+		image: `${basePath}/images/malta_sunshine_radio.png`,
+		website: "https://maltasunshineradio.wixsite.com/valletta",
+		location: "Valletta",
+		genres: ["Classic Hits", "Religion", "Maltese", "Italian"],
+		popularity: 20,
+		metadata: {
+			isEnabled: false, // CORS
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/14gzk46p7yzuv", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
 	// Seasonal/ Special Stations
 	{
 		id: "20",
