@@ -41,6 +41,8 @@ export function Footer() {
 							</Link>
 							<Link
 								href="https://github.com/nathan-abela"
+								target="_blank"
+								rel="noopener noreferrer"
 								title="View on GitHub"
 								aria-label="GitHub"
 								className="text-muted-foreground hover:text-primary transition-colors"
