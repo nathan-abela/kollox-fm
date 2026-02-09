@@ -384,7 +384,7 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/radio_105_rock.png`,
 		website: "https://radio105.mt",
 		location: "Hamrun",
-		genres: ["Rock", "Classic Rock", "70s", "80s"],
+		genres: ["Rock", "70s", "80s"],
 		popularity: 25,
 		metadata: {
 			isEnabled: true,
@@ -429,7 +429,7 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/radio_105_mellow.png`,
 		website: "https://radio105.mt",
 		location: "Hamrun",
-		genres: ["Chill", "Relax", "Easy Listening"],
+		genres: ["Chill", "Relax"],
 		popularity: 28,
 		metadata: {
 			isEnabled: true,
@@ -459,7 +459,7 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/radio_105_reggae.png`,
 		website: "https://radio105.mt",
 		location: "Hamrun",
-		genres: ["Reggae", "Dancehall", "Caribbean"],
+		genres: ["Reggae", "Dancehall"],
 		popularity: 30,
 		metadata: {
 			isEnabled: true,
@@ -489,7 +489,7 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/radio_105_eurovision.png`,
 		website: "https://radio105.mt",
 		location: "Hamrun",
-		genres: ["Eurovision", "Pop", "International"],
+		genres: ["Eurovision", "Pop"],
 		popularity: 32,
 		metadata: {
 			isEnabled: true,
