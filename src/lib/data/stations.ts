@@ -316,6 +316,202 @@ export const stations: RadioStation[] = [
 			currentSongMethod: "shoutcast",
 		},
 	},
+	{
+		id: "23",
+		name: "Radio 105",
+		fmFrequency: "105.0",
+		streamUrl: "https://radio105-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Hits", "Pop", "Top 40"],
+		popularity: 21,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "24",
+		name: "Radio 105 Retro",
+		streamUrl: "https://retro-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_retro.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Classic Hits", "Oldies", "Throwbacks", "70s", "80s"],
+		popularity: 22,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://retro-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "27",
+		name: "Radio 105 Sixties",
+		streamUrl: "https://sixties-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_sixties.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["60s", "Oldies", "Classic Hits"],
+		popularity: 23,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://sixties-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "31",
+		name: "Radio 105 Nineties",
+		streamUrl: "https://nineties-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_nineties.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["90s", "Classic Hits", "Pop"],
+		popularity: 24,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://nineties-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "26",
+		name: "Radio 105 Rock",
+		streamUrl: "https://rock-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_rock.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Rock", "Classic Rock", "70s", "80s"],
+		popularity: 25,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://rock-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "32",
+		name: "Radio 105 Urban",
+		streamUrl: "https://urban-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_urban.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Urban", "Hip Hop", "R&B"],
+		popularity: 26,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://urban-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "25",
+		name: "Radio 105 Cuore",
+		streamUrl: "https://cuore-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_cuore.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Italian", "Pop", "Romance"],
+		popularity: 27,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://cuore-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "29",
+		name: "Radio 105 Mellow",
+		streamUrl: "https://mellow-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_mellow.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Chill", "Relax", "Easy Listening"],
+		popularity: 28,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://mellow-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "34",
+		name: "Radio 105 Maltin",
+		streamUrl: "https://maltin-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_maltin.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Maltese", "Local", "Folk"],
+		popularity: 29,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://maltin-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "33",
+		name: "Radio 105 Reggae",
+		streamUrl: "https://reggae-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_reggae.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Reggae", "Dancehall", "Caribbean"],
+		popularity: 30,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://reggae-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "30",
+		name: "Radio 105 Country",
+		streamUrl: "https://country-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_country.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Country", "Folk"],
+		popularity: 31,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://country-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "35",
+		name: "Radio 105 Eurovision",
+		streamUrl: "https://eurovision-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_eurovision.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Eurovision", "Pop", "International"],
+		popularity: 32,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://eurovision-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
+	{
+		id: "28",
+		name: "Radio 105 Christmas",
+		streamUrl: "https://xmas-radio105network.radioca.st/stream",
+		image: `${basePath}/images/radio_105_christmas.png`,
+		website: "https://radio105.mt",
+		location: "Hamrun",
+		genres: ["Christmas", "Holiday", "Seasonal"],
+		popularity: 33,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://xmas-radio105network.radioca.st/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+	},
 	// Seasonal/ Special Stations
 	{
 		id: "20",
