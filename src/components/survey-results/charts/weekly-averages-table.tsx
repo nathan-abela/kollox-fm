@@ -141,7 +141,7 @@ export const WeeklyAveragesTable: React.FC<WeeklyAveragesTableProps> = ({
 						placeholder="Search stations..."
 						value={searchQuery}
 						onChange={handleSearchChange}
-						className="max-w-sm"
+						className="w-full sm:max-w-sm"
 					/>
 				</div>
 
