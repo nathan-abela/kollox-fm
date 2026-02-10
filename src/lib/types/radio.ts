@@ -12,6 +12,8 @@
  * @property location - The location of the radio station.
  * @property genres - (Optional) List of genres associated with the station.
  * @property popularity - (Optional) A numeric value representing the station popularity.
+ * @property lufs - Measured loudness in LUFS (Loudness Units relative to Full Scale).
+ *   				Used to calculate volume adjustment at runtime. Target is -16 LUFS.
  * @property metadata - (Optional) Metadata about the radio station.
  */
 export interface RadioStation {
@@ -26,6 +28,7 @@ export interface RadioStation {
 	location: string;
 	genres?: string[];
 	popularity?: number;
+	lufs: number;
 	metadata?: RadioStationMetadata;
 }
 

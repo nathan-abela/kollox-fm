@@ -22,6 +22,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -14.5,
 	},
 	{
 		id: "2",
@@ -38,6 +39,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -11.0,
 	},
 	{
 		id: "3",
@@ -53,6 +55,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/retro/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -29.7,
 	},
 	{
 		id: "4",
@@ -69,6 +72,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -16,
 	},
 	{
 		id: "5",
@@ -85,6 +89,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
+		lufs: -7.7,
 	},
 	{
 		id: "6",
@@ -101,6 +106,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -8.9,
 	},
 	{
 		id: "7",
@@ -111,6 +117,7 @@ export const stations: RadioStation[] = [
 		location: "Balzan",
 		genres: ["EDM", "House", "Techno"],
 		popularity: 9,
+		lufs: -6.9,
 	},
 	{
 		id: "8",
@@ -127,6 +134,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://radio.smashmalta.com/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
+		lufs: -11.3,
 	},
 	{
 		id: "9",
@@ -143,6 +151,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://public.radio.co/api/v2/sf3aa4c25a/track/current", // prettier-ignore
 			currentSongMethod: "radioco",
 		},
+		lufs: -17.8,
 	},
 	{
 		id: "10",
@@ -159,6 +168,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://public.radio.co/api/v2/s955b1ced9/track/current", // prettier-ignore
 			currentSongMethod: "radioco",
 		},
+		lufs: -21.0,
 	},
 	{
 		id: "11",
@@ -175,6 +185,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s10.voscast.com:8203/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		lufs: -20.0,
 	},
 	{
 		id: "12",
@@ -191,6 +202,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s2.voscast.com:11393/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		lufs: -10.5,
 	},
 	{
 		id: "13",
@@ -207,6 +219,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://campusfm.radioca.st/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
+		lufs: -17.3,
 	},
 	{
 		id: "14",
@@ -222,6 +235,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s3.voscast.com:9259/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		lufs: -6.3,
 	},
 	{
 		id: "15",
@@ -237,6 +251,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s1.voscast.com:11085/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		lufs: -8.3,
 	},
 	{
 		id: "16",
@@ -252,6 +267,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s4.voscast.com:8837/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		lufs: -6.7,
 	},
 	{
 		id: "17",
@@ -268,6 +284,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "http://stream.bkr.mt:90/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -14.7,
 	},
 	{
 		id: "18",
@@ -284,6 +301,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "http://az.wannastream.com/radio/8000/status-json.xsl", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -7.5,
 	},
 	{
 		id: "19",
@@ -300,6 +318,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "http://micsradio.ddns.net:90/7.html",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -16,
 	},
 	{
 		id: "22",
@@ -315,6 +334,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/14gzk46p7yzuv", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -10.3,
 	},
 	{
 		id: "23",
@@ -331,6 +351,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -7.6,
 	},
 	{
 		id: "24",
@@ -346,6 +367,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://retro-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -10.5,
 	},
 	{
 		id: "27",
@@ -361,6 +383,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://sixties-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -11.9,
 	},
 	{
 		id: "31",
@@ -376,6 +399,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://nineties-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -10.4,
 	},
 	{
 		id: "26",
@@ -391,6 +415,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://rock-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -10.6,
 	},
 	{
 		id: "32",
@@ -406,6 +431,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://urban-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -8.6,
 	},
 	{
 		id: "25",
@@ -421,6 +447,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://cuore-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -9.3,
 	},
 	{
 		id: "29",
@@ -436,6 +463,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://mellow-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -12.7,
 	},
 	{
 		id: "34",
@@ -451,6 +479,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://maltin-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -12.1,
 	},
 	{
 		id: "33",
@@ -466,6 +495,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://reggae-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -9.4,
 	},
 	{
 		id: "30",
@@ -481,6 +511,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://country-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -7.0,
 	},
 	{
 		id: "35",
@@ -496,6 +527,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://eurovision-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -8.6,
 	},
 	{
 		id: "28",
@@ -511,6 +543,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://xmas-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -11.7,
 	},
 	// Seasonal/ Special Stations
 	{
@@ -528,6 +561,7 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -16,
 	},
 	{
 		id: "21",
@@ -544,5 +578,6 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s40.myradiostream.com:24046/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		lufs: -16,
 	},
 ];

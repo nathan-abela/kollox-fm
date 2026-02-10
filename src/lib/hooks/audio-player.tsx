@@ -15,6 +15,33 @@ import { stations } from "@/lib/data/stations";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { RadioStation } from "@/lib/types/radio";
 
+const TARGET_LUFS = -16;
+
+/**
+ * Converts decibels to linear gain multiplier.
+ * Examples: 0 dB = 1.0, +6 dB ≈ 2.0, -6 dB ≈ 0.5
+ */
+function dbToLinear(db: number): number {
+	return Math.pow(10, db / 20);
+}
+
+/**
+ * Calculates effective volume for a station, applying per-station gain adjustment.
+ * Gain is derived from the station's measured LUFS relative to the target (-16 LUFS).
+ *
+ * Note: Since HTMLAudioElement.volume is clamped to 0-1, boosting quiet stations
+ * only works if the user's volume is below 100%.
+ */
+function calculateEffectiveVolume(
+	userVolume: number,
+	stationLufs: number
+): number {
+	const baseVolume = userVolume / 100;
+	const gainDb = TARGET_LUFS - stationLufs;
+	const stationMultiplier = dbToLinear(gainDb);
+	return Math.min(1, Math.max(0, baseVolume * stationMultiplier));
+}
+
 interface AudioPlayerContextType {
 	currentStation: RadioStation | null;
 	isPlaying: boolean;
@@ -72,12 +99,15 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// Control volume change and mute toggle
+	// Control volume change, muting, and per-station gain adjustments
 	useEffect(() => {
+		// prettier-ignore
 		if (audioRef.current) {
-			audioRef.current.volume = isMuted ? 0 : volume / 100;
+			audioRef.current.volume = isMuted
+				? 0
+				: calculateEffectiveVolume(volume, currentStation?.lufs ?? TARGET_LUFS);
 		}
-	}, [volume, isMuted]);
+	}, [volume, isMuted, currentStation]);
 
 	// Control playback state - Play/ Pause
 	useEffect(() => {
@@ -272,8 +302,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		if (isPlaying && currentStation) {
 			document.title = `Kollox FM | ${currentStation.name}`;
 		} else {
-			document.title =
-				"Kollox FM | Maltese Radio Stations in One Place";
+			document.title = "Kollox FM | Maltese Radio Stations in One Place";
 		}
 	}, [isPlaying, currentStation]);
 
