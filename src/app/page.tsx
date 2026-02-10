@@ -146,7 +146,7 @@ export default function Home() {
 	const isSearchSortDisabled = disabledSearchSortTabs.includes(selectedTab);
 
 	return (
-		<div className="container mx-auto pb-12">
+		<div className="container mx-auto px-4 pb-12">
 			{/* Page header section */}
 			<section className="py-6 md:py-8">
 				<div className="bg-card relative overflow-hidden rounded-xl border p-6 md:p-8">
