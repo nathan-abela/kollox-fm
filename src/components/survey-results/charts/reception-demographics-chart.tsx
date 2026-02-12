@@ -113,7 +113,7 @@ export function ReceptionDemographicsChart({ survey }: { survey: Survey }) {
 				<CardContent>
 					<ChartContainer
 						config={chartConfig}
-						className="h-[400px] w-full"
+						className="h-[280px] w-full sm:h-[340px] md:h-[400px]"
 					>
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart data={ageData}>
@@ -187,7 +187,7 @@ export function ReceptionDemographicsChart({ survey }: { survey: Survey }) {
 				<CardContent>
 					<ChartContainer
 						config={chartConfig}
-						className="h-[400px] w-full"
+						className="h-[280px] w-full sm:h-[340px] md:h-[400px]"
 					>
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart data={genderData}>

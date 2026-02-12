@@ -49,7 +49,7 @@ export function TopStationsChart({ survey }: { survey: Survey }) {
 			</CardHeader>
 
 			<CardContent className="pt-2">
-				<div className="h-[420px] w-full">
+				<div className="h-[280px] w-full sm:h-[350px] md:h-[420px]">
 					<ResponsiveContainer width="100%" height="100%">
 						<BarChart
 							data={topStationsData}
