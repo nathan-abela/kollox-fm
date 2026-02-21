@@ -347,7 +347,7 @@ export const stations: RadioStation[] = [
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 21,
 		metadata: {
-			isEnabled: true,
+			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
