@@ -21,7 +21,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.511.0",
-		"next": "15.5.9",
+		"next": "15.5.12",
 		"next-themes": "^0.4.6",
 		"posthog-js": "1.333.0",
 		"react": "19.2.1",
@@ -39,11 +39,12 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
-		"@typescript-eslint/parser": "^5.59.7",
+		"@typescript-eslint/parser": "^8",
 		"eslint": "^9",
-		"eslint-config-next": "15.3.2",
+		"eslint-config-next": "15.5.12",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"shadcn": "^4.0.0",
 		"typescript": "^5"
 	},
 	"engines": {
