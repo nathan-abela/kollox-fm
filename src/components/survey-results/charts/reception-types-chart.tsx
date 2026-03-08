@@ -4,7 +4,13 @@ import { useMemo } from "react";
 import { ChartPie } from "lucide-react";
 import { Cell, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
 
-import { Survey } from "@/lib/types/survey";
+import { ReceptionType, Survey } from "@/lib/types/survey";
+
+interface ReceptionChartDataPoint extends ReceptionType {
+	totalRespondents: number;
+	percentageOfResponses: number;
+	fill: string;
+}
 import {
 	Card,
 	CardContent,
@@ -126,10 +132,14 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 										nameKey="respondents"
 										formatter={(
 											value:
-												| string | number
-												| (string | number)[], _: string | number,
-											data: any
+												| string
+												| number
+												| (string | number)[],
+											_: string | number,
+											data: { payload?: ReceptionChartDataPoint }
 										) => {
+											const payload = data.payload;
+											if (!payload) return null;
 											// prettier-ignore
 											const displayValue = Array.isArray(value)
 												? value.join(", ")
@@ -139,11 +149,11 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 												<div>
 													<p className="text-muted-foreground text-xs">
 														{displayValue} listen on
-														<strong> {data.payload.shortLabel}</strong>
+														<strong> {payload.shortLabel}</strong>
 													</p>
-													{data.payload.percentageOfResponses !== null && (
+													{payload.percentageOfResponses !== null && (
 														<p className="text-muted-foreground text-xs">
-															{data.payload.percentageOfResponses.toFixed(2)}
+															{payload.percentageOfResponses.toFixed(2)}
 															% of respondents
 														</p>
 													)}
