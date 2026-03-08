@@ -8,7 +8,7 @@ export const basePath = isProd && useGitHubPages ? `/${repoName}` : "";
 
 export const stations: RadioStation[] = [
 	{
-		id: "1",
+		id: "bay-fm",
 		name: "Bay FM",
 		fmFrequency: "89.7",
 		streamUrl: "https://stream.v3.network/proxy/897bay/stream.mp3",
@@ -25,7 +25,7 @@ export const stations: RadioStation[] = [
 		lufs: -14.5,
 	},
 	{
-		id: "2",
+		id: "bay-easy",
 		name: "Bay Easy",
 		fmFrequency: "100.2",
 		streamUrl: "https://stream.v3.network/proxy/easy/stream.mp3",
@@ -42,7 +42,7 @@ export const stations: RadioStation[] = [
 		lufs: -11.0,
 	},
 	{
-		id: "3",
+		id: "bay-retro",
 		name: "Bay Retro",
 		streamUrl: "https://stream.v3.network/proxy/retro/stream.mp3",
 		image: `${basePath}/images/bay_retro.png`,
@@ -58,7 +58,7 @@ export const stations: RadioStation[] = [
 		lufs: -29.7,
 	},
 	{
-		id: "4",
+		id: "bay-pride",
 		name: "Bay Pride",
 		isEnabled: false,
 		streamUrl: "https://stream.v3.network/proxy/baypride/stream.mp3",
@@ -75,7 +75,7 @@ export const stations: RadioStation[] = [
 		lufs: -16,
 	},
 	{
-		id: "5",
+		id: "vibe-fm",
 		name: "Vibe FM",
 		fmFrequency: "88.7",
 		streamUrl: "https://vibefm.radioca.st/vibe_live",
@@ -92,7 +92,7 @@ export const stations: RadioStation[] = [
 		lufs: -7.7,
 	},
 	{
-		id: "6",
+		id: "magic-malta",
 		name: "Magic Malta FM",
 		fmFrequency: "91.7",
 		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
@@ -109,7 +109,7 @@ export const stations: RadioStation[] = [
 		lufs: -8.9,
 	},
 	{
-		id: "7",
+		id: "pure-radio",
 		name: "Pure Radio",
 		streamUrl: "https://sp1.19cloudsnetwork.gr/8010/stream",
 		image: `${basePath}/images/pure_radio.png`,
@@ -120,7 +120,7 @@ export const stations: RadioStation[] = [
 		lufs: -6.9,
 	},
 	{
-		id: "8",
+		id: "smash-fm",
 		name: "Smash FM",
 		fmFrequency: "104.6",
 		streamUrl: "https://radio.smashmalta.com/stream",
@@ -137,7 +137,7 @@ export const stations: RadioStation[] = [
 		lufs: -11.3,
 	},
 	{
-		id: "9",
+		id: "calypso-radio",
 		name: "Calypso Radio",
 		fmFrequency: "101.8",
 		streamUrl: "https://s4.radio.co/sf3aa4c25a/listen",
@@ -154,7 +154,7 @@ export const stations: RadioStation[] = [
 		lufs: -17.8,
 	},
 	{
-		id: "10",
+		id: "rtk-103",
 		name: "RTK 103",
 		fmFrequency: "103",
 		streamUrl: "https://s2.radio.co/s955b1ced9/listen",
@@ -171,7 +171,7 @@ export const stations: RadioStation[] = [
 		lufs: -21.0,
 	},
 	{
-		id: "11",
+		id: "one-radio",
 		name: "ONE Radio",
 		fmFrequency: "92.7",
 		streamUrl: "https://s10.voscast.com:8203/stream",
@@ -188,7 +188,7 @@ export const stations: RadioStation[] = [
 		lufs: -20.0,
 	},
 	{
-		id: "12",
+		id: "net-fm",
 		name: "NET FM",
 		fmFrequency: "101.0",
 		streamUrl: "https://s2.voscast.com:11393/default",
@@ -205,7 +205,7 @@ export const stations: RadioStation[] = [
 		lufs: -10.5,
 	},
 	{
-		id: "13",
+		id: "campus-fm",
 		name: "Campus FM",
 		fmFrequency: "103.7",
 		streamUrl: "https://campusfm.radioca.st/campusfm_live",
@@ -222,7 +222,7 @@ export const stations: RadioStation[] = [
 		lufs: -17.3,
 	},
 	{
-		id: "14",
+		id: "smooth-radio",
 		name: "Smooth Radio",
 		streamUrl: "https://s3.voscast.com:9259/default",
 		image: `${basePath}/images/smooth_radio.png`,
@@ -238,7 +238,7 @@ export const stations: RadioStation[] = [
 		lufs: -6.3,
 	},
 	{
-		id: "15",
+		id: "smooth-breeze",
 		name: "Smooth Breeze",
 		streamUrl: "https://s1.voscast.com:11085/default",
 		image: `${basePath}/images/smooth_breeze.png`,
@@ -254,7 +254,7 @@ export const stations: RadioStation[] = [
 		lufs: -8.3,
 	},
 	{
-		id: "16",
+		id: "maltin-biss",
 		name: "Maltin Biss",
 		streamUrl: "https://s4.voscast.com:8837/default",
 		image: `${basePath}/images/maltin_biss.png`,
@@ -270,7 +270,7 @@ export const stations: RadioStation[] = [
 		lufs: -6.7,
 	},
 	{
-		id: "17",
+		id: "bkr-radio",
 		name: "BKR Radio",
 		streamUrl: "https://s3.voscast.com:10893/stream",
 		fmFrequency: "94.5",
@@ -287,7 +287,7 @@ export const stations: RadioStation[] = [
 		lufs: -14.7,
 	},
 	{
-		id: "18",
+		id: "radju-luminaria",
 		name: "Radju Luminaria",
 		fmFrequency: "106.9",
 		streamUrl: "https://az.wannastream.com/radio/8000/radjuluminaria",
@@ -304,7 +304,7 @@ export const stations: RadioStation[] = [
 		lufs: -7.5,
 	},
 	{
-		id: "19",
+		id: "mics-radio",
 		name: "MICS Radio",
 		isEnabled: false, // CORS
 		streamUrl: "http://micsradio.ddns.net:90/;",
@@ -321,7 +321,7 @@ export const stations: RadioStation[] = [
 		lufs: -16,
 	},
 	{
-		id: "22",
+		id: "malta-sunshine-radio",
 		name: "Malta Sunshine Radio",
 		streamUrl: "https://stream.zeno.fm/14gzk46p7yzuv",
 		image: `${basePath}/images/malta_sunshine_radio.png`,
@@ -337,7 +337,7 @@ export const stations: RadioStation[] = [
 		lufs: -10.3,
 	},
 	{
-		id: "23",
+		id: "radio-105",
 		name: "Radio 105",
 		fmFrequency: "105.0",
 		streamUrl: "https://radio105-radio105network.radioca.st/stream",
@@ -354,7 +354,7 @@ export const stations: RadioStation[] = [
 		lufs: -7.6,
 	},
 	{
-		id: "24",
+		id: "radio-105-retro",
 		name: "Radio 105 Retro",
 		streamUrl: "https://retro-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_retro.png`,
@@ -370,7 +370,7 @@ export const stations: RadioStation[] = [
 		lufs: -10.5,
 	},
 	{
-		id: "27",
+		id: "radio-105-sixties",
 		name: "Radio 105 Sixties",
 		streamUrl: "https://sixties-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_sixties.png`,
@@ -386,7 +386,7 @@ export const stations: RadioStation[] = [
 		lufs: -11.9,
 	},
 	{
-		id: "31",
+		id: "radio-105-nineties",
 		name: "Radio 105 Nineties",
 		streamUrl: "https://nineties-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_nineties.png`,
@@ -402,7 +402,7 @@ export const stations: RadioStation[] = [
 		lufs: -10.4,
 	},
 	{
-		id: "26",
+		id: "radio-105-rock",
 		name: "Radio 105 Rock",
 		streamUrl: "https://rock-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_rock.png`,
@@ -418,7 +418,7 @@ export const stations: RadioStation[] = [
 		lufs: -10.6,
 	},
 	{
-		id: "32",
+		id: "radio-105-urban",
 		name: "Radio 105 Urban",
 		streamUrl: "https://urban-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_urban.png`,
@@ -434,7 +434,7 @@ export const stations: RadioStation[] = [
 		lufs: -8.6,
 	},
 	{
-		id: "25",
+		id: "radio-105-cuore",
 		name: "Radio 105 Cuore",
 		streamUrl: "https://cuore-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_cuore.png`,
@@ -450,7 +450,7 @@ export const stations: RadioStation[] = [
 		lufs: -9.3,
 	},
 	{
-		id: "29",
+		id: "radio-105-mellow",
 		name: "Radio 105 Mellow",
 		streamUrl: "https://mellow-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_mellow.png`,
@@ -466,7 +466,7 @@ export const stations: RadioStation[] = [
 		lufs: -12.7,
 	},
 	{
-		id: "34",
+		id: "radio-105-maltin",
 		name: "Radio 105 Maltin",
 		streamUrl: "https://maltin-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_maltin.png`,
@@ -482,7 +482,7 @@ export const stations: RadioStation[] = [
 		lufs: -12.1,
 	},
 	{
-		id: "33",
+		id: "radio-105-reggae",
 		name: "Radio 105 Reggae",
 		streamUrl: "https://reggae-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_reggae.png`,
@@ -498,7 +498,7 @@ export const stations: RadioStation[] = [
 		lufs: -9.4,
 	},
 	{
-		id: "30",
+		id: "radio-105-country",
 		name: "Radio 105 Country",
 		streamUrl: "https://country-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_country.png`,
@@ -514,7 +514,7 @@ export const stations: RadioStation[] = [
 		lufs: -7.0,
 	},
 	{
-		id: "35",
+		id: "radio-105-eurovision",
 		name: "Radio 105 Eurovision",
 		streamUrl: "https://eurovision-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_eurovision.png`,
@@ -530,7 +530,7 @@ export const stations: RadioStation[] = [
 		lufs: -8.6,
 	},
 	{
-		id: "28",
+		id: "radio-105-christmas",
 		name: "Radio 105 Christmas",
 		streamUrl: "https://xmas-radio105network.radioca.st/stream",
 		image: `${basePath}/images/radio_105_christmas.png`,
@@ -547,7 +547,7 @@ export const stations: RadioStation[] = [
 	},
 	// Seasonal/ Special Stations
 	{
-		id: "20",
+		id: "bay-xmas",
 		name: "Bay Xmas",
 		isEnabled: false,
 		isFeatured: true,
@@ -564,7 +564,7 @@ export const stations: RadioStation[] = [
 		lufs: -16,
 	},
 	{
-		id: "21",
+		id: "magic-christmas",
 		name: "Magic Christmas",
 		isEnabled: false,
 		isFeatured: true,
