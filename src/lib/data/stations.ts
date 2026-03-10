@@ -17,6 +17,7 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
+		surveyRank: 4,
 		metadata: {
 			isEnabled: false,
 			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
@@ -34,6 +35,7 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Chill", "Relax", "00s", "10s"],
 		popularity: 4,
+		surveyRank: 8,
 		metadata: {
 			isEnabled: false,
 			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
@@ -84,6 +86,7 @@ export const stations: RadioStation[] = [
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
+		surveyRank: 6,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
@@ -101,6 +104,7 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
+		surveyRank: 5,
 		metadata: {
 			isEnabled: false,
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
@@ -129,6 +133,7 @@ export const stations: RadioStation[] = [
 		location: "Paola",
 		genres: ["Classic Hits", "House", "Rock"],
 		popularity: 5,
+		surveyRank: 10,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio.smashmalta.com/status-json.xsl",
@@ -146,6 +151,7 @@ export const stations: RadioStation[] = [
 		location: "Luqa",
 		genres: ["Classic Hits", "Oldies", "Throwbacks"],
 		popularity: 12,
+		surveyRank: 2,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://public.radio.co/api/v2/sf3aa4c25a/track/current", // prettier-ignore
@@ -163,6 +169,7 @@ export const stations: RadioStation[] = [
 		location: "Hamrun",
 		genres: ["Religion", "Spiritual", "Talk", "Cultural", "News"],
 		popularity: 13,
+		surveyRank: 7,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://public.radio.co/api/v2/s955b1ced9/track/current", // prettier-ignore
@@ -180,6 +187,7 @@ export const stations: RadioStation[] = [
 		location: "Marsa",
 		genres: ["Politics", "Talk", "Classic Hits", "Pop", "Rock", "House"],
 		popularity: 11,
+		surveyRank: 1,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://s10.voscast.com:8203/status-json.xsl",
@@ -197,6 +205,7 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Politics", "Talk", "Religion", "Classic Hits", "Marching Band"], // prettier-ignore
 		popularity: 14,
+		surveyRank: 3,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://s2.voscast.com:11393/status-json.xsl",
@@ -214,6 +223,7 @@ export const stations: RadioStation[] = [
 		location: "Msida",
 		genres: ["Classical", "Jazz", "Talk", "Cultural", "News"],
 		popularity: 15,
+		surveyRank: 9,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://campusfm.radioca.st/status-json.xsl",
@@ -262,6 +272,7 @@ export const stations: RadioStation[] = [
 		location: "Mosta",
 		genres: ["Maltese", "Local", "Folk"],
 		popularity: 16,
+		surveyRank: 11,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://s4.voscast.com:8837/status-json.xsl",

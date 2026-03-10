@@ -22,7 +22,7 @@ import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
 import { SurveyToast } from "@/components/survey-toast";
 
-type SortOption = "name" | "location" | "popularity";
+type SortOption = "name" | "location" | "popularity" | "surveyRank";
 
 // TODO:
 // - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
@@ -70,6 +70,10 @@ export default function Home() {
 					return a.location.localeCompare(b.location);
 				case "popularity":
 					return (a.popularity ?? 0) - (b.popularity ?? 0);
+				case "surveyRank":
+					return (
+						(a.surveyRank ?? Infinity) - (b.surveyRank ?? Infinity)
+					);
 				default:
 					return 0;
 			}
@@ -224,6 +228,9 @@ export default function Home() {
 						<SelectContent>
 							<SelectItem value="popularity">
 								Popularity
+							</SelectItem>
+							<SelectItem value="surveyRank">
+								Survey Rank
 							</SelectItem>
 							<SelectItem value="name">Name</SelectItem>
 							<SelectItem value="location">Location</SelectItem>

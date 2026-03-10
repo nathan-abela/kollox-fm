@@ -11,7 +11,8 @@
  * @property website - The official website of the radio station.
  * @property location - The location of the radio station.
  * @property genres - (Optional) List of genres associated with the station.
- * @property popularity - (Optional) A numeric value representing the station popularity.
+ * @property popularity - (Optional) A numeric value representing the station popularity (mainstream ranking).
+ * @property surveyRank - (Optional) Ranking based on Broadcasting Authority survey data.
  * @property lufs - Measured loudness in LUFS (Loudness Units relative to Full Scale).
  *   				Used to calculate volume adjustment at runtime. Target is -16 LUFS.
  * @property metadata - (Optional) Metadata about the radio station.
@@ -28,6 +29,7 @@ export interface RadioStation {
 	location: string;
 	genres?: string[];
 	popularity?: number;
+	surveyRank?: number;
 	lufs: number;
 	metadata?: RadioStationMetadata;
 }
