@@ -3,6 +3,17 @@ import { useEffect, useState } from "react";
 import { RadioStation } from "@/lib/types/radio";
 
 /**
+ * Strips internal tracking codes from station metadata.
+ *
+ * Radio 105 appends 4-character codes like `[2zeb]` to track plays.
+ * Pattern: bracket, digit, 3 alphanumerics (ex. `[2w0j]`, `[2vvd]`).
+ */
+function cleanMetadata(text: string | null): string | null {
+	if (!text) return null;
+	return text.replace(/\s*\[\d[a-z0-9]{3}\]$/i, "").trim() || null;
+}
+
+/**
  * Fetches the currently playing song title for a radio station, if supported
  * and available at stations data file.
  *
@@ -80,7 +91,7 @@ export function useStationMetadata(
 						parsed = text.trim();
 				}
 
-				setCurrentSong(parsed);
+				setCurrentSong(cleanMetadata(parsed));
 			} catch (err) {
 				console.error("Metadata fetch failed:", err);
 				setCurrentSong(null);
