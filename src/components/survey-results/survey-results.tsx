@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 
 import { Survey } from "@/lib/types/survey";
@@ -25,7 +25,35 @@ const SURVEY_TABS: TabConfig[] = [
 	{ value: "reception", label: "Reception" },
 ] as const;
 
+const TAB_VALUES = SURVEY_TABS.map((tab) => tab.value);
+const DEFAULT_TAB = "overview";
+
+function getTabFromHash(): string {
+	if (typeof window === "undefined") return DEFAULT_TAB;
+	const hash = window.location.hash.slice(1);
+	return TAB_VALUES.includes(hash) ? hash : DEFAULT_TAB;
+}
+
 export default function SurveyResults({ survey }: { survey: Survey }) {
+	const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
+
+	useEffect(() => {
+		setActiveTab(getTabFromHash());
+
+		function handlePopState() {
+			setActiveTab(getTabFromHash());
+		}
+
+		window.addEventListener("popstate", handlePopState);
+		return () => window.removeEventListener("popstate", handlePopState);
+	}, []);
+
+	function handleTabChange(value: string) {
+		setActiveTab(value);
+		const newHash = value === DEFAULT_TAB ? "" : `#${value}`;
+		window.history.pushState(null, "", window.location.pathname + newHash);
+	}
+
 	return (
 		<div className="container mx-auto px-4 py-6 md:py-8 lg:py-12">
 			<div className="mb-6">
@@ -44,7 +72,11 @@ export default function SurveyResults({ survey }: { survey: Survey }) {
 				</p>
 			</div>
 
-			<Tabs defaultValue="overview" className="w-full">
+			<Tabs
+				value={activeTab}
+				onValueChange={handleTabChange}
+				className="w-full"
+			>
 				<TabsList className="bg-input/30 mb-12 flex w-full flex-wrap gap-2 rounded-md border p-0 md:mb-4 md:flex-nowrap">
 					{SURVEY_TABS.map((tab) => (
 						<TabsTrigger
