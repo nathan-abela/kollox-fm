@@ -42,7 +42,7 @@ export function SurveyCard({ survey, isLatest }: SurveyCardProps) {
 		) : (
 			<Image
 				src={station.image}
-				alt={mostFollowed?.id ?? "Station Logo"}
+				alt={station.name}
 				width={32}
 				height={32}
 				className="h-8 w-8 rounded-md object-cover"
