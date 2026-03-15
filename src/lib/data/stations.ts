@@ -127,7 +127,7 @@ export const stations: RadioStation[] = [
 		id: "smash-fm",
 		name: "Smash FM",
 		fmFrequency: "104.6",
-		streamUrl: "https://radio.smashmalta.com/stream",
+		streamUrl: "https://headend.smashmalta.com/smashradio1046fm",
 		image: `${basePath}/images/smash_radio.png`,
 		website: "https://smashmalta.com",
 		location: "Paola",
