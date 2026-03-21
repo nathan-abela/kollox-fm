@@ -26,7 +26,12 @@ export function Header() {
 
 				<div className="flex max-w-[500px] items-center justify-end gap-2">
 					{currentSong && (
-						<div className="text-muted-foreground hidden items-center gap-1 truncate text-sm sm:flex">
+						<div
+							className="text-muted-foreground hidden items-center gap-1 truncate text-sm sm:flex"
+							title={currentSong
+								.toLowerCase()
+								.replace(/\b\w/g, (c) => c.toUpperCase())}
+						>
 							<Music2 className="h-4 w-4 opacity-60" />
 							<span className="truncate font-medium capitalize">
 								{currentSong.toLowerCase()}
