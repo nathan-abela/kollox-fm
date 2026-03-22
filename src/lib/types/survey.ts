@@ -36,7 +36,7 @@ export interface SurveyMeta {
 	sampleSize: number;
 	sampleRadioListeners: number;
 	notes?: string[];
-	rawSourcePath: string | null;
+	rawSourcePath: string;
 }
 
 /**

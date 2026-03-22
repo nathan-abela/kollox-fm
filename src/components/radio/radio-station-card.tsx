@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
 	ExternalLink,
 	Heart,
@@ -158,7 +159,13 @@ export function RadioStationCard({
 						<div className="flex min-w-0 items-center gap-2">
 							<Radio className="text-primary h-4 w-4" />
 							<h3 className="min-w-0 truncate text-lg font-semibold">
-								{station.name}
+								<Link
+									href={`/station/${station.id}`}
+									className="hover:text-primary transition-colors"
+									onClick={(e) => e.stopPropagation()}
+								>
+									{station.name}
+								</Link>
 							</h3>
 							{/* Metadata indicator */}
 							{station?.metadata?.isEnabled && (

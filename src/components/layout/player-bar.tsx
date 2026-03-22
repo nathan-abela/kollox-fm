@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
 	ExternalLink,
 	Loader2,
@@ -115,9 +116,12 @@ export function PlayerBar() {
 							)}
 						</div>
 						<div className="min-w-0 max-[425px]:hidden">
-							<h4 className="truncate font-medium">
+							<Link
+								href={`/station/${currentStation.id}`}
+								className="hover:text-primary truncate font-medium transition-colors"
+							>
 								{currentStation.name}
-							</h4>
+							</Link>
 							<p className="text-muted-foreground truncate text-sm">
 								{currentStation.location}
 							</p>
