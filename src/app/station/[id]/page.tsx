@@ -22,6 +22,12 @@ import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+	FacebookIcon,
+	InstagramIcon,
+	TikTokIcon,
+	YouTubeIcon,
+} from "@/components/icons/social";
 
 export default function StationPage() {
 	const params = useParams();
@@ -217,9 +223,93 @@ export default function StationPage() {
 									</a>
 								</Button>
 							</div>
+
+							{station.socials && (
+								<div className="mt-4 flex justify-center gap-2 sm:justify-start">
+									{station.socials.facebook && (
+										<Button
+											variant="ghost"
+											size="icon"
+											asChild
+											className="h-9 w-9"
+										>
+											<a
+												href={station.socials.facebook}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label="Facebook"
+											>
+												<FacebookIcon className="h-5 w-5" />
+											</a>
+										</Button>
+									)}
+									{station.socials.instagram && (
+										<Button
+											variant="ghost"
+											size="icon"
+											asChild
+											className="h-9 w-9"
+										>
+											<a
+												href={station.socials.instagram}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label="Instagram"
+											>
+												<InstagramIcon className="h-5 w-5" />
+											</a>
+										</Button>
+									)}
+									{station.socials.tiktok && (
+										<Button
+											variant="ghost"
+											size="icon"
+											asChild
+											className="h-9 w-9"
+										>
+											<a
+												href={station.socials.tiktok}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label="TikTok"
+											>
+												<TikTokIcon className="h-5 w-5" />
+											</a>
+										</Button>
+									)}
+									{station.socials.youtube && (
+										<Button
+											variant="ghost"
+											size="icon"
+											asChild
+											className="h-9 w-9"
+										>
+											<a
+												href={station.socials.youtube}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label="YouTube"
+											>
+												<YouTubeIcon className="h-5 w-5" />
+											</a>
+										</Button>
+									)}
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
+			</div>
+
+			{/* About */}
+			<div className="container mx-auto px-4 py-8">
+				<h2 className="mb-2 text-lg font-semibold">About</h2>
+				<p className="text-muted-foreground">
+					{station.name} is a {station.genres?.join(", ")} radio
+					station broadcasting from {station.location}
+					{station.fmFrequency && ` on ${station.fmFrequency} FM`}.
+					Stream live online at Kollox FM.
+				</p>
 			</div>
 
 			{/* Popular Shows */}

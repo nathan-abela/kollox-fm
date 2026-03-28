@@ -23,6 +23,12 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/89.7Bay",
+			instagram: "https://instagram.com/897bayofficial",
+			tiktok: "https://tiktok.com/@897bay",
+			youtube: "https://youtube.com/TheBayRadioNetwork",
+		},
 		lufs: -14.5,
 	},
 	{
@@ -41,6 +47,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/BayEasy1002",
+			instagram: "https://instagram.com/bayeasymalta",
+			tiktok: "https://tiktok.com/@bayeasymalta",
+		},
 		lufs: -11.0,
 	},
 	{
@@ -56,6 +67,10 @@ export const stations: RadioStation[] = [
 			isEnabled: false,
 			currentSongUrl: "https://stream.v3.network/proxy/retro/currentsong",
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/bayretro",
+			instagram: "https://instagram.com/bayretromalta",
 		},
 		lufs: -29.7,
 	},
@@ -92,6 +107,12 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
+		socials: {
+			facebook: "https://facebook.com/vibe887",
+			instagram: "https://instagram.com/vibe887",
+			tiktok: "https://tiktok.com/@vibefm887",
+			youtube: "https://youtube.com/@vibemt887",
+		},
 		lufs: -7.7,
 	},
 	{
@@ -110,6 +131,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/MagicMalta917",
+			instagram: "https://instagram.com/magicmt917",
+			tiktok: "https://tiktok.com/@magicmt917",
+		},
 		lufs: -8.9,
 	},
 	{
@@ -121,6 +147,10 @@ export const stations: RadioStation[] = [
 		location: "Balzan",
 		genres: ["EDM", "House", "Techno"],
 		popularity: 9,
+		socials: {
+			facebook: "https://facebook.com/pureradiomalta",
+			instagram: "https://instagram.com/pureradiomalta",
+		},
 		lufs: -6.9,
 	},
 	{
@@ -138,6 +168,10 @@ export const stations: RadioStation[] = [
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio.smashmalta.com/status-json.xsl",
 			currentSongMethod: "icecast",
+		},
+		socials: {
+			facebook: "https://facebook.com/smashcommunications",
+			youtube: "https://youtube.com/smashmalta",
 		},
 		lufs: -11.3,
 	},
@@ -157,6 +191,12 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://public.radio.co/api/v2/sf3aa4c25a/track/current", // prettier-ignore
 			currentSongMethod: "radioco",
 		},
+		socials: {
+			facebook: "https://facebook.com/CalypsoRadio101.8",
+			instagram: "https://instagram.com/calypsoradio101.8",
+			tiktok: "https://tiktok.com/@calypsoradio101.8",
+			youtube: "https://youtube.com/@calypsoradio101.8",
+		},
 		lufs: -17.8,
 	},
 	{
@@ -174,6 +214,10 @@ export const stations: RadioStation[] = [
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://public.radio.co/api/v2/s955b1ced9/track/current", // prettier-ignore
 			currentSongMethod: "radioco",
+		},
+		socials: {
+			facebook: "https://facebook.com/RTK103",
+			instagram: "https://instagram.com/rtk.103",
 		},
 		lufs: -21.0,
 	},
@@ -193,6 +237,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s10.voscast.com:8203/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		socials: {
+			facebook: "https://facebook.com/ONE.com.mt",
+			instagram: "https://instagram.com/one.com.mt_",
+			youtube: "https://youtube.com/@ONEMalta",
+		},
 		lufs: -20.0,
 	},
 	{
@@ -210,6 +259,11 @@ export const stations: RadioStation[] = [
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://s2.voscast.com:11393/status-json.xsl",
 			currentSongMethod: "voscast",
+		},
+		socials: {
+			facebook: "https://facebook.com/netmedia.com.mt",
+			instagram: "https://instagram.com/netfmmalta",
+			youtube: "https://youtube.com/@NETTelevision",
 		},
 		lufs: -10.5,
 	},
@@ -229,6 +283,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://campusfm.radioca.st/status-json.xsl",
 			currentSongMethod: "icecast",
 		},
+		socials: {
+			facebook: "https://facebook.com/Campus1037",
+			instagram: "https://instagram.com/campus1037",
+			youtube: "https://youtube.com/@campusfm1178",
+		},
 		lufs: -17.3,
 	},
 	{
@@ -245,6 +304,10 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s3.voscast.com:9259/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		socials: {
+			facebook: "https://facebook.com/LiteRadioMalta",
+			instagram: "https://instagram.com/smoothradiomalta",
+		},
 		lufs: -6.3,
 	},
 	{
@@ -260,6 +323,10 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://s1.voscast.com:11085/status-json.xsl",
 			currentSongMethod: "voscast",
+		},
+		socials: {
+			facebook: "https://facebook.com/LiteRadioMalta",
+			instagram: "https://instagram.com/smoothradiomalta",
 		},
 		lufs: -8.3,
 	},
@@ -278,6 +345,9 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://s4.voscast.com:8837/status-json.xsl",
 			currentSongMethod: "voscast",
 		},
+		socials: {
+			facebook: "https://facebook.com/maltinbiss.mt",
+		},
 		lufs: -6.7,
 	},
 	{
@@ -294,6 +364,9 @@ export const stations: RadioStation[] = [
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "http://stream.bkr.mt:90/currentsong",
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/bkr945",
 		},
 		lufs: -14.7,
 	},
@@ -329,6 +402,9 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "http://micsradio.ddns.net:90/7.html",
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://www.facebook.com/micsradiomalta",
+		},
 		lufs: -16,
 	},
 	{
@@ -344,6 +420,10 @@ export const stations: RadioStation[] = [
 			isEnabled: false, // CORS
 			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/14gzk46p7yzuv", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/people/Malta-Sunshine-Radio/100028486521113", // prettier-ignore
+			instagram: "https://instagram.com/malta_sunshine_radio",
 		},
 		lufs: -10.3,
 	},
@@ -362,6 +442,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -7.6,
 	},
 	{
@@ -377,6 +462,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://retro-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -10.5,
 	},
@@ -394,6 +484,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://sixties-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -11.9,
 	},
 	{
@@ -409,6 +504,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://nineties-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -10.4,
 	},
@@ -426,6 +526,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://rock-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -10.6,
 	},
 	{
@@ -441,6 +546,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://urban-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -8.6,
 	},
@@ -458,6 +568,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://cuore-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -9.3,
 	},
 	{
@@ -473,6 +588,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://mellow-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -12.7,
 	},
@@ -490,6 +610,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://maltin-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -12.1,
 	},
 	{
@@ -505,6 +630,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://reggae-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -9.4,
 	},
@@ -522,6 +652,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://country-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -7.0,
 	},
 	{
@@ -538,6 +673,11 @@ export const stations: RadioStation[] = [
 			currentSongUrl: "https://eurovision-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
+		},
 		lufs: -8.6,
 	},
 	{
@@ -553,6 +693,11 @@ export const stations: RadioStation[] = [
 			isEnabled: true,
 			currentSongUrl: "https://xmas-radio105network.radioca.st/currentsong", // prettier-ignore
 			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/radio105malta",
+			instagram: "https://instagram.com/radiogalaxy105",
+			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -11.7,
 	},

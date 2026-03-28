@@ -16,6 +16,7 @@
  * @property lufs - Measured loudness in LUFS (Loudness Units relative to Full Scale).
  *   				Used to calculate volume adjustment at runtime. Target is -16 LUFS.
  * @property metadata - (Optional) Metadata about the radio station.
+ * @property socials - (Optional) Social media links for the station.
  */
 export interface RadioStation {
 	id: string;
@@ -32,6 +33,7 @@ export interface RadioStation {
 	surveyRank?: number;
 	lufs: number;
 	metadata?: RadioStationMetadata;
+	socials?: RadioStationSocials;
 }
 
 /**
@@ -49,4 +51,18 @@ export interface RadioStationMetadata {
 	isEnabled: boolean;
 	currentSongUrl?: string;
 	currentSongMethod?: "shoutcast" | "icecast" | "voscast" | "radioco";
+}
+
+/**
+ * Social media links for a radio station.
+ * - facebook: URL to the station's Facebook page.
+ * - instagram: URL to the station's Instagram profile.
+ * - tiktok: URL to the station's TikTok profile.
+ * - youtube: URL to the station's YouTube channel.
+ */
+export interface RadioStationSocials {
+	facebook?: string;
+	instagram?: string;
+	tiktok?: string;
+	youtube?: string;
 }
