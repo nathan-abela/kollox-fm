@@ -98,109 +98,117 @@ export function TopProgrammesByAgeChart({ survey }: { survey: Survey }) {
 								{bracket.label}
 							</h3>
 							<div className="aspect-square w-full">
-								<ResponsiveContainer width="100%" height="100%">
-									<RadialBarChart
-										data={chartData}
-										innerRadius="30%"
-										outerRadius="95%"
-										barSize={10}
-										startAngle={90}
-										endAngle={-270}
-										onMouseLeave={() => setActiveCell(null)}
-									>
-										{/* Light dotted background */}
-										<defs>
-											<pattern
-												id={`dotted-bg-${bracket.key}`}
+								{chartData.length === 0 ? (
+									<div className="bg-muted/30 flex h-full items-center justify-center rounded-full">
+										<span className="text-muted-foreground text-xs">
+											No data
+										</span>
+									</div>
+								) : (
+									// prettier-ignore
+									<ResponsiveContainer width="100%" height="100%">
+										<RadialBarChart
+											data={chartData}
+											innerRadius="30%"
+											outerRadius="95%"
+											barSize={10}
+											startAngle={90}
+											endAngle={-270}
+											onMouseLeave={() => setActiveCell(null)}
+										>
+											{/* Light dotted background */}
+											<defs>
+												<pattern
+													id={`dotted-bg-${bracket.key}`}
+													x="0"
+													y="0"
+													width="10"
+													height="10"
+													patternUnits="userSpaceOnUse"
+												>
+													<circle
+														className="dark:text-muted/40 text-muted"
+														cx="2"
+														cy="2"
+														r="1"
+														fill="currentColor"
+													/>
+												</pattern>
+												{chartData.map((_, idx) => (
+													<filter
+														key={`filter-${idx}`}
+														id={`glow-${bracket.key}-${idx}`}
+														x="-50%"
+														y="-50%"
+														width="200%"
+														height="200%"
+													>
+														<feGaussianBlur
+															stdDeviation="8"
+															result="blur"
+														/>
+														<feComposite
+															in="SourceGraphic"
+															in2="blur"
+															operator="over"
+														/>
+													</filter>
+												))}
+											</defs>
+											<rect
 												x="0"
 												y="0"
-												width="10"
-												height="10"
-												patternUnits="userSpaceOnUse"
+												width="100%"
+												height="100%"
+												fill={`url(#dotted-bg-${bracket.key})`}
+											/>
+											<RadialBar
+												dataKey="percentage"
+												cornerRadius={6}
+												background={{ fill: "var(--muted)" }}
+												className="drop-shadow-lg"
 											>
-												<circle
-													className="dark:text-muted/40 text-muted"
-													cx="2"
-													cy="2"
-													r="1"
-													fill="currentColor"
-												/>
-											</pattern>
-											{chartData.map((_, idx) => (
-												<filter
-													key={`filter-${idx}`}
-													id={`glow-${bracket.key}-${idx}`}
-													x="-50%"
-													y="-50%"
-													width="200%"
-													height="200%"
-												>
-													<feGaussianBlur
-														stdDeviation="8"
-														result="blur"
-													/>
-													<feComposite
-														in="SourceGraphic"
-														in2="blur"
-														operator="over"
-													/>
-												</filter>
-											))}
-										</defs>
-										<rect
-											x="0"
-											y="0"
-											width="100%"
-											height="100%"
-											fill={`url(#dotted-bg-${bracket.key})`}
-										/>
-										<RadialBar
-											dataKey="percentage"
-											cornerRadius={6}
-											background={{ fill: "var(--muted)" }} // prettier-ignore
-											className="drop-shadow-lg"
-										>
-											{chartData.map((entry, idx) =>
-												(() => {
-													const isActiveBracket = activeCell?.bracketKey === bracket.key; // prettier-ignore
-													const isHovered =
-														isActiveBracket &&
-														activeCell?.programmeName ===
-															entry.name;
+												{chartData.map((entry, idx) =>
+													(() => {
+														const isActiveBracket = activeCell?.bracketKey === bracket.key;
+														const isHovered =
+															isActiveBracket &&
+															activeCell?.programmeName ===
+																entry.name;
 
-													return (
-														<Cell
-															key={`cell-${idx}`}
-															fill={entry.fill}
-															filter={
-																isHovered
-																	? `url(#glow-${bracket.key}-${idx})`
-																	: undefined
-															}
-															opacity={
-																!isActiveBracket
-																	? 1
-																	: isHovered
+														return (
+															<Cell
+																key={`cell-${idx}`}
+																fill={entry.fill}
+																filter={
+																	isHovered
+																		? `url(#glow-${bracket.key}-${idx})`
+																		: undefined
+																}
+																opacity={
+																	!isActiveBracket
 																		? 1
-																		: 0.3
-															}
-															onMouseEnter={() =>
-																setActiveCell({
-																	bracketKey:
-																		bracket.key,
-																	programmeName:
-																		entry.name,
-																})
-															}
-															onMouseLeave={() => setActiveCell(null)} // prettier-ignore
-															className="transition-opacity duration-200"
-														/>
-													);
-												})()
-											)}
-										</RadialBar>
-										{/* prettier-ignore */}
-										<Tooltip
+																		: isHovered
+																			? 1
+																			: 0.3
+																}
+																onMouseEnter={() =>
+																	setActiveCell(
+																		{
+																			bracketKey: bracket.key,
+																			programmeName: entry.name,
+																		}
+																	)
+																}
+																onMouseLeave={() => setActiveCell(null)}
+																className="transition-opacity duration-200"
+															/>
+														);
+													})()
+												)}
+											</RadialBar>
+											{/* prettier-ignore */}
+											<Tooltip
 											content={({ active, payload }) => {
 												if (!active || !payload?.length) return null;
 												const data = payload[0].payload;
@@ -216,8 +224,9 @@ export function TopProgrammesByAgeChart({ survey }: { survey: Survey }) {
 											active={ activeCell?.bracketKey === bracket.key }
 											cursor={{ fill: "var(--muted)", stroke: "none" }}
 										/>
-									</RadialBarChart>
-								</ResponsiveContainer>
+										</RadialBarChart>
+									</ResponsiveContainer>
+								)}
 							</div>
 							{winner && (
 								<div className="mt-2 text-center">
