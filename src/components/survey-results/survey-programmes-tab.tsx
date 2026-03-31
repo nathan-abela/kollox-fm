@@ -13,7 +13,7 @@ export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
 	if (!programmesData.length) {
 		return (
 			<div className="text-muted-foreground py-8 text-center">
-				Programmes data coming soon...
+				Programme preference data is not available for this survey year.
 			</div>
 		);
 	}
