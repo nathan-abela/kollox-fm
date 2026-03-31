@@ -44,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 0.3,
 		},
 		{
+			url: `${BASE_URL}/privacy`,
+			lastModified: new Date(),
+			changeFrequency: "yearly",
+			priority: 0.3,
+		},
+		{
 			url: `${BASE_URL}/survey-results`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",

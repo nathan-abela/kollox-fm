@@ -101,6 +101,14 @@ export function Footer() {
 									Terms of Use
 								</Link>
 							</li>
+							<li>
+								<Link
+									href="/privacy"
+									className="text-muted-foreground hover:text-primary transition-colors"
+								>
+									Privacy Policy
+								</Link>
+							</li>
 						</ul>
 					</nav>
 				</div>
