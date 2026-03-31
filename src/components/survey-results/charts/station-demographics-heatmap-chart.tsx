@@ -108,9 +108,8 @@ export function StationDemographicsHeatmapChart({
 			});
 		});
 
-		// Filter to stations with 2+ programmes, calculate totals, and sort by total percentage
+		// All stations with programme data, sorted by total percentage
 		const stations = Array.from(stationMap.entries())
-			.filter(([, data]) => data.count >= 2)
 			.map(([station, data]) => {
 				const total = AGE_BRACKETS.reduce(
 					(sum, { key }) => sum + data.demographics[key],
@@ -149,9 +148,8 @@ export function StationDemographicsHeatmapChart({
 					Station Demographics Heatmap
 				</CardTitle>
 				<p className="text-muted-foreground text-sm">
-					Combined age demographics across all station programmes.
-					Only stations with 2 or more programmes are shown, ordered
-					by total audience share (highest to lowest).
+					Combined age demographics across all station programmes,
+					ordered by total audience share (highest to lowest).
 				</p>
 			</CardHeader>
 			<CardContent className="pt-2">
