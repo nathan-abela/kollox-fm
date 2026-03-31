@@ -28,7 +28,7 @@ export const survey2023: Survey = {
 	},
 	highlights: {
 		mostFollowedStation: {
-			id: "Bay FM",
+			id: "bay-fm",
 			mostFollowedPct: 13.3,
 			weeklySharePct: 9.0,
 		},

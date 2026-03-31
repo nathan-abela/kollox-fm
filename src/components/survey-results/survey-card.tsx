@@ -31,9 +31,7 @@ interface SurveyCardProps {
 export function SurveyCard({ survey, isLatest }: SurveyCardProps) {
 	const [imageErrorId, setImageErrorId] = useState<string | null>(null);
 	const mostFollowed = survey.highlights?.mostFollowedStation;
-	const station = stations.find(
-		(s) => s.name.toLowerCase() === mostFollowed?.id.toLowerCase()
-	);
+	const station = stations.find((s) => s.id === mostFollowed?.id);
 	const stationLogo =
 		imageErrorId === mostFollowed?.id || !station?.image ? (
 			<div className="bg-muted text-muted-foreground flex h-8 w-8 items-center justify-center rounded-md">
@@ -146,7 +144,7 @@ export function SurveyCard({ survey, isLatest }: SurveyCardProps) {
 								{stationLogo}
 								<div>
 									<div className="text-foreground text-sm font-semibold">
-										{mostFollowed.id}
+										{station?.name ?? mostFollowed.id}
 									</div>
 									{mostFollowed.mostFollowedPct && (
 										<div className="text-muted-foreground text-xs">

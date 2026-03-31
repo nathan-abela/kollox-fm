@@ -28,7 +28,7 @@ export const survey2024: Survey = {
 	},
 	highlights: {
 		mostFollowedStation: {
-			id: "ONE Radio",
+			id: "one-radio",
 			mostFollowedPct: 14.3,
 			weeklySharePct: 19.7,
 		},
