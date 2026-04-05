@@ -184,6 +184,40 @@ export interface ProgrammeSummary {
 }
 
 /**
+ * DAB+ usage pattern among DAB+ owners.
+ *
+ * @property id - Canonical id/slug, ex. "dab-local".
+ * @property label - Human-friendly display name.
+ * @property shortLabel - Shortened label for concise display.
+ * @property respondents - Estimated population using this pattern.
+ * @property percentage - Percentage of DAB+ owners using this pattern.
+ * @property ageDemographics - Breakdown by age brackets.
+ * @property genderDemographics - Breakdown by gender.
+ */
+export interface DabUsageType {
+	id: string;
+	label: string;
+	shortLabel: string;
+	respondents: number;
+	percentage: Percent;
+	ageDemographics?: AgeDemographics;
+	genderDemographics?: GenderDemographics;
+}
+
+/**
+ * DAB+ radio ownership and usage data from older surveys (2017-2019).
+ *
+ * @property ownershipPct - Percentage of respondents who own a DAB+ radio.
+ * @property totalOwners - Estimated population of DAB+ owners.
+ * @property usage - Breakdown of how DAB+ owners use their radios (local/foreign/both).
+ */
+export interface DabOwnership {
+	ownershipPct: Percent;
+	totalOwners: number;
+	usage: DabUsageType[];
+}
+
+/**
  * Root object for a survey edition.
  *
  * @property meta - Basic metadata and routing info.
@@ -192,7 +226,8 @@ export interface ProgrammeSummary {
  * @property stations - Top-level station summaries.
  * @property timebands - Overall timeband summaries.
  * @property programmes - Programme-level summaries.
- * @property receptionTypes - How respondents access radio content.
+ * @property receptionTypes - How respondents access radio content (newer surveys).
+ * @property dabOwnership - DAB+ ownership and usage patterns (older surveys 2017-2019).
  */
 export interface Survey {
 	meta: SurveyMeta;
@@ -201,5 +236,6 @@ export interface Survey {
 	stations?: StationSummary[];
 	timebands?: TimebandSummary[];
 	programmes?: ProgrammeSummary[] | null;
-	receptionTypes?: ReceptionType[];
+	receptionTypes?: ReceptionType[] | null;
+	dabOwnership?: DabOwnership | null;
 }

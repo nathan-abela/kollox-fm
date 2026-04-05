@@ -1,16 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useMemo } from "react";
 import { ChartPie } from "lucide-react";
 import { Cell, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
 
-import { ReceptionType, Survey } from "@/lib/types/survey";
-
-interface ReceptionChartDataPoint extends ReceptionType {
-	totalRespondents: number;
-	percentageOfResponses: number;
-	fill: string;
-}
+import type { Survey } from "@/lib/types/survey";
 import {
 	Card,
 	CardContent,
@@ -26,48 +20,103 @@ import {
 	ChartTooltipContent,
 } from "@/components/ui/chart";
 
+interface ChartDataPoint {
+	id: string;
+	label: string;
+	shortLabel: string;
+	respondents: number;
+	percentage: number;
+	totalRespondents: number;
+	percentageOfResponses: number;
+	fill: string;
+}
+
 /**
  * ReceptionTypesChart Component
- *
- * Displays a pie chart showing the distribution of how respondents access radio content.
- *
+ * 
+ * Displays a pie chart of reception types distribution based on survey data.
+ * If reception types data is unavailable, it falls back to DAB+ ownership usage distribution.
+ * If neither is available, it shows a placeholder message.
+ * 
  * @param {Object} props - Component props.
- * @param {Survey} props.survey - The survey data containing reception types.
+ * @param {Survey} props.survey - The survey data containing reception types and DAB+ ownership information.
  */
 export function ReceptionTypesChart({ survey }: { survey: Survey }) {
-	const receptionTypes = useMemo(
-		() => survey?.receptionTypes ?? [],
-		[survey?.receptionTypes]
-	);
+	const hasReceptionTypes = survey.receptionTypes && survey.receptionTypes.length > 0;
+	const hasDabOwnership = survey.dabOwnership && survey.dabOwnership.usage.length > 0;
 
-	// Transforms reception types data into a format suitable for the pie chart.
-	const receptionTypeData = useMemo(() => {
-		if (!receptionTypes.length) return [];
+	const { chartData, title, description, footerLabel } = useMemo(() => {
+		if (hasReceptionTypes) {
+			const receptionTypes = survey.receptionTypes!;
 
-		// prettier-ignore
-		const totalRespondents = receptionTypes.reduce(
-			(sum, receptionType) => sum + (receptionType.respondents || 0), 0);
+			// prettier-ignore
+			const totalRespondents = receptionTypes.reduce(
+				(sum, receptionType) => sum + (receptionType.respondents || 0), 0
+			);
 
-		return receptionTypes
-			.filter((receptionType) => receptionType.respondents > 0)
-			.sort((a, b) => b.respondents - a.respondents)
-			.map((receptionType, index) => ({
-				...receptionType,
-				totalRespondents,
-				percentageOfResponses: totalRespondents
-					? (receptionType.respondents / totalRespondents) * 100
-					: 0,
-				fill: `var(--chart-${(index % 4) + 1})`,
-			}));
-	}, [receptionTypes]);
+			const data: ChartDataPoint[] = receptionTypes
+				.filter((receptionType) => receptionType.respondents > 0)
+				.sort((a, b) => b.respondents - a.respondents)
+				.map((receptionType, index) => ({
+					...receptionType,
+					totalRespondents,
+					percentageOfResponses: totalRespondents
+						? (receptionType.respondents / totalRespondents) * 100
+						: 0,
+					fill: `var(--chart-${(index % 4) + 1})`,
+				}));
+
+			return {
+				chartData: data,
+				title: "Reception Types Distribution",
+				description: "How listeners access radio content",
+				footerLabel: "Total respondents",
+			};
+		}
+
+		if (hasDabOwnership) {
+			const usage = survey.dabOwnership!.usage;
+			const totalRespondents = usage.reduce(
+				(sum, u) => sum + (u.respondents || 0),
+				0
+			);
+
+			const data: ChartDataPoint[] = usage
+				.filter((u) => u.respondents > 0)
+				.sort((a, b) => b.respondents - a.respondents)
+				.map((u, index) => ({
+					...u,
+					totalRespondents,
+					percentageOfResponses: totalRespondents
+						? (u.respondents / totalRespondents) * 100
+						: 0,
+					fill: `var(--chart-${(index % 4) + 1})`,
+				}));
+
+			return {
+				chartData: data,
+				title: "DAB+ Usage Distribution",
+				description: `Among ${survey.dabOwnership!.ownershipPct}% who own DAB+ radios`,
+				footerLabel: "Total DAB+ listeners",
+			};
+		}
+
+		return {
+			chartData: [],
+			title: "Listening Methods Distribution",
+			description: "No data available",
+			footerLabel: "Total",
+		};
+	}, [survey, hasReceptionTypes, hasDabOwnership]);
 
 	// prettier-ignore
-	const totalResponses = receptionTypeData.reduce(
-		(sum, dataPoint) => sum + dataPoint.respondents, 0);
+	const totalResponses = chartData.reduce(
+		(sum, dataPoint) => sum + dataPoint.respondents, 0
+	);
 
-	// Configures the tooltip labels.
+	// Configure tooltip and labels based on chart data
 	const chartConfig = useMemo(() => {
-		return receptionTypeData.reduce(
+		return chartData.reduce(
 			(config, dataPoint) => ({
 				...config,
 				[dataPoint.id]: {
@@ -77,18 +126,20 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 			}),
 			{ respondents: { label: "Respondents" } } as ChartConfig
 		);
-	}, [receptionTypeData]);
+	}, [chartData]);
+
+	if (!chartData.length) {
+		return null;
+	}
 
 	return (
 		<Card className="rounded-2xl shadow-md">
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2 text-lg font-semibold">
 					<ChartPie className="text-muted-foreground h-5 w-5" />
-					Reception Types Distribution
+					{title}
 				</CardTitle>
-				<CardDescription>
-					How listeners access radio content
-				</CardDescription>
+				<CardDescription>{description}</CardDescription>
 			</CardHeader>
 			<CardContent className="flex-1">
 				<ChartContainer
@@ -136,7 +187,7 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 												| number
 												| (string | number)[],
 											_: string | number,
-											data: { payload?: ReceptionChartDataPoint }
+											data: { payload?: ChartDataPoint }
 										) => {
 											const payload = data.payload;
 											if (!payload) return null;
@@ -164,7 +215,7 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 								}
 							/>
 							<Pie
-								data={receptionTypeData}
+								data={chartData}
 								dataKey="respondents"
 								nameKey="label"
 								innerRadius={50}
@@ -180,11 +231,9 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 									fontSize={12}
 									fontWeight={700}
 									fill="currentColor"
-									formatter={(value: number) =>
-										value.toLocaleString()
-									}
+									formatter={(value: number) => value.toLocaleString()}
 								/>
-								{receptionTypeData.map((dataPoint) => (
+								{chartData.map((dataPoint) => (
 									<Cell
 										key={dataPoint.id}
 										fill={dataPoint.fill}
@@ -199,7 +248,7 @@ export function ReceptionTypesChart({ survey }: { survey: Survey }) {
 			</CardContent>
 			<CardFooter className="text-muted-foreground text-xs italic">
 				<p>
-					Total respondents:{" "}
+					{footerLabel}:{" "}
 					<span className="font-medium">
 						{totalResponses.toLocaleString()}
 					</span>
