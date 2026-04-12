@@ -1,3 +1,4 @@
+import { survey2015 } from "@/lib/data/surveys/2015";
 import { survey2016 } from "@/lib/data/surveys/2016";
 import { survey2017 } from "@/lib/data/surveys/2017";
 import { survey2018 } from "@/lib/data/surveys/2018";
@@ -10,6 +11,7 @@ import { survey2025 } from "@/lib/data/surveys/2025";
 import { Survey } from "@/lib/types/survey";
 
 const SURVEYS: Record<string, Survey> = {
+	[survey2015.meta.id]: survey2015 as Survey,
 	[survey2016.meta.id]: survey2016 as Survey,
 	[survey2017.meta.id]: survey2017 as Survey,
 	[survey2018.meta.id]: survey2018 as Survey,
