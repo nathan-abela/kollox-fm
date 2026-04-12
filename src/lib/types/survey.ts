@@ -60,7 +60,11 @@ export interface SurveyMetrics {
  * @property mostFollowedPct - % of respondents who marked station as "most followed".
  * @property weeklySharePct - Weekly average audience share across timeband.
  * @property stationListeners - Listeners count - 3 stations listened to previous day.
+ * @property avgHours - Average daily hours spent listening to this station per listener.
  * @property dailyListeners - Mapping of ISO date strings to daily listener counts.
+ * @property ageDemographics - Breakdown of station reach by age bracket.
+ * @property genderDemographics - Breakdown of station reach by gender.
+ * @property districtDemographics - Breakdown of station reach by Malta district.
  */
 export interface StationSummary {
 	id: StationId;
@@ -70,7 +74,11 @@ export interface StationSummary {
 	mostFollowedPct?: Percent | null;
 	weeklySharePct?: Percent | null;
 	stationListeners?: ListenerCount | null;
+	avgHours?: number | null;
 	dailyListeners?: Record<ISODateString, ListenerCount>;
+	ageDemographics?: AgeDemographics | null;
+	genderDemographics?: GenderDemographics | null;
+	districtDemographics?: DistrictDemographics | null;
 }
 
 /**
@@ -114,7 +122,7 @@ export interface SurveyHighlights {
  *
  * @property id - Canonical id/slug, ex. "radio-set".
  * @property label - Human-friendly display name.
- * @property shortLabel - Shortened label for concise display (e.g., tooltips).
+ * @property shortLabel - Shortened label for concise display (ex. tooltips).
  * @property respondents - Number of survey respondents using this type.
  * @property percentage - Percentage of total respondents using this type.
  * @property ageDemographics - Breakdown by age brackets.
@@ -181,6 +189,26 @@ export interface ProgrammeSummary {
 	percentage: Percent;
 	ageDemographics?: AgeDemographics;
 	genderDemographics?: GenderDemographics;
+}
+
+/**
+ * Demographic breakdown by Malta district.
+ * Available in earlier surveys (ex. 2016) where district reach was reported per station.
+ *
+ * @property southHarbour  - South Harbour district
+ * @property northHarbour  - North Harbour district
+ * @property southEastern  - South Eastern district
+ * @property western       - Western district
+ * @property northern      - Northern district
+ * @property gozoAndComino - Gozo & Comino
+ */
+export interface DistrictDemographics {
+	southHarbour: { count: number; percentage: Percent | null };
+	northHarbour: { count: number; percentage: Percent | null };
+	southEastern: { count: number; percentage: Percent | null };
+	western: { count: number; percentage: Percent | null };
+	northern: { count: number; percentage: Percent | null };
+	gozoAndComino: { count: number; percentage: Percent | null };
 }
 
 /**
