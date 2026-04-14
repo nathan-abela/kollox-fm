@@ -3,6 +3,7 @@ import { survey2016 } from "@/lib/data/surveys/2016";
 import { survey2017 } from "@/lib/data/surveys/2017";
 import { survey2018 } from "@/lib/data/surveys/2018";
 import { survey2019 } from "@/lib/data/surveys/2019";
+import { survey2020 } from "@/lib/data/surveys/2020";
 import { survey2021 } from "@/lib/data/surveys/2021";
 import { survey2022 } from "@/lib/data/surveys/2022";
 import { survey2023 } from "@/lib/data/surveys/2023";
@@ -16,6 +17,7 @@ const SURVEYS: Record<string, Survey> = {
 	[survey2017.meta.id]: survey2017 as Survey,
 	[survey2018.meta.id]: survey2018 as Survey,
 	[survey2019.meta.id]: survey2019 as Survey,
+	[survey2020.meta.id]: survey2020 as Survey,
 	[survey2021.meta.id]: survey2021 as Survey,
 	[survey2022.meta.id]: survey2022 as Survey,
 	[survey2023.meta.id]: survey2023 as Survey,
