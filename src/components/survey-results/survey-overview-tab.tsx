@@ -13,6 +13,8 @@ export function SurveyOverviewTab({ survey }: { survey: Survey }) {
 		(s) => s.id !== "no-radio" && s.id !== "foreign-station"
 	).length;
 	const mostFollowed = survey.highlights?.mostFollowedStation;
+	const mostFollowedLabel =
+		stations.find((s) => s.id === mostFollowed?.id)?.label ?? mostFollowed?.id;
 	const population = survey.metrics?.populationListening;
 	const peak = survey.highlights?.peakTimeband;
 
@@ -38,7 +40,7 @@ export function SurveyOverviewTab({ survey }: { survey: Survey }) {
 				<SurveyMetricCard
 					icon={Star}
 					title="Most Followed Station"
-					value={mostFollowed?.id ?? "N/A"}
+					value={mostFollowedLabel ?? "N/A"}
 					subtitle={
 						mostFollowed?.mostFollowedPct != null
 							? `${mostFollowed.mostFollowedPct}% of listeners`
