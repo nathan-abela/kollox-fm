@@ -320,13 +320,13 @@ export default function StationPage() {
 					</h2>
 					<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 						{popularShows.map((show) => (
-							<Card key={show.id} className="py-4">
+							<Card key={show.id} className="min-w-0 py-4">
 								<CardContent className="flex items-center gap-3">
 									<div className="bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
 										<Mic className="text-primary h-5 w-5" />
 									</div>
 									<div className="min-w-0 flex-1">
-										<p className="truncate font-medium">
+										<p className="truncate font-medium" title={show.name}>
 											{show.name}
 										</p>
 										{/* prettier-ignore */}
