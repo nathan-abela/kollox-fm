@@ -428,6 +428,25 @@ export const stations: RadioStation[] = [
 		lufs: -10.3,
 	},
 	{
+		id: "all-rock",
+		name: "All Rock",
+		streamUrl: "https://s6.reliastream.com/proxy/sedamico?mp=/;&1776594620500", // prettier-ignore
+		image: `${basePath}/images/all_rock.png`,
+		website: "https://allrock.mt",
+		location: "Mosta",
+		genres: ["Rock", "Classic Rock", "Metal", "Alternative"],
+		popularity: 21,
+		metadata: {
+			isEnabled: false,
+			currentSongUrl: "http://s6.reliastream.com:8296/7.html", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://facebook.com/allrockdab",
+		},
+		lufs: -10.4,
+	},
+	{
 		id: "radio-105",
 		name: "Radio 105",
 		fmFrequency: "105.0",
@@ -436,7 +455,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Hits", "Pop", "Top 40"],
-		popularity: 21,
+		popularity: 22,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -457,7 +476,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Classic Hits", "Oldies", "Throwbacks", "70s", "80s"],
-		popularity: 22,
+		popularity: 23,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://retro-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -478,7 +497,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["60s", "Oldies", "Classic Hits"],
-		popularity: 23,
+		popularity: 24,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://sixties-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -499,7 +518,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["90s", "Classic Hits", "Pop"],
-		popularity: 24,
+		popularity: 25,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://nineties-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -520,7 +539,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Rock", "70s", "80s"],
-		popularity: 25,
+		popularity: 26,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://rock-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -541,7 +560,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Urban", "Hip Hop", "R&B"],
-		popularity: 26,
+		popularity: 27,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://urban-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -562,7 +581,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Italian", "Pop", "Romance"],
-		popularity: 27,
+		popularity: 28,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://cuore-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -583,7 +602,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Chill", "Relax"],
-		popularity: 28,
+		popularity: 29,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://mellow-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -604,7 +623,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Maltese", "Local", "Folk"],
-		popularity: 29,
+		popularity: 30,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://maltin-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -625,7 +644,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Reggae", "Dancehall"],
-		popularity: 30,
+		popularity: 31,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://reggae-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -646,7 +665,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Country", "Folk"],
-		popularity: 31,
+		popularity: 32,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://country-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -667,7 +686,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Eurovision", "Pop"],
-		popularity: 32,
+		popularity: 33,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://eurovision-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -688,7 +707,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Christmas", "Holiday", "Seasonal"],
-		popularity: 33,
+		popularity: 34,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://xmas-radio105network.radioca.st/currentsong", // prettier-ignore

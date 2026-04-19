@@ -138,6 +138,7 @@ Measured using ffmpeg's EBU R128 filter (20-second samples, target -16 LUFS). Mu
 | BKR Radio            | -14.1 | -15.2 |
 | Radju Luminaria      | -7.1  | -7.9  |
 | Malta Sunshine Radio | -10.0 | -10.5 |
+| All Rock             | -11.1 | -9.8  |
 | Radio 105            | -8.6  | -6.5  |
 | Radio 105 Retro      | -10.4 | -10.6 |
 | Radio 105 Sixties    | -11.6 | -12.1 |
