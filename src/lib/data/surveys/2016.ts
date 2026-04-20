@@ -1,10 +1,5 @@
+import { basePath } from "@/lib/config";
 import { Survey } from "@/lib/types/survey";
-
-const isProd = process.env.NODE_ENV === "production";
-const useGitHubPages = false;
-const repoName = "kollox-fm";
-
-export const basePath = isProd && useGitHubPages ? `/${repoName}` : "";
 
 // Radio listening population used as denominator for count estimates
 const RADIO_POP = 186593;

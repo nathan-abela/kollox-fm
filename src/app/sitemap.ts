@@ -1,24 +1,23 @@
 import type { MetadataRoute } from "next";
 
+import { siteUrl } from "@/lib/config";
 import { stations } from "@/lib/data/stations";
 import { getAllSurveys } from "@/lib/data/surveys";
 
 export const dynamic = "force-static";
 
-const BASE_URL = "https://kolloxfm.com";
-
 export default function sitemap(): MetadataRoute.Sitemap {
 	const stationPages = stations
 		.filter((station) => station.isEnabled !== false)
 		.map((station) => ({
-			url: `${BASE_URL}/station/${station.id}`,
+			url: `${siteUrl}/station/${station.id}`,
 			lastModified: new Date(),
 			changeFrequency: "monthly" as const,
 			priority: 0.8,
 		}));
 
 	const surveyPages = getAllSurveys().map((survey) => ({
-		url: `${BASE_URL}/survey-results/${survey.meta.id}`,
+		url: `${siteUrl}/survey-results/${survey.meta.id}`,
 		lastModified: new Date(),
 		changeFrequency: "yearly" as const,
 		priority: 0.7,
@@ -26,31 +25,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 	return [
 		{
-			url: BASE_URL,
+			url: siteUrl,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 1,
 		},
 		{
-			url: `${BASE_URL}/about`,
+			url: `${siteUrl}/about`,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.8,
 		},
 		{
-			url: `${BASE_URL}/terms`,
+			url: `${siteUrl}/terms`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.3,
 		},
 		{
-			url: `${BASE_URL}/privacy`,
+			url: `${siteUrl}/privacy`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.3,
 		},
 		{
-			url: `${BASE_URL}/survey-results`,
+			url: `${siteUrl}/survey-results`,
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 0.8,
