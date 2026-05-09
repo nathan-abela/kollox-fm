@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kollox FM
+
+All Maltese radio stations in one place. Stream live, discover new stations, explore audience data.
+
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-38B2AC?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-black?style=flat&logo=shadcnui)](https://ui.shadcn.com)
+
+![Last Commit](https://img.shields.io/github/last-commit/nathan-abela/kollox-fm)
+![GitHub Stars](https://img.shields.io/github/stars/nathan-abela/kollox-fm)
+![Views](https://gitviews.com/repo/nathan-abela/kollox-fm.svg?style=flat)
+
+## Live Demo
+
+Check out the live site at **[kolloxfm.com](https://kolloxfm.com)**
+
+<!-- TODO: Add screenshot -->
+<!-- <p align="center">
+    <img src="public/preview.png" width="800" alt="Kollox FM Preview"/>
+</p> -->
+
+## About
+
+Kollox FM brings together all Maltese radio stations into a single, modern interface. Unlike global directories which often include missing Maltese radio stations, outdated or broken links, Kollox FM focuses solely on verified Maltese stations - offering a clean, responsive UI and smooth playback experience.
+
+Audience survey data is sourced from the [Broadcasting Authority of Malta](https://ba.org.mt/audience-assessments).
+
+## Features
+
+- **Unified station directory** - All verified Maltese radio stations in a single, modern interface
+- **Live streaming** - Smooth playback with persistent player bar across the app
+- **Audio normalization** - Consistent volume levels across stations
+- **Now playing metadata** - Real-time track info from supported stations
+- **Decade of survey data** - Audience trends from 10+ years of Broadcasting Authority surveys
+- **Interactive visualizations** - Charts and heatmaps for exploring listening patterns
+- **Responsive design** - Works seamlessly on desktop, tablet, and mobile
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```bash
+    git clone https://github.com/nathan-abela/kollox-fm.git
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```bash
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Start the development server:**
 
-## Learn More
+    ```bash
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Open your browser:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Navigate to [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js 15](https://nextjs.org) - App Router
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Radix UI](https://www.radix-ui.com)
