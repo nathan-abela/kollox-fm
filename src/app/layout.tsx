@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://kolloxfm.com"),
+	metadataBase: new URL(siteUrl),
 	title: {
 		default: "Kollox FM | Maltese Radio Stations in One Place",
 		template: "%s | Kollox FM",
