@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
+import { siteUrl } from "@/lib/config";
 import { AudioPlayerProvider } from "@/lib/hooks/audio-player";
 import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
