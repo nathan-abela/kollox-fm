@@ -1,5 +1,6 @@
 import { Info } from "lucide-react";
 
+import { stations } from "@/lib/data/stations";
 import { Survey } from "@/lib/types/survey";
 import { formatPeriodWeek } from "@/lib/utils";
 
@@ -40,7 +41,7 @@ export function SurveyInfo({ survey }: { survey: Survey }) {
 					<li>
 						<strong>Key Findings: </strong>
 						{mostFollowed
-							? `${mostFollowed.id} most followed (${mostFollowed.mostFollowedPct ?? "-"}%)`
+							? `${stations.find((s) => s.id === mostFollowed.id)?.name ?? mostFollowed.id} most followed (${mostFollowed.mostFollowedPct ?? "-"}%)`
 							: "-"}
 					</li>
 					<li>
