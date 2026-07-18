@@ -19,15 +19,12 @@ import {
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-// TODO: Consider removing progress bar & progress component
 
 /**
  * Renders a fixed player bar at the bottom of the screen, displaying the current radio station information,
@@ -59,8 +56,6 @@ export function PlayerBar() {
 	// State to handle image loading failure
 	const [imageError, setImageError] = useState(false);
 
-	const [progress, setProgress] = useState(0);
-
 	const handleNextStation = () => {
 		if (!currentStation) return;
 		// prettier-ignore
@@ -76,15 +71,6 @@ export function PlayerBar() {
 		if (prevIdx === null) return;
 		setStation(stationsOrder[prevIdx]);
 	};
-
-	useEffect(() => {
-		if (!isPlaying || !currentStation) return;
-
-		const interval = setInterval(() => {
-			setProgress((prev) => (prev >= 100 ? 0 : prev + 0.1));
-		}, 100);
-		return () => clearInterval(interval);
-	}, [isPlaying, currentStation]);
 
 	useEffect(() => {
 		setImageError(false);
@@ -195,12 +181,6 @@ export function PlayerBar() {
 								</TooltipContent>
 							</Tooltip>
 						</div>
-
-						{/* Progress bar hidden on mobile */}
-						<Progress
-							value={progress}
-							className="mt-3 hidden h-1 w-full md:block"
-						/>
 					</div>
 
 					{/* Volume & Actions */}

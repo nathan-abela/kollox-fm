@@ -377,7 +377,7 @@ export const stations: RadioStation[] = [
 		popularity: 18,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
-			currentSongUrl: "http://az.wannastream.com/radio/8000/status-json.xsl", // prettier-ignore
+			currentSongUrl: "https://az.wannastream.com/radio/8000/status-json.xsl", // prettier-ignore
 			currentSongMethod: "shoutcast",
 		},
 		lufs: -7.5,
