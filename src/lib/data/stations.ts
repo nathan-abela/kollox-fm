@@ -425,16 +425,16 @@ export const stations: RadioStation[] = [
 	{
 		id: "all-rock",
 		name: "All Rock",
-		streamUrl: "https://s6.reliastream.com/proxy/sedamico?mp=/;&1776594620500", // prettier-ignore
+		streamUrl: "https://s6.voscast.com:11793/default",
 		image: `${basePath}/images/all_rock.png`,
 		website: "https://allrock.mt",
 		location: "Mosta",
 		genres: ["Rock", "Classic Rock", "Metal", "Alternative"],
 		popularity: 21,
 		metadata: {
-			isEnabled: false,
-			currentSongUrl: "http://s6.reliastream.com:8296/7.html", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://s6.voscast.com:11793/status-json.xsl",
+			currentSongMethod: "voscast",
 		},
 		socials: {
 			facebook: "https://facebook.com/allrockdab",
