@@ -87,8 +87,11 @@ export default function Home() {
 	const [sortBy, setSortBy] = useState<SortOption>("popularity");
 	const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
 
+	// Search term shared with the header search input, debounced to avoid frequent ui changes
 	const { searchTerm } = useStationFilters();
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
+
+	// Favourite stations persisted to localStorage
 	const { favourites, isFavourite, toggleFavourite } = useFavourites();
 	const { recentlyPlayed, setStationsOrder, clearRecentlyPlayed } =
 		useAudioPlayer();
