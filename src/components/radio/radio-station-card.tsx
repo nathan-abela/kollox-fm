@@ -10,7 +10,6 @@ import {
 	PauseCircle,
 	Pin,
 	PlayCircle,
-	Radio,
 	RadioTower,
 } from "lucide-react";
 
@@ -31,8 +30,6 @@ interface RadioStationCardProps {
 	isFavourite: boolean;
 	onToggleFavourite: () => void;
 }
-
-// TODO: Consider adding station social links (Facebook, Instagram) if available
 
 export function RadioStationCard({
 	station,
@@ -157,7 +154,6 @@ export function RadioStationCard({
 				<div className="flex items-start justify-between gap-2">
 					<div className="min-w-0 flex-1">
 						<div className="flex min-w-0 items-center gap-2">
-							<Radio className="text-primary h-4 w-4" />
 							<h3 className="min-w-0 truncate text-lg font-semibold">
 								<Link
 									href={`/station/${station.id}`}
