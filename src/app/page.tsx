@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { Radio, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
@@ -18,6 +18,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HomeHero } from "@/components/radio/home-hero";
 import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
 import { SurveyToast } from "@/components/survey-toast";
@@ -87,11 +88,6 @@ export default function Home() {
 		[favourites]
 	);
 
-	const enabledStationsCount = useMemo(
-		() => stations.filter((s) => s.isEnabled !== false).length,
-		[]
-	);
-
 	// Get recently played stations in the order they were played
 	const recentStations = useMemo(
 		() =>
@@ -150,47 +146,7 @@ export default function Home() {
 
 	return (
 		<div className="container mx-auto px-4 pb-12">
-			{/* Page header section */}
-			<section className="py-6 md:py-8">
-				<div className="bg-card relative overflow-hidden rounded-xl border p-6 md:p-8">
-					<div className="relative z-10 flex flex-col items-center gap-6 md:flex-row">
-						<div className="flex flex-1 flex-col gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
-							<div className="flex-1 space-y-3">
-								{/* Main title and description */}
-								<h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-									Explore Malta&apos;s Radio Stations
-								</h2>
-								<p className="text-muted-foreground max-w-2xl text-sm md:text-lg">
-									All your favourite Maltese stations in one
-									place. Free, live, and local!
-								</p>
-
-								{/* Status indicators */}
-								<div className="text-muted-foreground flex flex-wrap items-center justify-center gap-4 text-xs md:justify-start md:text-sm">
-									<div className="flex items-center gap-2">
-										<div className="h-2 w-2 rounded-full bg-green-500"></div>
-										{/* prettier-ignore */}
-										<span>
-											{enabledStationsCount} Available Stations
-										</span>
-									</div>
-									<div className="flex items-center gap-2">
-										<div className="h-2 w-2 rounded-full bg-purple-500"></div>
-										<span>Live Metadata</span>
-									</div>
-								</div>
-							</div>
-
-							<div
-								className="hidden items-center justify-center md:flex md:items-center md:justify-end"
-								aria-hidden="true"
-							>
-								<Radio className="h-24 w-24 opacity-[0.02] dark:opacity-[0.05]" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+			<HomeHero />
 
 			{/* Sort Controls */}
 			<div className="flex justify-end">
