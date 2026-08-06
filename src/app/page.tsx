@@ -5,10 +5,10 @@ import { Radio, Trash2 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { useStationFilters } from "@/lib/hooks/station-filters";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
 	Select,
@@ -24,19 +24,18 @@ import { SurveyToast } from "@/components/survey-toast";
 
 type SortOption = "name" | "location" | "popularity" | "surveyRank";
 
-// TODO:
-// - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
-// - Consider extracting Search + Sort controls into a <SearchSortControls /> component
+// TODO: SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
 
 export default function Home() {
-	// State for search input
-	const [searchTerm, setSearchTerm] = useState("");
 	// State for sort option
 	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
 	// State for favourites
 	const [favourites, setFavourites] = useState<string[]>([]);
 	// State for selected tab
 	const [selectedTab, setSelectedTab] = useState("local");
+
+	// Search term shared with the header search input
+	const { searchTerm } = useStationFilters();
 
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
@@ -193,24 +192,8 @@ export default function Home() {
 				</div>
 			</section>
 
-			{/* Search + Sort Controls */}
-			<div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-				<div
-					className={cn(
-						"flex-1 space-y-4",
-						isSearchSortDisabled && "pointer-events-none opacity-50"
-					)}
-				>
-					<Label htmlFor="search">Search Stations</Label>
-					<Input
-						id="search"
-						placeholder="Search by name or location"
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						className="max-w-md transition-opacity"
-					/>
-				</div>
-
+			{/* Sort Controls */}
+			<div className="flex justify-end">
 				<div
 					className={cn(
 						"w-full space-y-4 md:w-[180px]",
