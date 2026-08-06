@@ -78,8 +78,9 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	}); // Initial volume set to 70% or fetched from localStorage
 	const [isMuted, setIsMuted] = useState(false);
 	const [recentlyPlayed, setRecentlyPlayed] = useState<string[]>([]);
-	const [stationsOrder, setStationsOrder] =
-		useState<RadioStation[]>(stations);
+	const [stationsOrder, setStationsOrder] = useState<RadioStation[]>(
+		stations.filter((s) => s.isEnabled !== false)
+	);
 
 	// Debounce the volume change to avoid frequent updates
 	const debouncedVolume = useDebounce(volume, 50);
