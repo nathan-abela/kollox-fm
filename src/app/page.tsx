@@ -6,6 +6,7 @@ import { Radio, Trash2 } from "lucide-react";
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useDebounce } from "@/lib/hooks/use-debounce";
+import { useFavourites } from "@/lib/hooks/use-favourites";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,13 +34,14 @@ export default function Home() {
 	const [searchTerm, setSearchTerm] = useState("");
 	// State for sort option
 	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
-	// State for favourites
-	const [favourites, setFavourites] = useState<string[]>([]);
 	// State for selected tab
 	const [selectedTab, setSelectedTab] = useState("local");
 
 	// Debounce the search input to avoid frequent ui changes
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
+
+	// Favourite stations persisted to localStorage
+	const { favourites, isFavourite, toggleFavourite } = useFavourites();
 
 	// Get values from audio player hook
 	const { recentlyPlayed, setStationsOrder, clearRecentlyPlayed } =
@@ -106,19 +108,6 @@ export default function Home() {
 		[recentlyPlayed]
 	);
 
-	// On mount initialize favourites from localStorage
-	useEffect(() => {
-		const storedFavourites = JSON.parse(
-			localStorage.getItem("favourites") || "[]"
-		);
-		setFavourites(storedFavourites);
-	}, []);
-
-	// When favourites change update localStorage
-	useEffect(() => {
-		localStorage.setItem("favourites", JSON.stringify(favourites));
-	}, [favourites]);
-
 	// Update stations order in audio player context when filtered stations change
 	useEffect(() => {
 		if (selectedTab === "local") {
@@ -135,15 +124,6 @@ export default function Home() {
 		recentStations,
 		setStationsOrder,
 	]);
-
-	const isFavourite = (id: string) => favourites.includes(id);
-	const onToggleFavourite = (stationId: string) => {
-		setFavourites((currentFavourites) =>
-			currentFavourites.includes(stationId)
-				? currentFavourites.filter((id) => id !== stationId)
-				: [...currentFavourites, stationId]
-		);
-	};
 
 	// Tabs for which search/ sort controls should be disabled
 	const disabledSearchSortTabs = ["favourites", "recent"];
@@ -270,7 +250,7 @@ export default function Home() {
 						<RadioStationList
 							stations={filteredStations}
 							isFavourite={isFavourite}
-							onToggleFavourite={onToggleFavourite}
+							onToggleFavourite={toggleFavourite}
 						/>
 					</Suspense>
 				</TabsContent>
@@ -290,7 +270,7 @@ export default function Home() {
 							<RadioStationList
 								stations={favouriteStations}
 								isFavourite={isFavourite}
-								onToggleFavourite={onToggleFavourite}
+								onToggleFavourite={toggleFavourite}
 							/>
 						</Suspense>
 					)}
@@ -328,7 +308,7 @@ export default function Home() {
 								<RadioStationList
 									stations={recentStations}
 									isFavourite={isFavourite}
-									onToggleFavourite={onToggleFavourite}
+									onToggleFavourite={toggleFavourite}
 								/>
 							</Suspense>
 						</div>
