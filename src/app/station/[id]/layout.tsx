@@ -15,14 +15,14 @@ export async function generateMetadata({
 
 	if (!station) {
 		return {
-			title: "Station Not Found | Kollox FM",
+			title: "Station Not Found",
 		};
 	}
 
 	const description = `Listen to ${station.name} live from ${station.location}${station.fmFrequency ? ` on ${station.fmFrequency} FM` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
 
 	return {
-		title: `${station.name}${station.fmFrequency ? ` - ${station.fmFrequency} FM` : ""} | Maltese Radio | Kollox FM`,
+		title: `${station.name}${station.fmFrequency ? ` - ${station.fmFrequency} FM` : ""} | Maltese Radio`,
 		description,
 		openGraph: {
 			title: `${station.name} | Kollox FM`,
