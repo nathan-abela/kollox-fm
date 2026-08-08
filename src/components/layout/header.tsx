@@ -34,7 +34,7 @@ export function Header() {
 					<Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 					<Input
 						type="search"
-						placeholder="Search station, town or genre"
+						placeholder="Search station, locality or genre"
 						aria-label="Search stations"
 						value={searchTerm}
 						onChange={(e) => handleSearchChange(e.target.value)}

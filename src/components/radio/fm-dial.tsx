@@ -15,8 +15,6 @@ interface FmDialProps {
 /**
  * Interactive FM band with one tick per station, positioned at its
  * frequency. Clicking a tick tunes the player to that station.
- * Adjacent ticks alternate between short and tall rows so labels in
- * crowded parts of the band stay legible.
  */
 export function FmDial({ stations }: FmDialProps) {
 	const { currentStation, setStation } = useAudioPlayer();

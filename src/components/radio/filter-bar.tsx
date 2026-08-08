@@ -10,7 +10,12 @@ import {
 } from "@/components/ui/select";
 import { SegmentedControl } from "@/components/radio/segmented-control";
 
-export type SortOption = "popularity" | "surveyRank" | "name" | "frequency";
+export type SortOption =
+	| "popularity"
+	| "surveyRank"
+	| "name"
+	| "location"
+	| "frequency";
 export type ViewOption = "all" | "favourites" | "recent";
 
 // TODO: SelectContent (Sort) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
@@ -54,30 +59,38 @@ export function FilterBar({
 					]}
 				/>
 
-				<Select
-					value={sortBy}
-					onValueChange={(value: SortOption) => onSortByChange(value)}
-					disabled={sortDisabled}
-				>
-					<SelectTrigger
-						aria-label="Sort stations"
-						className="ml-auto w-[170px]"
+				<div className="ml-auto flex items-center gap-2">
+					<span className="text-muted-foreground text-xs whitespace-nowrap">
+						Sort by
+					</span>
+					<Select
+						value={sortBy}
+						onValueChange={(value: SortOption) =>
+							onSortByChange(value)
+						}
+						disabled={sortDisabled}
 					>
-						<SelectValue placeholder="Sort by" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value="popularity">
-							Sort: Popularity
-						</SelectItem>
-						<SelectItem value="surveyRank">
-							Sort: Survey rank
-						</SelectItem>
-						<SelectItem value="name">Sort: Name</SelectItem>
-						<SelectItem value="frequency">
-							Sort: Frequency
-						</SelectItem>
-					</SelectContent>
-				</Select>
+						<SelectTrigger
+							aria-label="Sort stations"
+							className="w-[140px]"
+						>
+							<SelectValue placeholder="Sort by" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="popularity">
+								Popularity
+							</SelectItem>
+							<SelectItem value="surveyRank">
+								Survey Rank
+							</SelectItem>
+							<SelectItem value="name">Name</SelectItem>
+							<SelectItem value="location">Location</SelectItem>
+							<SelectItem value="frequency">
+								Frequency
+							</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
 			</div>
 
 			<div className="mt-3 flex gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

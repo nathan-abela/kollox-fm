@@ -22,16 +22,22 @@ import { SurveyToast } from "@/components/survey-toast";
 
 const enabledStations = stations.filter((s) => s.isEnabled !== false);
 
-const genreCounts = new Map<string, number>();
-for (const station of enabledStations) {
-	for (const genre of station.genres ?? []) {
-		genreCounts.set(genre, (genreCounts.get(genre) ?? 0) + 1);
-	}
-}
-const topGenres = [...genreCounts.entries()]
-	.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-	.slice(0, 12)
-	.map(([genre]) => genre);
+// Quick-filter genres, trending first
+const availableGenres = new Set(
+	enabledStations.flatMap((s) => s.genres ?? [])
+);
+const quickGenres = [
+	"Hits",
+	"Pop",
+	"Top 40",
+	"EDM",
+	"Chill",
+	"Rock",
+	"Maltese",
+	"Classic Hits",
+	"Oldies",
+	"Talk",
+].filter((genre) => availableGenres.has(genre));
 
 const sortComparators: Record<
 	SortOption,
@@ -44,6 +50,7 @@ const sortComparators: Record<
 		(a.surveyRank ?? Number.MAX_SAFE_INTEGER) -
 		(b.surveyRank ?? Number.MAX_SAFE_INTEGER),
 	name: (a, b) => a.name.localeCompare(b.name),
+	location: (a, b) => a.location.localeCompare(b.location),
 	frequency: (a, b) =>
 		(a.fmFrequency ? parseFloat(a.fmFrequency) : Number.MAX_SAFE_INTEGER) -
 		(b.fmFrequency ? parseFloat(b.fmFrequency) : Number.MAX_SAFE_INTEGER),
@@ -159,7 +166,7 @@ export default function Home() {
 				sortBy={sortBy}
 				onSortByChange={setSortBy}
 				sortDisabled={view === "recent"}
-				genres={topGenres}
+				genres={quickGenres}
 				selectedGenre={selectedGenre}
 				onGenreChange={setSelectedGenre}
 			/>
