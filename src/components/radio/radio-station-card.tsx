@@ -93,7 +93,7 @@ export function RadioStationCard({
 					{station.fmFrequency && (
 						<Badge
 							variant="secondary"
-							className="font-semibold shadow-md backdrop-blur-sm dark:bg-black/70"
+							className="font-mono font-medium shadow-md backdrop-blur-sm dark:bg-black/70"
 						>
 							{station.fmFrequency} FM
 						</Badge>

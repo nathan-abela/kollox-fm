@@ -151,6 +151,14 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+	/*
+	 * Tabular figures wherever mono is used, so dial frequencies, station
+	 * counts and survey tables line up column to column instead of
+	 * shifting width per digit.
+	 */
+	.font-mono {
+		font-variant-numeric: tabular-nums;
+	}
 }
 
 [data-sonner-toast] [data-description] {
