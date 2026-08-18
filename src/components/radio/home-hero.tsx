@@ -37,7 +37,7 @@ export function HomeHero() {
 						</div>
 					</div>
 
-					<p className="text-muted-foreground/70 hidden font-mono text-[10px] tracking-widest uppercase md:block">
+					<p className="text-muted-foreground hidden text-xs md:block">
 						Click a frequency to tune
 					</p>
 				</div>
