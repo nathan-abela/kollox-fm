@@ -55,11 +55,20 @@ export function RadioStationCard({
 	// State to handle image loading failure
 	const [imageError, setImageError] = useState(false);
 
+	const playLabel =
+		isCurrentStation && isLoading
+			? `Loading ${station.name}`
+			: isCurrentStation && isPlaying
+				? `Pause ${station.name}`
+				: `Play ${station.name}`;
+
 	return (
 		<Card className="group overflow-hidden pt-0 pb-4 transition-all duration-300 hover:shadow-md">
-			<div
-				className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden"
+			<button
+				type="button"
 				onClick={handlePlayClick}
+				aria-label={playLabel}
+				className="bg-muted focus-visible:ring-ring relative block aspect-[4/3] w-full cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-inset"
 			>
 				{imageError ? (
 					<div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-1">
@@ -105,17 +114,8 @@ export function RadioStationCard({
 						"absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300",
 						isCurrentStation && isLoading
 							? "opacity-100" // always show loader while loading
-							: "opacity-0 group-hover:opacity-100" // show loader on hover otherwise
+							: "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100" // show on hover or keyboard focus otherwise
 					)}
-					aria-label={
-						isCurrentStation
-							? isLoading
-								? "Loading station"
-								: isPlaying
-									? "Pause station"
-									: "Play station"
-							: "Play station"
-					}
 				>
 					{isCurrentStation && isLoading ? (
 						<Loader2 className="h-12 w-12 animate-spin text-white" />
@@ -147,7 +147,7 @@ export function RadioStationCard({
 						</Badge>
 					</div>
 				)}
-			</div>
+			</button>
 
 			<CardContent className="p-4">
 				<div className="flex items-start justify-between gap-2">
