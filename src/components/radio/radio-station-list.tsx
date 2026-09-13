@@ -21,7 +21,7 @@ export function RadioStationList({
 					No stations found!
 				</h3>
 				<p className="text-muted-foreground">
-					Try adjusting your search terms.
+					Try a different search or genre.
 				</p>
 			</div>
 		);
