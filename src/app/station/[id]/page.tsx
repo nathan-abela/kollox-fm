@@ -7,6 +7,7 @@ import { notFound, useParams } from "next/navigation";
 import {
 	ArrowLeft,
 	ExternalLink,
+	Heart,
 	Loader2,
 	MapPin,
 	Mic,
@@ -19,9 +20,15 @@ import {
 import { stations } from "@/lib/data/stations";
 import { getLatestSurvey } from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { useFavourites } from "@/lib/hooks/use-favourites";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
 	FacebookIcon,
 	InstagramIcon,
@@ -44,12 +51,14 @@ export default function StationPage() {
 
 	const [imageError, setImageError] = useState(false);
 	const [similarImageErrors, setSimilarImageErrors] = useState<Set<string>>(new Set()); // prettier-ignore
+	const { isFavourite, toggleFavourite } = useFavourites();
 
 	if (!station) {
 		notFound();
 	}
 
 	const isCurrentStation = currentStation?.id === station.id;
+	const favourited = isFavourite(station.id);
 	const handlePlayClick = () => {
 		if (isCurrentStation) {
 			togglePlayPause();
@@ -160,7 +169,7 @@ export default function StationPage() {
 
 							<div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:justify-start">
 								{station.fmFrequency && (
-									<span className="text-primary text-lg font-semibold">
+									<span className="font-mono text-lg font-medium">
 										{station.fmFrequency} FM
 									</span>
 								)}
@@ -222,6 +231,36 @@ export default function StationPage() {
 										Official Website
 									</a>
 								</Button>
+
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											variant="outline"
+											size="icon"
+											onClick={() => toggleFavourite(station.id)}
+											aria-pressed={favourited}
+											aria-label={
+												favourited
+													? "Remove from favourites"
+													: "Add to favourites"
+											}
+											className="h-10 w-10 cursor-pointer"
+										>
+											<Heart
+												className={
+													favourited
+														? "h-5 w-5 fill-current text-red-500"
+														: "h-5 w-5"
+												}
+											/>
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent side="top">
+										{favourited
+											? "Remove from favourites"
+											: "Add to favourites"}
+									</TooltipContent>
+								</Tooltip>
 							</div>
 
 							{station.socials && (
