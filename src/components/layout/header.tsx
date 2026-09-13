@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Radio, Search } from "lucide-react";
 
 import { useStationFilters } from "@/lib/hooks/station-filters";
+import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -12,6 +13,8 @@ export function Header() {
 	const pathname = usePathname();
 	const router = useRouter();
 	const { searchTerm, setSearchTerm } = useStationFilters();
+	// The full search placeholder only fits once the input reaches its sm width
+	const isNarrow = useMediaQuery("(max-width: 639px)");
 
 	const handleSearchChange = (value: string) => {
 		setSearchTerm(value);
@@ -34,7 +37,11 @@ export function Header() {
 					<Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 					<Input
 						type="search"
-						placeholder="Search station, locality or genre"
+						placeholder={
+							isNarrow
+								? "Search"
+								: "Search station, locality or genre"
+						}
 						aria-label="Search stations"
 						value={searchTerm}
 						onChange={(e) => handleSearchChange(e.target.value)}
