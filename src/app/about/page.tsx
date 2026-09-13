@@ -26,20 +26,18 @@ export default function About() {
 				<section className="space-y-6">
 					<h2 className="text-2xl font-semibold">Why Kollox FM?</h2>
 					<p className="text-muted-foreground text-base leading-relaxed">
-						Most global radio platforms are designed to showcase
-						international stations, but for Maltese listeners, the
+						Most global radio platforms are built around
+						international stations. For Maltese listeners, the
 						experience is often cluttered, inconsistent, or
 						incomplete. Station metadata may be outdated, streams
 						broken, or non-local content mixed in.
 					</p>
 					<p className="text-muted-foreground text-base leading-relaxed">
-						Kollox FM was built to offer a better alternative - a
-						lightweight, mobile-friendly directory focused entirely
-						on Maltese radio. With all local stations presented
-						side-by-side, easy to browse, compare, and switch
-						between stations without distractions. Stations are
-						curated for accuracy, making discovery simple and
-						frustration-free.
+						Kollox FM is a lightweight, mobile-friendly directory
+						for Maltese radio only. All local stations sit side by
+						side, so you can browse, compare, and switch between
+						them without digging through international content.
+						Stations are checked for accuracy.
 					</p>
 					<p className="text-muted-foreground text-base leading-relaxed">
 						The name &quot;Kollox&quot; reflects that vision:
@@ -60,9 +58,8 @@ export default function About() {
 									Modern Audio Player
 								</h3>
 								<p className="text-muted-foreground pt-2 text-sm">
-									Clean player with responsive layout, volume
-									control, and smooth streaming on all
-									devices.
+									Responsive player with volume control and
+									reliable streaming on any device.
 								</p>
 							</div>
 						</div>
@@ -74,7 +71,7 @@ export default function About() {
 								</h3>
 								<p className="text-muted-foreground pt-2 text-sm">
 									A focused collection of verified Maltese
-									stations - clean, current, and relevant.
+									stations, kept up to date.
 								</p>
 							</div>
 						</div>
@@ -98,8 +95,8 @@ export default function About() {
 									Built for Listeners
 								</h3>
 								<p className="text-muted-foreground pt-2 text-sm">
-									Simple UI, fast search, genre filters, and
-									curated discovery for Maltese radio fans.
+									Fast search and genre filters for browsing
+									Maltese radio.
 								</p>
 							</div>
 						</div>
@@ -110,10 +107,9 @@ export default function About() {
 					<h2 className="text-2xl font-semibold">Principles</h2>
 					<div className="text-muted-foreground space-y-4 text-base">
 						<p>
-							<b>Community Focused.</b> Kollox FM highlights
-							Maltese radio stations and provides a simple way for
-							listeners to reconnect with local content - whether
-							it&apos;s music, news, or talk.
+							<b>Community Focused.</b> Kollox FM lists Maltese
+							radio stations and gives listeners a simple way to
+							find local content, whether music, news, or talk.
 						</p>
 						<p>
 							<b>Non-Commercial.</b> This project is built for
@@ -132,8 +128,7 @@ export default function About() {
 						Tech Stack
 					</h2>
 					<p className="text-muted-foreground text-center">
-						Designed with a modern frontend stack, fully responsive
-						and built for performance.
+						Fully responsive and optimized for fast loading.
 					</p>
 					<div className="flex flex-wrap justify-center gap-2">
 						<Badge variant="secondary">Next.js</Badge>
