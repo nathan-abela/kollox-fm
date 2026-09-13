@@ -371,7 +371,7 @@ export const stations: RadioStation[] = [
 		fmFrequency: "106.9",
 		streamUrl: "https://az.wannastream.com/radio/8000/radjuluminaria",
 		image: `${basePath}/images/radju_luminaria.png`,
-		website: "https://www.nadurparish.com/media/radju-luminaria",
+		website: "https://www.nadurparish.com/media",
 		location: "Nadur",
 		genres: ["Classic Hits", "Religion", "Cultural"],
 		popularity: 18,
