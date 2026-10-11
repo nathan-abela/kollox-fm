@@ -61,7 +61,7 @@ export function FilterBar({
 					]}
 				/>
 
-				<div className="ml-auto flex items-center gap-2">
+				<div className="flex items-center gap-2 sm:ml-auto">
 					<span className="text-muted-foreground text-xs whitespace-nowrap">
 						Sort by
 					</span>

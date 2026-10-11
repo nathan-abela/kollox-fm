@@ -18,7 +18,7 @@ const navLinks = [
 	},
 	{
 		href: "/survey-results",
-		label: "Survey results",
+		label: "Survey Results",
 		isActive: (pathname: string) => pathname.startsWith("/survey-results"),
 	},
 ];
