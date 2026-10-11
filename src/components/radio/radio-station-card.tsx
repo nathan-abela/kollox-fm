@@ -120,7 +120,7 @@ export function RadioStationCard({
 												station.fmFrequency && "border-border border-l pl-1.5" // prettier-ignore
 											)}
 										>
-											<Music2 className="h-3.5 w-3.5 [&>circle]:fill-current" />
+											<Music2 className="h-3 w-3" />
 										</span>
 									</TooltipTrigger>
 									<TooltipContent side="top">
@@ -226,8 +226,9 @@ export function RadioStationCard({
 
 			{/* Genres and website live on the station page too, so two-column phones drop them for density */}
 			<CardFooter className="hidden flex-wrap items-center justify-between gap-2 p-4 pt-0 sm:flex">
-				<div className="flex flex-1 flex-wrap gap-2">
-					{station.genres?.map((genre) => (
+				{/* One row only: chips that wrap land below the clipped height */}
+				<div className="flex max-h-7 flex-1 flex-wrap gap-2 overflow-hidden">
+					{station.genres?.slice(0, 3).map((genre) => (
 						<Badge
 							key={genre}
 							variant="outline"
