@@ -23,9 +23,7 @@ import { SurveyToast } from "@/components/survey-toast";
 const enabledStations = stations.filter((s) => s.isEnabled !== false);
 
 // Quick-filter genres, trending first
-const availableGenres = new Set(
-	enabledStations.flatMap((s) => s.genres ?? [])
-);
+const availableGenres = new Set(enabledStations.flatMap((s) => s.genres ?? []));
 const quickGenres = [
 	"Hits",
 	"Pop",
@@ -113,7 +111,8 @@ export default function Home() {
 				.filter((s) => recentlyPlayed.includes(s.id))
 				.sort(
 					(a, b) =>
-						recentlyPlayed.indexOf(a.id) - recentlyPlayed.indexOf(b.id)
+						recentlyPlayed.indexOf(a.id) -
+						recentlyPlayed.indexOf(b.id)
 				);
 		}
 
@@ -153,12 +152,16 @@ export default function Home() {
 		setStationsOrder(visibleStations);
 	}, [visibleStations, setStationsOrder]);
 
+	// prettier-ignore
 	const showFavouritesEmpty = view === "favourites" && favourites.length === 0;
 	const showRecentEmpty = view === "recent" && recentlyPlayed.length === 0;
 
 	return (
 		<div className="container mx-auto px-4 pb-12">
-			<HomeHero />
+			<HomeHero
+				isFavourite={isFavourite}
+				onToggleFavourite={toggleFavourite}
+			/>
 
 			<FilterBar
 				view={view}
