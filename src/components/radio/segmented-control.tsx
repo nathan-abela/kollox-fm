@@ -1,12 +1,14 @@
 "use client";
 
-import { KeyboardEvent } from "react";
+import { KeyboardEvent, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 interface SegmentedControlOption {
 	value: string;
 	label: string;
+	/** Decorative - hidden on narrow screens where the control would wrap */
+	icon?: ReactNode;
 }
 
 interface SegmentedControlProps {
@@ -68,12 +70,20 @@ export function SegmentedControl({
 						onClick={() => onValueChange(option.value)}
 						onKeyDown={(event) => handleKeyDown(event, index)}
 						className={cn(
-							"cursor-pointer rounded-md px-3 py-1.5 text-sm whitespace-nowrap transition-colors",
+							"inline-flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-sm whitespace-nowrap transition-colors",
 							isActive
 								? "bg-background text-foreground shadow-sm"
 								: "text-muted-foreground hover:text-foreground"
 						)}
 					>
+						{option.icon && (
+							<span
+								aria-hidden="true"
+								className="hidden sm:inline-flex [&>svg]:size-4"
+							>
+								{option.icon}
+							</span>
+						)}
 						{option.label}
 					</button>
 				);

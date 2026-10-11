@@ -1,5 +1,7 @@
 "use client";
 
+import { Clock, Heart, LayoutGrid } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import {
 	Select,
@@ -53,9 +55,9 @@ export function FilterBar({
 					value={view}
 					onValueChange={(value) => onViewChange(value as ViewOption)}
 					options={[
-						{ value: "all", label: "All" },
-						{ value: "favourites", label: "Favourites" },
-						{ value: "recent", label: "Recent" },
+						{ value: "all", label: "All", icon: <LayoutGrid /> },
+						{ value: "favourites", label: "Favourites", icon: <Heart /> }, // prettier-ignore
+						{ value: "recent", label: "Recent", icon: <Clock /> },
 					]}
 				/>
 
@@ -85,9 +87,7 @@ export function FilterBar({
 							</SelectItem>
 							<SelectItem value="name">Name</SelectItem>
 							<SelectItem value="location">Location</SelectItem>
-							<SelectItem value="frequency">
-								Frequency
-							</SelectItem>
+							<SelectItem value="frequency">Frequency</SelectItem>
 						</SelectContent>
 					</Select>
 				</div>
@@ -101,7 +101,7 @@ export function FilterBar({
 							key={genre}
 							type="button"
 							aria-pressed={isActive}
-							onClick={() => onGenreChange(isActive ? null : genre)}
+							onClick={() => onGenreChange(isActive ? null : genre)} // prettier-ignore
 							className={cn(
 								"shrink-0 cursor-pointer rounded-md border px-3 py-1 text-xs whitespace-nowrap transition-colors",
 								isActive
