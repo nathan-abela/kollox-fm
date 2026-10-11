@@ -7,6 +7,7 @@ import {
 	ExternalLink,
 	Heart,
 	Loader2,
+	Music2,
 	PauseCircle,
 	Pin,
 	PlayCircle,
@@ -99,12 +100,34 @@ export function RadioStationCard({
 						</Badge>
 					)}
 
-					{station.fmFrequency && (
+					{(station.fmFrequency || station.metadata?.isEnabled) && (
 						<Badge
 							variant="secondary"
-							className="font-mono font-medium shadow-md backdrop-blur-sm dark:bg-black/70"
+							className="gap-1.5 font-mono font-medium shadow-md backdrop-blur-sm dark:bg-black/70"
 						>
-							{station.fmFrequency} FM
+							{station.fmFrequency && (
+								<span>{station.fmFrequency} FM</span>
+							)}
+							{/* Metadata indicator */}
+							{station.metadata?.isEnabled && (
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<span
+											role="img"
+											aria-label="Live song information available"
+											className={cn(
+												"text-purple-500",
+												station.fmFrequency && "border-border border-l pl-1.5" // prettier-ignore
+											)}
+										>
+											<Music2 className="h-3.5 w-3.5 [&>circle]:fill-current" />
+										</span>
+									</TooltipTrigger>
+									<TooltipContent side="top">
+										Live song information available
+									</TooltipContent>
+								</Tooltip>
+							)}
 						</Badge>
 					)}
 				</div>
@@ -162,20 +185,6 @@ export function RadioStationCard({
 									{station.name}
 								</Link>
 							</h3>
-							{/* Metadata indicator */}
-							{station?.metadata?.isEnabled && (
-								<Tooltip>
-									<TooltipTrigger asChild>
-										<div
-											className="h-2 w-2 animate-pulse cursor-help rounded-full bg-purple-500"
-											aria-label="Live Metadata"
-										/>
-									</TooltipTrigger>
-									<TooltipContent side="top">
-										Live song information available
-									</TooltipContent>
-								</Tooltip>
-							)}
 						</div>
 						<p className="text-muted-foreground truncate text-sm">
 							{station.location}
