@@ -35,6 +35,7 @@ import {
 	TikTokIcon,
 	YouTubeIcon,
 } from "@/components/icons/social";
+import { RadioStationList } from "@/components/radio/radio-station-list";
 
 export default function StationPage() {
 	const params = useParams();
@@ -50,7 +51,6 @@ export default function StationPage() {
 	} = useAudioPlayer();
 
 	const [imageError, setImageError] = useState(false);
-	const [similarImageErrors, setSimilarImageErrors] = useState<Set<string>>(new Set()); // prettier-ignore
 	const { isFavourite, toggleFavourite } = useFavourites();
 
 	if (!station) {
@@ -89,11 +89,13 @@ export default function StationPage() {
 			const bShared = b.genres?.filter((g) => station.genres?.includes(g)).length || 0;
 			return bShared - aShared;
 		})
-		.slice(0, 6);
+		.slice(0, 5);
 
-	const handleSimilarImageError = (id: string) => {
-		setSimilarImageErrors((prev) => new Set(prev).add(id));
-	};
+	const sharedGenres = station.genres?.length
+		? new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
+				station.genres
+			)
+		: null;
 
 	return (
 		<div>
@@ -400,42 +402,21 @@ export default function StationPage() {
 			{/* Similar Stations */}
 			{similarStations.length > 0 && (
 				<div className="container mx-auto px-4 py-8">
-					<h2 className="mb-4 text-lg font-semibold">
-						Similar Stations
-					</h2>
-					<div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-						{similarStations.map((similar) => (
-							<Link
-								key={similar.id}
-								href={`/station/${similar.id}`}
-								className="group block"
-							>
-								<div className="relative aspect-square overflow-hidden rounded-lg shadow-md transition-shadow group-hover:shadow-lg">
-									{similarImageErrors.has(similar.id) ? (
-										<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
-											<RadioTower className="h-6 w-6" />
-										</div>
-									) : (
-										<Image
-											src={similar.image}
-											alt={similar.name}
-											fill
-											className="object-cover transition-opacity group-hover:opacity-90"
-											onError={() => handleSimilarImageError(similar.id)} // prettier-ignore
-										/>
-									)}
-								</div>
-								<p className="group-hover:text-primary mt-2 truncate text-center text-sm font-medium transition-colors">
-									{similar.name}
-								</p>
-								{similar.fmFrequency && (
-									<p className="text-muted-foreground text-center text-xs">
-										{similar.fmFrequency} FM
-									</p>
-								)}
-							</Link>
-						))}
+					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+						<h2 className="text-lg font-semibold">
+							Similar Stations
+						</h2>
+						{sharedGenres && (
+							<p className="text-muted-foreground text-sm">
+								Stations that also play {sharedGenres}
+							</p>
+						)}
 					</div>
+					<RadioStationList
+						stations={similarStations}
+						isFavourite={isFavourite}
+						onToggleFavourite={toggleFavourite}
+					/>
 				</div>
 			)}
 		</div>
