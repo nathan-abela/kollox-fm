@@ -104,7 +104,7 @@ export default function StationPage() {
 					<div className="absolute inset-0">
 						<Image
 							src={station.image}
-							alt=""
+							alt={station.name + " logo"}
 							fill
 							className="scale-110 object-cover blur-3xl"
 							aria-hidden="true"
@@ -152,7 +152,7 @@ export default function StationPage() {
 							) : (
 								<Image
 									src={station.image}
-									alt={station.name}
+									alt={station.name + " logo"}
 									fill
 									priority
 									className="object-cover"
@@ -237,7 +237,9 @@ export default function StationPage() {
 										<Button
 											variant="outline"
 											size="icon"
-											onClick={() => toggleFavourite(station.id)}
+											onClick={() =>
+												toggleFavourite(station.id)
+											}
 											aria-pressed={favourited}
 											aria-label={
 												favourited
@@ -365,7 +367,10 @@ export default function StationPage() {
 										<Mic className="text-primary h-5 w-5" />
 									</div>
 									<div className="min-w-0 flex-1">
-										<p className="truncate font-medium" title={show.name}>
+										<p
+											className="truncate font-medium"
+											title={show.name}
+										>
 											{show.name}
 										</p>
 										{/* prettier-ignore */}

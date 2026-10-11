@@ -26,6 +26,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { StationPreview } from "@/components/radio/station-preview";
 
 /**
  * Renders a fixed player bar at the bottom of the screen, displaying the current radio station information,
@@ -60,22 +61,6 @@ export function PlayerBar() {
 	// Current song metadata shown in place of the location while available
 	const currentSong = useStationMetadata(currentStation, isPlaying);
 
-	const handleNextStation = () => {
-		if (!currentStation) return;
-		// prettier-ignore
-		const nextIdx = getRelativeStationIndex(currentStation.id, stationsOrder, 1);
-		if (nextIdx === null) return;
-		setStation(stationsOrder[nextIdx]);
-	};
-
-	const handlePrevStation = () => {
-		if (!currentStation) return;
-		// prettier-ignore
-		const prevIdx = getRelativeStationIndex(currentStation.id, stationsOrder, -1);
-		if (prevIdx === null) return;
-		setStation(stationsOrder[prevIdx]);
-	};
-
 	useEffect(() => {
 		setImageError(false);
 	}, [currentStation?.image]);
@@ -83,6 +68,21 @@ export function PlayerBar() {
 	if (!currentStation) {
 		return null;
 	}
+
+	// prettier-ignore
+	const prevIdx = getRelativeStationIndex(currentStation.id, stationsOrder, -1);
+	// prettier-ignore
+	const nextIdx = getRelativeStationIndex(currentStation.id, stationsOrder, 1);
+	const prevStation = prevIdx === null ? null : stationsOrder[prevIdx];
+	const nextStation = nextIdx === null ? null : stationsOrder[nextIdx];
+
+	const handlePrevStation = () => {
+		if (prevStation) setStation(prevStation);
+	};
+
+	const handleNextStation = () => {
+		if (nextStation) setStation(nextStation);
+	};
 
 	return (
 		<div className="bg-card fixed right-0 bottom-0 left-0 z-40 border-t px-6 py-4">
@@ -128,16 +128,22 @@ export function PlayerBar() {
 										variant="ghost"
 										size="icon"
 										onClick={handlePrevStation}
-										aria-label="Previous station"
+										aria-label={
+											prevStation
+												? `Previous station: ${prevStation.name}`
+												: "Previous station"
+										}
 										className="cursor-pointer"
 										disabled={isLoading}
 									>
 										<SkipBack className="h-5 w-5" />
 									</Button>
 								</TooltipTrigger>
-								<TooltipContent side="top">
-									Previous station
-								</TooltipContent>
+								<SkipPreview
+									station={prevStation}
+									label="Previous station"
+									tilt="left"
+								/>
 							</Tooltip>
 							<Tooltip>
 								<TooltipTrigger asChild>
@@ -174,16 +180,22 @@ export function PlayerBar() {
 										variant="ghost"
 										size="icon"
 										onClick={handleNextStation}
-										aria-label="Next station"
+										aria-label={
+											nextStation
+												? `Next station: ${nextStation.name}`
+												: "Next station"
+										}
 										className="cursor-pointer"
 										disabled={isLoading}
 									>
 										<SkipForward className="h-5 w-5" />
 									</Button>
 								</TooltipTrigger>
-								<TooltipContent side="top">
-									Next station
-								</TooltipContent>
+								<SkipPreview
+									station={nextStation}
+									label="Next station"
+									tilt="right"
+								/>
 							</Tooltip>
 						</div>
 					</div>
@@ -251,6 +263,35 @@ export function PlayerBar() {
 				</div>
 			</div>
 		</div>
+	);
+}
+
+/**
+ * Skip-button tooltip: a preview of the station the skip would land on,
+ * falling back to a plain label when there is nothing to skip to.
+ */
+function SkipPreview({
+	station,
+	label,
+	tilt,
+}: {
+	station: RadioStation | null;
+	label: string;
+	tilt: "left" | "right";
+}) {
+	if (!station) {
+		return <TooltipContent side="top">{label}</TooltipContent>;
+	}
+
+	return (
+		<TooltipContent
+			side="top"
+			sideOffset={8}
+			showArrow={false}
+			className="bg-transparent p-0"
+		>
+			<StationPreview station={station} tilt={tilt} />
+		</TooltipContent>
 	);
 }
 
