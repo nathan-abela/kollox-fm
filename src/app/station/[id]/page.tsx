@@ -15,10 +15,16 @@ import {
 	Play,
 	RadioTower,
 	Trophy,
+	Users,
 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
-import { getLatestSurvey } from "@/lib/data/surveys";
+import {
+	getAllSurveys,
+	getLatestSurvey,
+	getRankedStations,
+	getStationSurveyRank,
+} from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useFavourites } from "@/lib/hooks/use-favourites";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +42,26 @@ import {
 	YouTubeIcon,
 } from "@/components/icons/social";
 import { RadioStationList } from "@/components/radio/radio-station-list";
+import { SurveyMetricCard } from "@/components/survey-results/survey-metric-card";
+
+/** Survey estimates come from ~1,500 respondents, so show them to the nearest thousand */
+const roundToThousands = (count: number) =>
+	(Math.round(count / 1000) * 1000).toLocaleString("en-GB");
+
+/** Sub-line for the rank tile: how the station moved since the previous survey */
+// TODO: "Up/Down from #N in YYYY" is a placeholder, replace the plain string with a better visual/wording for rank movement
+function describeRankChange(
+	rank: number,
+	previousRank: number | null,
+	previousYear: string
+) {
+	if (previousRank == null) return `Not ranked in ${previousYear}`;
+	if (rank < previousRank)
+		return `Up from #${previousRank} in ${previousYear}`;
+	if (rank > previousRank)
+		return `Down from #${previousRank} in ${previousYear}`;
+	return `Unchanged from ${previousYear}`;
+}
 
 export default function StationPage() {
 	const params = useParams();
@@ -69,6 +95,21 @@ export default function StationPage() {
 
 	const latestSurvey = getLatestSurvey();
 	const latestSurveyYear = latestSurvey?.meta.id;
+
+	const previousSurvey = getAllSurveys()[1];
+	const latestSurveyRow = latestSurvey?.stations?.find(
+		(s) => s.id === station.id
+	);
+	const rankedStationCount = latestSurvey
+		? getRankedStations(latestSurvey).length
+		: 0;
+	const latestSurveyRank = latestSurvey
+		? getStationSurveyRank(latestSurvey, station.id)
+		: null;
+	const previousSurveyRank = previousSurvey
+		? getStationSurveyRank(previousSurvey, station.id)
+		: null;
+	const totalRadioListeners = latestSurvey?.metrics?.totalRadioListeners;
 
 	// Get top 3 popular shows for this station from the latest survey
 	// prettier-ignore
@@ -127,16 +168,16 @@ export default function StationPage() {
 							</span>
 							<span className="sm:hidden">Back</span>
 						</Link>
-						{station.surveyRank && latestSurveyYear && (
+						{latestSurveyRank && latestSurveyYear && (
 							<Button variant="outline" size="sm" asChild>
 								{/* prettier-ignore */}
 								<Link href={`/survey-results/${latestSurveyYear}`}>
 									<Trophy className="h-4 w-4 text-yellow-500" />
 									<span className="hidden sm:inline">
-										#{station.surveyRank} in {latestSurveyYear} Audience Survey
+										#{latestSurveyRank} in {latestSurveyYear} Audience Survey
 									</span>
 									<span className="sm:hidden">
-										#{station.surveyRank} in {latestSurveyYear}
+										#{latestSurveyRank} in {latestSurveyYear}
 									</span>
 								</Link>
 							</Button>
@@ -344,16 +385,61 @@ export default function StationPage() {
 				</div>
 			</div>
 
-			{/* About */}
-			<div className="container mx-auto px-4 py-8">
-				<h2 className="mb-2 text-lg font-semibold">About</h2>
-				<p className="text-muted-foreground">
-					{station.name} is a {station.genres?.join(", ")} radio
-					station broadcasting from {station.location}
-					{station.fmFrequency && ` on ${station.fmFrequency} FM`}.
-					Stream live online at Kollox FM.
-				</p>
-			</div>
+			{/* Audience */}
+			{latestSurvey && latestSurveyRank && latestSurveyRow && (
+				<div className="container mx-auto px-4 py-8">
+					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+						<h2 className="text-lg font-semibold">Audience</h2>
+						<a
+							href={latestSurvey.meta.rawSourcePath}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground text-sm underline"
+						>
+							Broadcasting Authority Audience Survey{" "}
+							{latestSurveyYear}
+						</a>
+					</div>
+					<div className="grid gap-3 sm:grid-cols-2">
+						<SurveyMetricCard
+							icon={Trophy}
+							title={`${latestSurveyYear} survey rank`}
+							value={
+								<>
+									#{latestSurveyRank}{" "}
+									<span className="text-muted-foreground text-lg font-semibold">
+										of {rankedStationCount}
+									</span>
+								</>
+							}
+							subtitle={
+								previousSurvey
+									? describeRankChange(
+											latestSurveyRank,
+											previousSurveyRank,
+											previousSurvey.meta.id
+										)
+									: `${latestSurveyYear} survey`
+							}
+							tooltip={`Position among the ${rankedStationCount} stations ranked in the ${latestSurveyYear} survey by the share of listeners who follow them most`}
+						/>
+						{latestSurveyRow.mostFollowedPct != null && (
+							<SurveyMetricCard
+								icon={Users}
+								title={`Follow ${station.name} most`}
+								value={`${latestSurveyRow.mostFollowedPct.toFixed(1)}%`}
+								subtitle={
+									latestSurveyRow.stationListeners != null &&
+									totalRadioListeners != null
+										? `≈${roundToThousands(latestSurveyRow.stationListeners)} of about ${roundToThousands(totalRadioListeners)} radio listeners`
+										: `Of radio listeners in the ${latestSurveyYear} survey`
+								}
+								tooltip={`Share of respondents who named ${station.name} as the station they follow most, scaled to Malta's radio-listening population`}
+							/>
+						)}
+					</div>
+				</div>
+			)}
 
 			{/* Popular Shows */}
 			{popularShows.length > 0 && (

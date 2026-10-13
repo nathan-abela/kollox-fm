@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Info, LucideIcon } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +11,7 @@ import {
 interface SurveyMetricCardProps {
 	icon: LucideIcon;
 	title: string;
-	value: string | number;
+	value: ReactNode;
 	subtitle: string;
 	tooltip: string;
 }
