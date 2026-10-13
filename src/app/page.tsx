@@ -60,6 +60,7 @@ const viewTitles: Record<ViewOption, string> = {
 	recent: "Recently played",
 };
 
+/** Dashed placeholder for an empty station list, with one action that gets the user back to results */
 function EmptyState({
 	title,
 	description,

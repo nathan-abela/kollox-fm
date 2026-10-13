@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 interface StationPreviewProps {
 	station: RadioStation;
+	/** Rotates the print like a dropped photo, pick the side matching the button that shows it */
 	tilt?: "left" | "right" | "none";
 	className?: string;
 }

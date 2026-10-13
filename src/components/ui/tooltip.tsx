@@ -41,6 +41,7 @@ function TooltipContent({
 	children,
 	...props
 }: React.ComponentProps<typeof TooltipPrimitive.Content> & {
+	/** Set false when the content brings its own frame, ex. a tilted preview card */
 	showArrow?: boolean;
 }) {
 	return (
