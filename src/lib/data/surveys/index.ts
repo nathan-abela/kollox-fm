@@ -60,7 +60,9 @@ export function getLatestSurvey(): Survey | undefined {
  * @returns {StationSummary[]} Ranked station rows, best first.
  */
 export function getRankedStations(survey: Survey): StationSummary[] {
-	return survey.stations?.filter((station) => station.id !== "no-radio") ?? [];
+	return (
+		survey.stations?.filter((station) => station.id !== "no-radio") ?? []
+	);
 }
 
 /**
