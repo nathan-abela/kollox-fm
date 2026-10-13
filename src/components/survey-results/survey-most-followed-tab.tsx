@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArrowUpDown, ChevronDown, ChevronUp, TableIcon } from "lucide-react";
 
+import { getRankedStations } from "@/lib/data/surveys";
 import { Survey } from "@/lib/types/survey";
 import {
 	Card,
@@ -42,14 +43,13 @@ export function SurveyMostFollowedTab({ survey }: { survey: Survey }) {
 		direction: "desc",
 	});
 
-	const stations = useMemo(() => survey.stations || [], [survey.stations]);
+	const stations = useMemo(() => getRankedStations(survey), [survey]);
 
 	const filteredStations = useMemo(() => {
 		if (!stations.length) return [];
 
 		// Static rank based on the default sorting (followers descending)
 		const rankedStations = stations
-			.filter((station) => station.id !== "no-radio")
 			.map((station, index) => ({ ...station, rank: index + 1 }))
 			.sort((stationA, stationB) => {
 				return (

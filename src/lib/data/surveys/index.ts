@@ -9,7 +9,7 @@ import { survey2022 } from "@/lib/data/surveys/2022";
 import { survey2023 } from "@/lib/data/surveys/2023";
 import { survey2024 } from "@/lib/data/surveys/2024";
 import { survey2025 } from "@/lib/data/surveys/2025";
-import { Survey } from "@/lib/types/survey";
+import { StationSummary, Survey } from "@/lib/types/survey";
 
 const SURVEYS: Record<string, Survey> = {
 	[survey2015.meta.id]: survey2015 as Survey,
@@ -51,4 +51,32 @@ export function getAllSurveys(): Survey[] {
  */
 export function getLatestSurvey(): Survey | undefined {
 	return getAllSurveys()[0];
+}
+
+/**
+ * Station rows in ranking order, as the survey results table shows them:
+ * the "No radio" respondent row is dropped and rank is the row's position.
+ * @param {Survey} survey - The survey edition.
+ * @returns {StationSummary[]} Ranked station rows, best first.
+ */
+export function getRankedStations(survey: Survey): StationSummary[] {
+	return (
+		survey.stations?.filter((station) => station.id !== "no-radio") ?? []
+	);
+}
+
+/**
+ * Finds a station's 1-based rank in a survey edition.
+ * @param {Survey} survey - The survey edition.
+ * @param {string} stationId - The station's id (ex. "bay-fm").
+ * @returns {number | null} The rank, or null when the station was not ranked.
+ */
+export function getStationSurveyRank(
+	survey: Survey,
+	stationId: string
+): number | null {
+	const index = getRankedStations(survey).findIndex(
+		(station) => station.id === stationId
+	);
+	return index === -1 ? null : index + 1;
 }

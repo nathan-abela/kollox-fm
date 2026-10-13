@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
-import { getLatestSurvey } from "@/lib/data/surveys";
+import { getLatestSurvey, getStationSurveyRank } from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -60,6 +60,9 @@ export default function StationPage() {
 
 	const latestSurvey = getLatestSurvey();
 	const latestSurveyYear = latestSurvey?.meta.id;
+	const latestSurveyRank = latestSurvey
+		? getStationSurveyRank(latestSurvey, station.id)
+		: null;
 
 	// Get top 3 popular shows for this station from the latest survey
 	// prettier-ignore
@@ -116,16 +119,16 @@ export default function StationPage() {
 							</span>
 							<span className="sm:hidden">Back</span>
 						</Link>
-						{station.surveyRank && latestSurveyYear && (
+						{latestSurveyRank && latestSurveyYear && (
 							<Button variant="outline" size="sm" asChild>
 								{/* prettier-ignore */}
 								<Link href={`/survey-results/${latestSurveyYear}`}>
 									<Trophy className="h-4 w-4 text-yellow-500" />
 									<span className="hidden sm:inline">
-										#{station.surveyRank} in {latestSurveyYear} Audience Survey
+										#{latestSurveyRank} in {latestSurveyYear} Audience Survey
 									</span>
 									<span className="sm:hidden">
-										#{station.surveyRank} in {latestSurveyYear}
+										#{latestSurveyRank} in {latestSurveyYear}
 									</span>
 								</Link>
 							</Button>
@@ -326,7 +329,10 @@ export default function StationPage() {
 										<Mic className="text-primary h-5 w-5" />
 									</div>
 									<div className="min-w-0 flex-1">
-										<p className="truncate font-medium" title={show.name}>
+										<p
+											className="truncate font-medium"
+											title={show.name}
+										>
 											{show.name}
 										</p>
 										{/* prettier-ignore */}
