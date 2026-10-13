@@ -82,6 +82,19 @@ export interface StationSummary {
 }
 
 /**
+ * A station's standing in one survey edition, used for per-station trend charts.
+ *
+ * @property year - Survey edition id, ex. "2024".
+ * @property mostFollowedPct - % marked as most followed, null when not ranked.
+ * @property rank - 1-based rank among ranked stations, null when not ranked.
+ */
+export interface StationSurveyHistoryEntry {
+	year: string;
+	mostFollowedPct: Percent | null;
+	rank: number | null;
+}
+
+/**
  * Aggregate across stations for a given timeband.
  *
  * @property timeband - Time window label, ex. "07:00-07:30".

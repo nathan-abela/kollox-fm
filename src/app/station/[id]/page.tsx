@@ -23,10 +23,12 @@ import {
 	getAllSurveys,
 	getLatestSurvey,
 	getRankedStations,
+	getStationSurveyHistory,
 	getStationSurveyRank,
 } from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useFavourites } from "@/lib/hooks/use-favourites";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,11 +44,15 @@ import {
 	YouTubeIcon,
 } from "@/components/icons/social";
 import { RadioStationList } from "@/components/radio/radio-station-list";
+import { MostFollowedTrendChart } from "@/components/survey-results/charts/most-followed-trend-chart";
 import { SurveyMetricCard } from "@/components/survey-results/survey-metric-card";
 
 /** Survey estimates come from ~1,500 respondents, so show them to the nearest thousand */
 const roundToThousands = (count: number) =>
 	(Math.round(count / 1000) * 1000).toLocaleString("en-GB");
+/** Listener estimate for display, counts that would round to zero read "Under 1,000" instead */
+const formatListeners = (count: number) =>
+	count < 500 ? "Under 1,000" : `≈${roundToThousands(count)}`;
 
 /** Sub-line for the rank tile: how the station moved since the previous survey */
 // TODO: "Up/Down from #N in YYYY" is a placeholder, replace the plain string with a better visual/wording for rank movement
@@ -96,7 +102,14 @@ export default function StationPage() {
 	const latestSurvey = getLatestSurvey();
 	const latestSurveyYear = latestSurvey?.meta.id;
 
-	const previousSurvey = getAllSurveys()[1];
+	const surveys = getAllSurveys();
+	const previousSurvey = surveys[1];
+	const surveyHistory = getStationSurveyHistory(station.id);
+	// Two editions make a before/after, not a trend, and the rank tile already shows that movement
+	const showTrend = surveyHistory.filter((entry) => entry.rank != null).length >= 3; // prettier-ignore
+	const surveysLed = surveys.filter(
+		(s) => s.highlights?.mostFollowedStation?.id === station.id
+	).length;
 	const latestSurveyRow = latestSurvey?.stations?.find(
 		(s) => s.id === station.id
 	);
@@ -400,43 +413,59 @@ export default function StationPage() {
 							{latestSurveyYear}
 						</a>
 					</div>
-					<div className="grid gap-3 sm:grid-cols-2">
-						<SurveyMetricCard
-							icon={Trophy}
-							title={`${latestSurveyYear} survey rank`}
-							value={
-								<>
-									#{latestSurveyRank}{" "}
-									<span className="text-muted-foreground text-lg font-semibold">
-										of {rankedStationCount}
-									</span>
-								</>
-							}
-							subtitle={
-								previousSurvey
-									? describeRankChange(
-											latestSurveyRank,
-											previousSurveyRank,
-											previousSurvey.meta.id
-										)
-									: `${latestSurveyYear} survey`
-							}
-							tooltip={`Position among the ${rankedStationCount} stations ranked in the ${latestSurveyYear} survey by the share of listeners who follow them most`}
-						/>
-						{latestSurveyRow.mostFollowedPct != null && (
-							<SurveyMetricCard
-								icon={Users}
-								title={`Follow ${station.name} most`}
-								value={`${latestSurveyRow.mostFollowedPct.toFixed(1)}%`}
-								subtitle={
-									latestSurveyRow.stationListeners != null &&
-									totalRadioListeners != null
-										? `≈${roundToThousands(latestSurveyRow.stationListeners)} of about ${roundToThousands(totalRadioListeners)} radio listeners`
-										: `Of radio listeners in the ${latestSurveyYear} survey`
+					{/* prettier-ignore */}
+					<div className={cn("grid gap-3", showTrend && "lg:grid-cols-3")}> 
+						{showTrend && (
+							<MostFollowedTrendChart
+								stationName={station.name}
+								history={surveyHistory}
+								note={
+									surveysLed > 0
+										? `Most followed station in ${surveysLed} of ${surveys.length} surveys.`
+										: undefined
 								}
-								tooltip={`Share of respondents who named ${station.name} as the station they follow most, scaled to Malta's radio-listening population`}
+								className="lg:col-span-2"
 							/>
 						)}
+						{/* Tiles sit beside the chart on desktop and pair up below it otherwise; without a chart they pair up at every width */}
+						<div className={cn("grid gap-3 sm:grid-cols-2", showTrend && "lg:grid-cols-1")}> {/* prettier-ignore */}
+							<SurveyMetricCard
+								icon={Trophy}
+								title={`${latestSurveyYear} survey rank`}
+								value={
+									<>
+										#{latestSurveyRank}{" "}
+										<span className="text-muted-foreground text-lg font-semibold">
+											of {rankedStationCount}
+										</span>
+									</>
+								}
+								subtitle={
+									previousSurvey
+										? describeRankChange(
+												latestSurveyRank,
+												previousSurveyRank,
+												previousSurvey.meta.id
+											)
+										: `${latestSurveyYear} survey`
+								}
+								tooltip={`Position among the ${rankedStationCount} stations ranked in the ${latestSurveyYear} survey by the share of listeners who follow them most`}
+							/>
+							{latestSurveyRow.mostFollowedPct != null && (
+								<SurveyMetricCard
+									icon={Users}
+									title={`Follow ${station.name} most`}
+									value={`${latestSurveyRow.mostFollowedPct.toFixed(1)}%`}
+									subtitle={
+										latestSurveyRow.stationListeners !=
+											null && totalRadioListeners != null
+											? `${formatListeners(latestSurveyRow.stationListeners)} of about ${roundToThousands(totalRadioListeners)} radio listeners`
+											: `Of radio listeners in the ${latestSurveyYear} survey`
+									}
+									tooltip={`Share of respondents who named ${station.name} as the station they follow most, scaled to Malta's radio-listening population`}
+								/>
+							)}
+						</div>
 					</div>
 				</div>
 			)}
