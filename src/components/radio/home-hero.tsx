@@ -31,7 +31,7 @@ export function HomeHero({ isFavourite, onToggleFavourite }: HomeHeroProps) {
 
 	return (
 		<section className="pt-6 md:pt-8">
-			<div className="bg-card relative flex min-h-[120px] items-center gap-6 overflow-hidden rounded-xl border px-6 py-5">
+			<div className="bg-card relative flex min-h-[120px] items-center gap-6 overflow-hidden rounded-xl border px-6 py-5 md:min-h-36">
 				{currentStation ? (
 					<StationTint station={currentStation} />
 				) : (
