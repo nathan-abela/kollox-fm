@@ -64,12 +64,12 @@ export function RadioStationCard({
 				: `Play ${station.name}`;
 
 	return (
-		<Card className="group overflow-hidden pt-0 pb-0 transition-all duration-300 hover:shadow-md sm:pb-4">
+		<Card className="group gap-0 overflow-hidden py-0 transition-all duration-300 hover:shadow-md">
 			<button
 				type="button"
 				onClick={handlePlayClick}
 				aria-label={playLabel}
-				className="bg-muted focus-visible:ring-ring relative block aspect-[4/3] w-full cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-inset"
+				className="bg-muted focus-visible:ring-ring relative block aspect-4/3 w-full cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-inset"
 			>
 				{imageError ? (
 					<div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-1">
