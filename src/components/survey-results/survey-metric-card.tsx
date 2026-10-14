@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Info, LucideIcon } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,11 +11,16 @@ import {
 interface SurveyMetricCardProps {
 	icon: LucideIcon;
 	title: string;
-	value: string | number;
+	/** Headline figure, a node lets a smaller unit or "of N" sit beside it */
+	value: ReactNode;
 	subtitle: string;
 	tooltip: string;
 }
 
+/**
+ * Headline metric card for survey figures: icon and title, a large value,
+ * a one-line sub-text, and an info tooltip explaining the measure.
+ */
 export function SurveyMetricCard({
 	icon: Icon,
 	title,

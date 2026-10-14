@@ -3,6 +3,7 @@ import { RadioStationCard } from "@/components/radio/radio-station-card";
 
 /**
  * Renders a grid of radio stations using `RadioStationCard`, or a fallback message if none are available.
+ * Callers are expected to pass a display-ready (already filtered) list.
  */
 export function RadioStationList({
 	stations,
@@ -13,8 +14,6 @@ export function RadioStationList({
 	isFavourite: (id: string) => boolean;
 	onToggleFavourite: (id: string) => void;
 }) {
-	stations = stations.filter((s) => s.isEnabled !== false);
-
 	if (stations.length === 0) {
 		return (
 			<div className="flex flex-col items-center justify-center py-12 text-center">
@@ -22,14 +21,14 @@ export function RadioStationList({
 					No stations found!
 				</h3>
 				<p className="text-muted-foreground">
-					Try adjusting your search terms.
+					Try a different search or genre.
 				</p>
 			</div>
 		);
 	}
 
 	return (
-		<div className="grid gap-6 min-[425px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+		<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 2xl:grid-cols-5">
 			{stations.map((station) => (
 				<RadioStationCard
 					key={station.id}

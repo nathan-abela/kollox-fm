@@ -7,10 +7,10 @@ import {
 	ExternalLink,
 	Heart,
 	Loader2,
+	Music2,
 	PauseCircle,
 	Pin,
 	PlayCircle,
-	Radio,
 	RadioTower,
 } from "lucide-react";
 
@@ -31,8 +31,6 @@ interface RadioStationCardProps {
 	isFavourite: boolean;
 	onToggleFavourite: () => void;
 }
-
-// TODO: Consider adding station social links (Facebook, Instagram) if available
 
 export function RadioStationCard({
 	station,
@@ -58,11 +56,20 @@ export function RadioStationCard({
 	// State to handle image loading failure
 	const [imageError, setImageError] = useState(false);
 
+	const playLabel =
+		isCurrentStation && isLoading
+			? `Loading ${station.name}`
+			: isCurrentStation && isPlaying
+				? `Pause ${station.name}`
+				: `Play ${station.name}`;
+
 	return (
-		<Card className="group overflow-hidden pt-0 pb-4 transition-all duration-300 hover:shadow-md">
-			<div
-				className="bg-muted relative aspect-[4/3] cursor-pointer overflow-hidden"
+		<Card className="group gap-0 overflow-hidden py-0 transition-all duration-300 hover:shadow-md">
+			<button
+				type="button"
 				onClick={handlePlayClick}
+				aria-label={playLabel}
+				className="bg-muted focus-visible:ring-ring relative block aspect-4/3 w-full cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-inset"
 			>
 				{imageError ? (
 					<div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-1">
@@ -74,7 +81,7 @@ export function RadioStationCard({
 				) : (
 					<Image
 						src={station.image}
-						alt={station.name}
+						alt={station.name + " logo"}
 						fill
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 						className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -93,12 +100,34 @@ export function RadioStationCard({
 						</Badge>
 					)}
 
-					{station.fmFrequency && (
+					{(station.fmFrequency || station.metadata?.isEnabled) && (
 						<Badge
 							variant="secondary"
-							className="font-semibold shadow-md backdrop-blur-sm dark:bg-black/70"
+							className="gap-1.5 font-mono font-medium shadow-md backdrop-blur-sm dark:bg-black/70"
 						>
-							{station.fmFrequency} FM
+							{station.fmFrequency && (
+								<span>{station.fmFrequency} FM</span>
+							)}
+							{/* Metadata indicator */}
+							{station.metadata?.isEnabled && (
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<span
+											role="img"
+											aria-label="Live song information available"
+											className={cn(
+												"text-purple-500",
+												station.fmFrequency && "border-border border-l pl-1.5" // prettier-ignore
+											)}
+										>
+											<Music2 className="h-3 w-3" />
+										</span>
+									</TooltipTrigger>
+									<TooltipContent side="top">
+										Live song information available
+									</TooltipContent>
+								</Tooltip>
+							)}
 						</Badge>
 					)}
 				</div>
@@ -108,17 +137,8 @@ export function RadioStationCard({
 						"absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300",
 						isCurrentStation && isLoading
 							? "opacity-100" // always show loader while loading
-							: "opacity-0 group-hover:opacity-100" // show loader on hover otherwise
+							: "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100" // show on hover or keyboard focus otherwise
 					)}
-					aria-label={
-						isCurrentStation
-							? isLoading
-								? "Loading station"
-								: isPlaying
-									? "Pause station"
-									: "Play station"
-							: "Play station"
-					}
 				>
 					{isCurrentStation && isLoading ? (
 						<Loader2 className="h-12 w-12 animate-spin text-white" />
@@ -150,14 +170,13 @@ export function RadioStationCard({
 						</Badge>
 					</div>
 				)}
-			</div>
+			</button>
 
-			<CardContent className="p-4">
+			<CardContent className="p-3 sm:p-4">
 				<div className="flex items-start justify-between gap-2">
 					<div className="min-w-0 flex-1">
 						<div className="flex min-w-0 items-center gap-2">
-							<Radio className="text-primary h-4 w-4" />
-							<h3 className="min-w-0 truncate text-lg font-semibold">
+							<h3 className="min-w-0 truncate text-base font-semibold sm:text-lg">
 								<Link
 									href={`/station/${station.id}`}
 									className="hover:text-primary transition-colors"
@@ -166,20 +185,6 @@ export function RadioStationCard({
 									{station.name}
 								</Link>
 							</h3>
-							{/* Metadata indicator */}
-							{station?.metadata?.isEnabled && (
-								<Tooltip>
-									<TooltipTrigger asChild>
-										<div
-											className="h-2 w-2 animate-pulse cursor-help rounded-full bg-purple-500"
-											aria-label="Live Metadata"
-										/>
-									</TooltipTrigger>
-									<TooltipContent side="top">
-										Live song information available
-									</TooltipContent>
-								</Tooltip>
-							)}
 						</div>
 						<p className="text-muted-foreground truncate text-sm">
 							{station.location}
@@ -219,9 +224,11 @@ export function RadioStationCard({
 				</div>
 			</CardContent>
 
-			<CardFooter className="flex flex-wrap items-center justify-between gap-2 p-4 pt-0">
-				<div className="flex flex-1 flex-wrap gap-2">
-					{station.genres?.map((genre) => (
+			{/* Genres and website live on the station page too, so two-column phones drop them for density */}
+			<CardFooter className="hidden flex-wrap items-center justify-between gap-2 p-4 pt-0 sm:flex">
+				{/* One row only: chips that wrap land below the clipped height */}
+				<div className="flex max-h-7 flex-1 flex-wrap gap-2 overflow-hidden">
+					{station.genres?.slice(0, 3).map((genre) => (
 						<Badge
 							key={genre}
 							variant="outline"

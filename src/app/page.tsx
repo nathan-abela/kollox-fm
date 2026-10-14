@@ -1,320 +1,221 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { Radio, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { useStationFilters } from "@/lib/hooks/station-filters";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { useFavourites } from "@/lib/hooks/use-favourites";
-import { cn } from "@/lib/utils";
+import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+	FilterBar,
+	SortOption,
+	ViewOption,
+} from "@/components/radio/filter-bar";
+import { HomeHero } from "@/components/radio/home-hero";
 import { RadioStationList } from "@/components/radio/radio-station-list";
 import { SkeletonStation } from "@/components/radio/skeleton-station";
 import { SurveyToast } from "@/components/survey-toast";
 
-type SortOption = "name" | "location" | "popularity" | "surveyRank";
+const enabledStations = stations.filter((s) => s.isEnabled !== false);
 
-// TODO:
-// - SelectContent (Sort By) is removing page scroll when open - https://github.com/shadcn-ui/ui/issues/4227#issuecomment-2438290165
-// - Consider extracting Search + Sort controls into a <SearchSortControls /> component
+// Quick-filter genres, trending first
+const availableGenres = new Set(enabledStations.flatMap((s) => s.genres ?? []));
+const quickGenres = [
+	"Hits",
+	"Pop",
+	"Top 40",
+	"EDM",
+	"Chill",
+	"Rock",
+	"Maltese",
+	"Classic Hits",
+	"Oldies",
+	"Talk",
+].filter((genre) => availableGenres.has(genre));
+
+const sortComparators: Record<
+	SortOption,
+	(a: RadioStation, b: RadioStation) => number
+> = {
+	popularity: (a, b) =>
+		(a.popularity ?? Number.MAX_SAFE_INTEGER) -
+		(b.popularity ?? Number.MAX_SAFE_INTEGER),
+	surveyRank: (a, b) =>
+		(a.surveyRank ?? Number.MAX_SAFE_INTEGER) -
+		(b.surveyRank ?? Number.MAX_SAFE_INTEGER),
+	name: (a, b) => a.name.localeCompare(b.name),
+	location: (a, b) => a.location.localeCompare(b.location),
+	frequency: (a, b) =>
+		(a.fmFrequency ? parseFloat(a.fmFrequency) : Number.MAX_SAFE_INTEGER) -
+		(b.fmFrequency ? parseFloat(b.fmFrequency) : Number.MAX_SAFE_INTEGER),
+};
+
+const viewTitles: Record<ViewOption, string> = {
+	all: "All stations",
+	favourites: "Favourites",
+	recent: "Recently played",
+};
+
+/** Dashed placeholder for an empty station list, with one action that gets the user back to results */
+function EmptyState({
+	title,
+	description,
+	actionLabel,
+	onAction,
+}: {
+	title: string;
+	description: string;
+	actionLabel: string;
+	onAction: () => void;
+}) {
+	return (
+		<div className="flex flex-col items-center justify-center rounded-xl border border-dashed py-14 text-center">
+			<h3 className="mb-1.5 text-lg font-semibold">{title}</h3>
+			<p className="text-muted-foreground mb-5 text-sm">{description}</p>
+			<Button
+				variant="outline"
+				size="sm"
+				onClick={onAction}
+				className="cursor-pointer"
+			>
+				{actionLabel}
+			</Button>
+		</div>
+	);
+}
 
 export default function Home() {
-	// State for search input
-	const [searchTerm, setSearchTerm] = useState("");
-	// State for sort option
-	const [sortBy, setSortBy] = useState<SortOption>("popularity"); // Default sort by popularity
-	// State for selected tab
-	const [selectedTab, setSelectedTab] = useState("local");
+	const [view, setView] = useState<ViewOption>("all");
+	const [sortBy, setSortBy] = useState<SortOption>("popularity");
+	const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
 
-	// Debounce the search input to avoid frequent ui changes
+	// Search term shared with the header search input, debounced to avoid frequent ui changes
+	const { searchTerm } = useStationFilters();
 	const debouncedSearchTerm = useDebounce(searchTerm, 50);
 
 	// Favourite stations persisted to localStorage
 	const { favourites, isFavourite, toggleFavourite } = useFavourites();
-
-	// Get values from audio player hook
 	const { recentlyPlayed, setStationsOrder, clearRecentlyPlayed } =
 		useAudioPlayer();
 
-	// Filter and sort stations based on search and sort
-	const filteredStations = useMemo(() => {
-		const filtered = stations.filter(
-			(station) =>
-				station.name
-					.toLowerCase()
-					.includes(debouncedSearchTerm.toLowerCase()) ||
-				station.location
-					.toLowerCase()
-					.includes(debouncedSearchTerm.toLowerCase())
-		);
+	const visibleStations = useMemo(() => {
+		let list = enabledStations;
 
-		// Separate featured and standard stations
-		const featured = filtered.filter((s) => s.isFeatured);
-		const standard = filtered.filter((s) => !s.isFeatured);
-
-		// Sort standard stations based on sort option
-		standard.sort((a, b) => {
-			switch (sortBy) {
-				case "name":
-					return a.name.localeCompare(b.name);
-				case "location":
-					return a.location.localeCompare(b.location);
-				case "popularity":
-					return (a.popularity ?? 0) - (b.popularity ?? 0);
-				case "surveyRank":
-					return (
-						(a.surveyRank ?? Infinity) - (b.surveyRank ?? Infinity)
-					);
-				default:
-					return 0;
-			}
-		});
-
-		// Return featured stations first, then sorted standard stations
-		return [...featured, ...standard];
-	}, [debouncedSearchTerm, sortBy]);
-
-	const favouriteStations = useMemo(
-		() => stations.filter((s) => favourites.includes(s.id)),
-		[favourites]
-	);
-
-	const enabledStationsCount = useMemo(
-		() => stations.filter((s) => s.isEnabled !== false).length,
-		[]
-	);
-
-	// Get recently played stations in the order they were played
-	const recentStations = useMemo(
-		() =>
-			stations
-				.filter((station) => recentlyPlayed.includes(station.id))
+		if (view === "favourites") {
+			list = list.filter((s) => favourites.includes(s.id));
+		} else if (view === "recent") {
+			list = list
+				.filter((s) => recentlyPlayed.includes(s.id))
 				.sort(
 					(a, b) =>
 						recentlyPlayed.indexOf(a.id) -
 						recentlyPlayed.indexOf(b.id)
-				),
-		[recentlyPlayed]
-	);
-
-	// Update stations order in audio player context when filtered stations change
-	useEffect(() => {
-		if (selectedTab === "local") {
-			setStationsOrder(filteredStations);
-		} else if (selectedTab === "favourites") {
-			setStationsOrder(favouriteStations);
-		} else if (selectedTab === "recent") {
-			setStationsOrder(recentStations);
+				);
 		}
+
+		if (selectedGenre) {
+			list = list.filter((s) => s.genres?.includes(selectedGenre));
+		}
+
+		const term = debouncedSearchTerm.trim().toLowerCase();
+		if (term) {
+			list = list.filter(
+				(s) =>
+					s.name.toLowerCase().includes(term) ||
+					s.location.toLowerCase().includes(term) ||
+					s.genres?.some((g) => g.toLowerCase().includes(term))
+			);
+		}
+
+		// Recently played keeps its play order instead of sorting
+		if (view === "recent") return list;
+
+		const featured = list.filter((s) => s.isFeatured);
+		const standard = list
+			.filter((s) => !s.isFeatured)
+			.sort(sortComparators[sortBy]);
+		return [...featured, ...standard];
 	}, [
-		selectedTab,
-		filteredStations,
-		favouriteStations,
-		recentStations,
-		setStationsOrder,
+		view,
+		favourites,
+		recentlyPlayed,
+		selectedGenre,
+		debouncedSearchTerm,
+		sortBy,
 	]);
 
-	// Tabs for which search/ sort controls should be disabled
-	const disabledSearchSortTabs = ["favourites", "recent"];
-	const isSearchSortDisabled = disabledSearchSortTabs.includes(selectedTab);
+	// Keep player prev/ next cycling through exactly what is on screen
+	useEffect(() => {
+		setStationsOrder(visibleStations);
+	}, [visibleStations, setStationsOrder]);
+
+	// prettier-ignore
+	const showFavouritesEmpty = view === "favourites" && favourites.length === 0;
+	const showRecentEmpty = view === "recent" && recentlyPlayed.length === 0;
 
 	return (
 		<div className="container mx-auto px-4 pb-12">
-			{/* Page header section */}
-			<section className="py-6 md:py-8">
-				<div className="bg-card relative overflow-hidden rounded-xl border p-6 md:p-8">
-					<div className="relative z-10 flex flex-col items-center gap-6 md:flex-row">
-						<div className="flex flex-1 flex-col gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
-							<div className="flex-1 space-y-3">
-								{/* Main title and description */}
-								<h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-									Explore Malta&apos;s Radio Stations
-								</h2>
-								<p className="text-muted-foreground max-w-2xl text-sm md:text-lg">
-									All your favourite Maltese stations in one
-									place. Free, live, and local!
-								</p>
+			<HomeHero
+				isFavourite={isFavourite}
+				onToggleFavourite={toggleFavourite}
+			/>
 
-								{/* Status indicators */}
-								<div className="text-muted-foreground flex flex-wrap items-center justify-center gap-4 text-xs md:justify-start md:text-sm">
-									<div className="flex items-center gap-2">
-										<div className="h-2 w-2 rounded-full bg-green-500"></div>
-										{/* prettier-ignore */}
-										<span>
-											{enabledStationsCount} Available Stations
-										</span>
-									</div>
-									<div className="flex items-center gap-2">
-										<div className="h-2 w-2 rounded-full bg-purple-500"></div>
-										<span>Live Metadata</span>
-									</div>
-								</div>
-							</div>
+			<FilterBar
+				view={view}
+				onViewChange={setView}
+				sortBy={sortBy}
+				onSortByChange={setSortBy}
+				sortDisabled={view === "recent"}
+				genres={quickGenres}
+				selectedGenre={selectedGenre}
+				onGenreChange={setSelectedGenre}
+			/>
 
-							<div
-								className="hidden items-center justify-center md:flex md:items-center md:justify-end"
-								aria-hidden="true"
-							>
-								<Radio className="h-24 w-24 opacity-[0.02] dark:opacity-[0.05]" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Search + Sort Controls */}
-			<div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-				<div
-					className={cn(
-						"flex-1 space-y-4",
-						isSearchSortDisabled && "pointer-events-none opacity-50"
-					)}
-				>
-					<Label htmlFor="search">Search Stations</Label>
-					<Input
-						id="search"
-						placeholder="Search by name or location"
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						className="max-w-md transition-opacity"
-					/>
-				</div>
-
-				<div
-					className={cn(
-						"w-full space-y-4 md:w-[180px]",
-						isSearchSortDisabled && "pointer-events-none opacity-50"
-					)}
-				>
-					<Label htmlFor="sort">Sort By</Label>
-					<Select
-						value={sortBy}
-						onValueChange={(value: SortOption) => setSortBy(value)}
+			<div className="mt-6 mb-4 flex items-baseline gap-2.5">
+				<h2 className="text-base font-semibold">{viewTitles[view]}</h2>
+				<span className="text-muted-foreground font-mono text-xs">
+					{visibleStations.length}
+				</span>
+				{view === "recent" && recentlyPlayed.length > 0 && (
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={clearRecentlyPlayed}
+						className="text-muted-foreground hover:text-destructive ml-auto cursor-pointer"
 					>
-						<SelectTrigger id="sort" className="w-[180px]">
-							<SelectValue placeholder="Sort by" />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="popularity">
-								Popularity
-							</SelectItem>
-							<SelectItem value="surveyRank">
-								Survey Rank
-							</SelectItem>
-							<SelectItem value="name">Name</SelectItem>
-							<SelectItem value="location">Location</SelectItem>
-						</SelectContent>
-					</Select>
-				</div>
+						<Trash2 className="h-4 w-4" />
+						Clear All
+					</Button>
+				)}
 			</div>
 
-			{/* Tabs for station lists */}
-			<Tabs
-				defaultValue="local"
-				onValueChange={setSelectedTab}
-				className="mt-4 w-full"
-			>
-				<TabsList className="bg-input/30 dark:bg-input/30 flex flex-wrap gap-2 rounded-md border p-0 md:flex-nowrap">
-					{/* TODO: Consider adding tab count, example, Favourites (2) */}
-					{[
-						{ value: "local", label: "Local Stations" },
-						{ value: "favourites", label: "Favourites" },
-						{ value: "recent", label: "Recently Played" },
-					].map((tab) => (
-						<TabsTrigger
-							key={tab.value}
-							value={tab.value}
-							className="data-[state=active]:bg-background data-[state=active]:text-foreground text-muted-foreground flex cursor-pointer rounded-md px-3 py-1.5 text-sm transition-colors"
-						>
-							{tab.label}
-						</TabsTrigger>
-					))}
-				</TabsList>
-
-				<TabsContent
-					value="local"
-					className="mt-12 [@media(min-width:348px)]:mt-4"
-				>
-					<Suspense fallback={<SkeletonStation />}>
-						<RadioStationList
-							stations={filteredStations}
-							isFavourite={isFavourite}
-							onToggleFavourite={toggleFavourite}
-						/>
-					</Suspense>
-				</TabsContent>
-
-				<TabsContent value="favourites" className="mt-4">
-					{favourites.length === 0 ? (
-						<div className="flex flex-col items-center justify-center py-12 text-center">
-							<h3 className="mb-2 text-xl font-semibold">
-								No favourite stations yet.
-							</h3>
-							<p className="text-muted-foreground">
-								Mark stations as favourites to see them here.
-							</p>
-						</div>
-					) : (
-						<Suspense fallback={<SkeletonStation />}>
-							<RadioStationList
-								stations={favouriteStations}
-								isFavourite={isFavourite}
-								onToggleFavourite={toggleFavourite}
-							/>
-						</Suspense>
-					)}
-				</TabsContent>
-
-				{/* Disable Search Sort By in this view */}
-				<TabsContent value="recent" className="mt-4">
-					{recentlyPlayed.length === 0 ? (
-						<div className="flex flex-col items-center justify-center py-12 text-center">
-							<h3 className="mb-2 text-xl font-semibold">
-								No recently played stations yet.
-							</h3>
-							<p className="text-muted-foreground">
-								Start listening to stations and they will appear
-								here.
-							</p>
-						</div>
-					) : (
-						<div className="space-y-4">
-							<div className="flex items-center justify-between">
-								<h3 className="text-lg font-medium">
-									Recently Played ({recentlyPlayed.length})
-								</h3>
-								<Button
-									variant="outline"
-									size="sm"
-									onClick={clearRecentlyPlayed}
-									className="text-muted-foreground hover:text-destructive cursor-pointer"
-								>
-									<Trash2 className="h-4 w-4" />
-									Clear All
-								</Button>
-							</div>
-							<Suspense fallback={<SkeletonStation />}>
-								<RadioStationList
-									stations={recentStations}
-									isFavourite={isFavourite}
-									onToggleFavourite={toggleFavourite}
-								/>
-							</Suspense>
-						</div>
-					)}
-				</TabsContent>
-			</Tabs>
+			{showFavouritesEmpty ? (
+				<EmptyState
+					title="No favourites yet"
+					description="Tap the heart on any station to keep it here."
+					actionLabel="Browse stations"
+					onAction={() => setView("all")}
+				/>
+			) : showRecentEmpty ? (
+				<EmptyState
+					title="No recently played stations yet"
+					description="Start listening and stations will appear here."
+					actionLabel="Browse stations"
+					onAction={() => setView("all")}
+				/>
+			) : (
+				<Suspense fallback={<SkeletonStation />}>
+					<RadioStationList
+						stations={visibleStations}
+						isFavourite={isFavourite}
+						onToggleFavourite={toggleFavourite}
+					/>
+				</Suspense>
+			)}
 
 			<SurveyToast />
 		</div>

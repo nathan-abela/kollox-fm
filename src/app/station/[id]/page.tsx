@@ -7,6 +7,7 @@ import { notFound, useParams } from "next/navigation";
 import {
 	ArrowLeft,
 	ExternalLink,
+	Heart,
 	Loader2,
 	MapPin,
 	Mic,
@@ -14,20 +15,59 @@ import {
 	Play,
 	RadioTower,
 	Trophy,
+	Users,
 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
-import { getLatestSurvey, getStationSurveyRank } from "@/lib/data/surveys";
+import {
+	getAllSurveys,
+	getLatestSurvey,
+	getRankedStations,
+	getStationSurveyHistory,
+	getStationSurveyRank,
+} from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
+import { useFavourites } from "@/lib/hooks/use-favourites";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
 	FacebookIcon,
 	InstagramIcon,
 	TikTokIcon,
 	YouTubeIcon,
 } from "@/components/icons/social";
+import { RadioStationList } from "@/components/radio/radio-station-list";
+import { MostFollowedTrendChart } from "@/components/survey-results/charts/most-followed-trend-chart";
+import { SurveyMetricCard } from "@/components/survey-results/survey-metric-card";
+
+/** Survey estimates come from ~1,500 respondents, so show them to the nearest thousand */
+const roundToThousands = (count: number) =>
+	(Math.round(count / 1000) * 1000).toLocaleString("en-GB");
+/** Listener estimate for display, counts that would round to zero read "Under 1,000" instead */
+const formatListeners = (count: number) =>
+	count < 500 ? "Under 1,000" : `≈${roundToThousands(count)}`;
+
+/** Sub-line for the rank tile: how the station moved since the previous survey */
+// TODO: "Up/Down from #N in YYYY" is a placeholder, replace the plain string with a better visual/wording for rank movement
+function describeRankChange(
+	rank: number,
+	previousRank: number | null,
+	previousYear: string
+) {
+	if (previousRank == null) return `Not ranked in ${previousYear}`;
+	if (rank < previousRank)
+		return `Up from #${previousRank} in ${previousYear}`;
+	if (rank > previousRank)
+		return `Down from #${previousRank} in ${previousYear}`;
+	return `Unchanged from ${previousYear}`;
+}
 
 export default function StationPage() {
 	const params = useParams();
@@ -43,13 +83,14 @@ export default function StationPage() {
 	} = useAudioPlayer();
 
 	const [imageError, setImageError] = useState(false);
-	const [similarImageErrors, setSimilarImageErrors] = useState<Set<string>>(new Set()); // prettier-ignore
+	const { isFavourite, toggleFavourite } = useFavourites();
 
 	if (!station) {
 		notFound();
 	}
 
 	const isCurrentStation = currentStation?.id === station.id;
+	const favourited = isFavourite(station.id);
 	const handlePlayClick = () => {
 		if (isCurrentStation) {
 			togglePlayPause();
@@ -60,9 +101,28 @@ export default function StationPage() {
 
 	const latestSurvey = getLatestSurvey();
 	const latestSurveyYear = latestSurvey?.meta.id;
+
+	const surveys = getAllSurveys();
+	const previousSurvey = surveys[1];
+	const surveyHistory = getStationSurveyHistory(station.id);
+	// Two editions make a before/after, not a trend, and the rank tile already shows that movement
+	const showTrend = surveyHistory.filter((entry) => entry.rank != null).length >= 3; // prettier-ignore
+	const surveysLed = surveys.filter(
+		(s) => s.highlights?.mostFollowedStation?.id === station.id
+	).length;
+	const latestSurveyRow = latestSurvey?.stations?.find(
+		(s) => s.id === station.id
+	);
+	const rankedStationCount = latestSurvey
+		? getRankedStations(latestSurvey).length
+		: 0;
 	const latestSurveyRank = latestSurvey
 		? getStationSurveyRank(latestSurvey, station.id)
 		: null;
+	const previousSurveyRank = previousSurvey
+		? getStationSurveyRank(previousSurvey, station.id)
+		: null;
+	const totalRadioListeners = latestSurvey?.metrics?.totalRadioListeners;
 
 	// Get top 3 popular shows for this station from the latest survey
 	// prettier-ignore
@@ -83,11 +143,13 @@ export default function StationPage() {
 			const bShared = b.genres?.filter((g) => station.genres?.includes(g)).length || 0;
 			return bShared - aShared;
 		})
-		.slice(0, 6);
+		.slice(0, 5);
 
-	const handleSimilarImageError = (id: string) => {
-		setSimilarImageErrors((prev) => new Set(prev).add(id));
-	};
+	const sharedGenres = station.genres?.length
+		? new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
+				station.genres
+			)
+		: null;
 
 	return (
 		<div>
@@ -98,7 +160,7 @@ export default function StationPage() {
 					<div className="absolute inset-0">
 						<Image
 							src={station.image}
-							alt=""
+							alt={station.name + " logo"}
 							fill
 							className="scale-110 object-cover blur-3xl"
 							aria-hidden="true"
@@ -146,7 +208,7 @@ export default function StationPage() {
 							) : (
 								<Image
 									src={station.image}
-									alt={station.name}
+									alt={station.name + " logo"}
 									fill
 									priority
 									className="object-cover"
@@ -163,7 +225,7 @@ export default function StationPage() {
 
 							<div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:justify-start">
 								{station.fmFrequency && (
-									<span className="text-primary text-lg font-semibold">
+									<span className="font-mono text-lg font-medium">
 										{station.fmFrequency} FM
 									</span>
 								)}
@@ -225,6 +287,38 @@ export default function StationPage() {
 										Official Website
 									</a>
 								</Button>
+
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											variant="outline"
+											size="icon"
+											onClick={() =>
+												toggleFavourite(station.id)
+											}
+											aria-pressed={favourited}
+											aria-label={
+												favourited
+													? "Remove from favourites"
+													: "Add to favourites"
+											}
+											className="h-10 w-10 cursor-pointer"
+										>
+											<Heart
+												className={
+													favourited
+														? "h-5 w-5 fill-current text-red-500"
+														: "h-5 w-5"
+												}
+											/>
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent side="top">
+										{favourited
+											? "Remove from favourites"
+											: "Add to favourites"}
+									</TooltipContent>
+								</Tooltip>
 							</div>
 
 							{station.socials && (
@@ -304,16 +398,77 @@ export default function StationPage() {
 				</div>
 			</div>
 
-			{/* About */}
-			<div className="container mx-auto px-4 py-8">
-				<h2 className="mb-2 text-lg font-semibold">About</h2>
-				<p className="text-muted-foreground">
-					{station.name} is a {station.genres?.join(", ")} radio
-					station broadcasting from {station.location}
-					{station.fmFrequency && ` on ${station.fmFrequency} FM`}.
-					Stream live online at Kollox FM.
-				</p>
-			</div>
+			{/* Audience */}
+			{latestSurvey && latestSurveyRank && latestSurveyRow && (
+				<div className="container mx-auto px-4 py-8">
+					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+						<h2 className="text-lg font-semibold">Audience</h2>
+						<a
+							href={latestSurvey.meta.rawSourcePath}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground text-sm underline"
+						>
+							Broadcasting Authority Audience Survey{" "}
+							{latestSurveyYear}
+						</a>
+					</div>
+					{/* prettier-ignore */}
+					<div className={cn("grid gap-3", showTrend && "lg:grid-cols-3")}> 
+						{showTrend && (
+							<MostFollowedTrendChart
+								stationName={station.name}
+								history={surveyHistory}
+								note={
+									surveysLed > 0
+										? `Most followed station in ${surveysLed} of ${surveys.length} surveys.`
+										: undefined
+								}
+								className="lg:col-span-2"
+							/>
+						)}
+						{/* Tiles sit beside the chart on desktop and pair up below it otherwise; without a chart they pair up at every width */}
+						<div className={cn("grid gap-3 sm:grid-cols-2", showTrend && "lg:grid-cols-1")}> {/* prettier-ignore */}
+							<SurveyMetricCard
+								icon={Trophy}
+								title={`${latestSurveyYear} survey rank`}
+								value={
+									<>
+										#{latestSurveyRank}{" "}
+										<span className="text-muted-foreground text-lg font-semibold">
+											of {rankedStationCount}
+										</span>
+									</>
+								}
+								subtitle={
+									previousSurvey
+										? describeRankChange(
+												latestSurveyRank,
+												previousSurveyRank,
+												previousSurvey.meta.id
+											)
+										: `${latestSurveyYear} survey`
+								}
+								tooltip={`Position among the ${rankedStationCount} stations ranked in the ${latestSurveyYear} survey by the share of listeners who follow them most`}
+							/>
+							{latestSurveyRow.mostFollowedPct != null && (
+								<SurveyMetricCard
+									icon={Users}
+									title={`Follow ${station.name} most`}
+									value={`${latestSurveyRow.mostFollowedPct.toFixed(1)}%`}
+									subtitle={
+										latestSurveyRow.stationListeners !=
+											null && totalRadioListeners != null
+											? `${formatListeners(latestSurveyRow.stationListeners)} of about ${roundToThousands(totalRadioListeners)} radio listeners`
+											: `Of radio listeners in the ${latestSurveyYear} survey`
+									}
+									tooltip={`Share of respondents who named ${station.name} as the station they follow most, scaled to Malta's radio-listening population`}
+								/>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
 
 			{/* Popular Shows */}
 			{popularShows.length > 0 && (
@@ -362,42 +517,21 @@ export default function StationPage() {
 			{/* Similar Stations */}
 			{similarStations.length > 0 && (
 				<div className="container mx-auto px-4 py-8">
-					<h2 className="mb-4 text-lg font-semibold">
-						Similar Stations
-					</h2>
-					<div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-						{similarStations.map((similar) => (
-							<Link
-								key={similar.id}
-								href={`/station/${similar.id}`}
-								className="group block"
-							>
-								<div className="relative aspect-square overflow-hidden rounded-lg shadow-md transition-shadow group-hover:shadow-lg">
-									{similarImageErrors.has(similar.id) ? (
-										<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
-											<RadioTower className="h-6 w-6" />
-										</div>
-									) : (
-										<Image
-											src={similar.image}
-											alt={similar.name}
-											fill
-											className="object-cover transition-opacity group-hover:opacity-90"
-											onError={() => handleSimilarImageError(similar.id)} // prettier-ignore
-										/>
-									)}
-								</div>
-								<p className="group-hover:text-primary mt-2 truncate text-center text-sm font-medium transition-colors">
-									{similar.name}
-								</p>
-								{similar.fmFrequency && (
-									<p className="text-muted-foreground text-center text-xs">
-										{similar.fmFrequency} FM
-									</p>
-								)}
-							</Link>
-						))}
+					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+						<h2 className="text-lg font-semibold">
+							Similar Stations
+						</h2>
+						{sharedGenres && (
+							<p className="text-muted-foreground text-sm">
+								Stations that also play {sharedGenres}
+							</p>
+						)}
 					</div>
+					<RadioStationList
+						stations={similarStations}
+						isFavourite={isFavourite}
+						onToggleFavourite={toggleFavourite}
+					/>
 				</div>
 			)}
 		</div>

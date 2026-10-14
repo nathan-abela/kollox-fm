@@ -9,7 +9,11 @@ import { survey2022 } from "@/lib/data/surveys/2022";
 import { survey2023 } from "@/lib/data/surveys/2023";
 import { survey2024 } from "@/lib/data/surveys/2024";
 import { survey2025 } from "@/lib/data/surveys/2025";
-import { StationSummary, Survey } from "@/lib/types/survey";
+import {
+	StationSummary,
+	StationSurveyHistoryEntry,
+	Survey,
+} from "@/lib/types/survey";
 
 const SURVEYS: Record<string, Survey> = {
 	[survey2015.meta.id]: survey2015 as Survey,
@@ -79,4 +83,30 @@ export function getStationSurveyRank(
 		(station) => station.id === stationId
 	);
 	return index === -1 ? null : index + 1;
+}
+
+/**
+ * A station's most-followed share and rank in each survey edition since it was
+ * first ranked, oldest first. Later editions where it was not ranked carry nulls
+ * so charts keep a gap.
+ * @param {string} stationId - The station's id (ex. "bay-fm").
+ * @returns {StationSurveyHistoryEntry[]} One entry per edition, empty if never ranked.
+ */
+export function getStationSurveyHistory(
+	stationId: string
+): StationSurveyHistoryEntry[] {
+	const history = getAllSurveys()
+		.map((survey) => {
+			const row = survey.stations?.find(
+				(station) => station.id === stationId
+			);
+			return {
+				year: survey.meta.id,
+				mostFollowedPct: row?.mostFollowedPct ?? null,
+				rank: getStationSurveyRank(survey, stationId),
+			};
+		})
+		.reverse();
+	const firstRanked = history.findIndex((entry) => entry.rank != null);
+	return firstRanked === -1 ? [] : history.slice(firstRanked);
 }

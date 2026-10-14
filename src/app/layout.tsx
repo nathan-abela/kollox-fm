@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { siteUrl } from "@/lib/config";
 import { AudioPlayerProvider } from "@/lib/hooks/audio-player";
+import { StationFiltersProvider } from "@/lib/hooks/station-filters";
 import { Toaster } from "@/components/ui/sonner";
 import { BreakpointIndicator } from "@/components/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
@@ -51,13 +52,15 @@ export default function RootLayout({
 					enableSystem={false}
 					disableTransitionOnChange
 				>
-					<AudioPlayerProvider>
-						<Header />
-						<main className="flex-grow">{children}</main>
-						<PostHogAnalytics />
-						<Footer />
-						<PlayerBar />
-					</AudioPlayerProvider>
+					<StationFiltersProvider>
+						<AudioPlayerProvider>
+							<Header />
+							<main className="flex-grow">{children}</main>
+							<PostHogAnalytics />
+							<Footer />
+							<PlayerBar />
+						</AudioPlayerProvider>
+					</StationFiltersProvider>
 					<Toaster richColors />
 				</ThemeProvider>
 				<BreakpointIndicator />
