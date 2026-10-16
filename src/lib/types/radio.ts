@@ -46,11 +46,17 @@ export interface RadioStation {
  *   - "icecast": Fetches metadata using the Icecast protocol.
  *   - "voscast": Fetches metadata using the Voscast protocol.
  *   - "radioco": Fetches metadata using the Radioco protocol.
+ *   - "radioking": Fetches metadata using the RadioKing protocol.
  */
 export interface RadioStationMetadata {
 	isEnabled: boolean;
 	currentSongUrl?: string;
-	currentSongMethod?: "shoutcast" | "icecast" | "voscast" | "radioco";
+	currentSongMethod?:
+		| "shoutcast"
+		| "icecast"
+		| "voscast"
+		| "radioco"
+		| "radioking";
 }
 
 /**

@@ -62,6 +62,8 @@ export function useStationMetadata(
 				 * - voscast/ icecast: Parses JSON containing `icestats.source`, which may be
 				 *   an array or a single object. Extracts the first source with a `title`.
 				 * - radioco: Extracts the `title` from `json.data.title`.
+				 * - radioking: Joins top-level `artist` and `title` as `Artist - Title`,
+				 *   falling back to `title` alone when no artist is set.
 				 * - shoutcast/ default: Falls back to trimming the raw response text.
 				 *
 				 * @param text - The raw response body from the streaming server.
@@ -84,6 +86,14 @@ export function useStationMetadata(
 					case "radioco": {
 						const json = JSON.parse(text);
 						parsed = json.data?.title ?? null;
+						break;
+					}
+					case "radioking": {
+						const json = JSON.parse(text);
+						parsed =
+							json.artist && json.title
+								? `${json.artist} - ${json.title}`
+								: (json.title ?? null);
 						break;
 					}
 					case "shoutcast":
