@@ -8,6 +8,8 @@
 		"build": "next build",
 		"build:preview": "npx serve out",
 		"lint": "next lint",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
 		"clean": "rimraf .next && rimraf out && rimraf node_modules"
 	},
 	"dependencies": {
