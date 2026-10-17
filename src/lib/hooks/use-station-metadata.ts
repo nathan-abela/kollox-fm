@@ -68,6 +68,9 @@ export function useStationMetadata(
 				if (!station?.metadata?.currentSongUrl) return;
 
 				const res = await fetch(station?.metadata?.currentSongUrl);
+				// `fetch` doesn't throw when the server returns an error.
+				// Without this check, the error page text would be shown as the song title.
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
 				const text = await res.text();
 
 				let parsed: string | null = null;
@@ -120,8 +123,10 @@ export function useStationMetadata(
 
 				setCurrentSong(cleanMetadata(parsed));
 			} catch (err) {
+				// Leave the current title as is. If one check fails the song is most
+				// likely still playing, so clearing it would make the title disappear
+				// for no reason until the next check.
 				console.error("Metadata fetch failed:", err);
-				setCurrentSong(null);
 			}
 		};
 
