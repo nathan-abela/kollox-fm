@@ -412,9 +412,9 @@ export const stations: RadioStation[] = [
 		genres: ["Classic Hits", "Religion", "Maltese", "Italian"],
 		popularity: 20,
 		metadata: {
-			isEnabled: false, // CORS
+			isEnabled: true,
 			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/14gzk46p7yzuv", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			currentSongMethod: "zeno",
 		},
 		socials: {
 			facebook: "https://facebook.com/people/Malta-Sunshine-Radio/100028486521113", // prettier-ignore
