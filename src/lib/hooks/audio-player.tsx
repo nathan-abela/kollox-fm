@@ -134,7 +134,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		}
 	}, [isPlaying, currentStation, isLoading]);
 
-	// Set stream source when station changes
+	// Load the stream when the station changes and auto-play once it can play.
+	// Playback itself is driven by the play/pause effect via isPlaying.
 	useEffect(() => {
 		if (!audioRef.current) return;
 
@@ -148,23 +149,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		}
 
 		// Always pause before changing the source to prevent errors
-		audioRef.current.pause(); // Pause current playback before changing source
+		audioRef.current.pause();
 		audioRef.current.src = currentStation.streamUrl;
 		setIsLoading(true);
 
 		const handleCanPlay = () => {
 			setIsLoading(false);
-			if (isPlaying) {
-				audioRef.current?.play().catch((error) => {
-					console.error("Error playing audio:", error);
-					setIsPlaying(false);
-
-					toast.error("Playback Error", {
-						description:
-							"Failed to play this station. Please try again.",
-					});
-				});
-			}
+			setIsPlaying(true);
 		};
 
 		const handleError = () => {
@@ -184,8 +175,6 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 			audioRef.current?.removeEventListener("canplay", handleCanPlay);
 			audioRef.current?.removeEventListener("error", handleError);
 		};
-		// Only re-run this effect if the currentStation ID actually changes
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentStation]);
 
 	// Load recently played stations from localStorage on mount
@@ -242,25 +231,6 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		},
 		[currentStation, togglePlayPause]
 	);
-
-	// Plays the current station when it changes
-	useEffect(() => {
-		if (!audioRef.current || !currentStation) return;
-
-		audioRef.current.src = currentStation.streamUrl;
-
-		const playAfterLoad = async () => {
-			try {
-				await audioRef.current?.play();
-				setIsPlaying(true);
-			} catch (err) {
-				console.error("Playback failed:", err);
-				setIsPlaying(false);
-			}
-		};
-
-		playAfterLoad();
-	}, [currentStation]);
 
 	// Toggles the mute state
 	const toggleMute = useCallback(() => {
