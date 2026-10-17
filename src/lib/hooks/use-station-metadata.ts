@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { RadioStation } from "@/lib/types/radio";
 
 /**
- * Strips internal tracking codes from station metadata.
+ * Strips station-specific noise from metadata.
  *
- * Radio 105 appends 4-character codes like `[2zeb]` to track plays.
- * Pattern: bracket, digit, 3 alphanumerics (ex. `[2w0j]`, `[2vvd]`).
+ * - Radio 105 appends 4-character codes like `[2zeb]` to track plays.
+ *   Pattern: bracket, digit, 3 alphanumerics (ex. `[2w0j]`, `[2vvd]`).
+ * - Malta Sunshine Radio prefixes titles with `Now On Air:`.
  */
 function cleanMetadata(text: string | null): string | null {
 	if (!text) return null;
-	return text.replace(/\s*\[\d[a-z0-9]{3}\]$/i, "").trim() || null;
+	return (
+		text
+			.replace(/^now on air:\s*/i, "")
+			.replace(/\s*\[\d[a-z0-9]{3}\]$/i, "")
+			.trim() || null
+	);
 }
 
 /**
@@ -28,7 +34,7 @@ function cleanMetadata(text: string | null): string | null {
 export function useStationMetadata(
 	station: RadioStation | null,
 	isPlaying: boolean
-) {
+): string | null {
 	// Each title is stored with the station it belongs to, so switching stations
 	// hides the previous title right away without needing a separate reset.
 	const [song, setSong] = useState<{
@@ -50,11 +56,12 @@ export function useStationMetadata(
 
 		const stationId = station.id;
 		const url = station.metadata.currentSongUrl;
+		const method = station.metadata.currentSongMethod;
 		const setCurrentSong = (title: string | null) =>
 			setSong({ stationId, title });
 
 		// Zeno pushes updates over a long-lived SSE stream instead of being polled
-		if (station.metadata.currentSongMethod === "zeno") {
+		if (method === "zeno") {
 			const source = new EventSource(url);
 			source.onmessage = (event) => {
 				try {
@@ -95,7 +102,7 @@ export function useStationMetadata(
 				 * @param text - The raw response body from the streaming server.
 				 * @returns `parsed` - assigned the extracted song title, or `null` if not found.
 				 */
-				switch (station?.metadata?.currentSongMethod) {
+				switch (method) {
 					case "voscast":
 					case "icecast": {
 						const json = JSON.parse(text);
