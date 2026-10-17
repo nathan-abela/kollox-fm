@@ -46,6 +46,23 @@ export function useStationMetadata(
 			return;
 		}
 
+		// Zeno pushes updates over a long-lived SSE stream instead of being polled
+		if (
+			station?.metadata?.currentSongMethod === "zeno" &&
+			station.metadata.currentSongUrl
+		) {
+			const source = new EventSource(station.metadata.currentSongUrl);
+			source.onmessage = (event) => {
+				try {
+					const json = JSON.parse(event.data);
+					setCurrentSong(cleanMetadata(json.streamTitle ?? null));
+				} catch (err) {
+					console.error("Metadata parse failed:", err);
+				}
+			};
+			return () => source.close();
+		}
+
 		const fetchMetadata = async () => {
 			try {
 				if (!station?.metadata?.currentSongUrl) return;

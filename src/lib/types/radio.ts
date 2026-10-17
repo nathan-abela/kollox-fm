@@ -47,6 +47,7 @@ export interface RadioStation {
  *   - "voscast": Fetches metadata using the Voscast protocol.
  *   - "radioco": Fetches metadata using the Radioco protocol.
  *   - "radioking": Fetches metadata using the RadioKing protocol.
+ *   - "zeno": Subscribes to Zeno FM's server-sent events metadata stream.
  */
 export interface RadioStationMetadata {
 	isEnabled: boolean;
@@ -56,7 +57,8 @@ export interface RadioStationMetadata {
 		| "icecast"
 		| "voscast"
 		| "radioco"
-		| "radioking";
+		| "radioking"
+		| "zeno";
 }
 
 /**
