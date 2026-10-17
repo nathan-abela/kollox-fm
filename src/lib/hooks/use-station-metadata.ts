@@ -125,9 +125,19 @@ export function useStationMetadata(
 			}
 		};
 
-		fetchMetadata();
-		const interval = setInterval(fetchMetadata, 60_000);
-		return () => clearInterval(interval);
+		// Pause metadata polling while the user is viewing another tab.
+		// Refresh the title when the user returns.
+		const fetchIfVisible = () => {
+			if (!document.hidden) fetchMetadata();
+		};
+
+		fetchIfVisible();
+		const interval = setInterval(fetchIfVisible, 60_000);
+		document.addEventListener("visibilitychange", fetchIfVisible);
+		return () => {
+			clearInterval(interval);
+			document.removeEventListener("visibilitychange", fetchIfVisible);
+		};
 	}, [
 		station?.metadata?.isEnabled,
 		station?.metadata?.currentSongUrl,
