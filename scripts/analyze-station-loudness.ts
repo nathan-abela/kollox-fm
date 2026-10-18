@@ -21,7 +21,8 @@
  *   --dry-run              Print the changes to stations.ts without writing them
  *
  * Results are written back into stations.ts: only the `lufs:` number of each measured
- * station changes, and changes smaller than MIN_CHANGE_DB are skipped to avoid noisy diffs.
+ * station changes, rounded to LUFS_STEP_DB, and changes smaller than MIN_CHANGE_DB are
+ * skipped to avoid noisy diffs.
  */
 
 import { spawn } from "child_process";
@@ -44,7 +45,8 @@ const DRY_RUN = process.argv.includes("--dry-run");
 
 const UNSTABLE_SPREAD_DB = 3;
 const SILENCE_THRESHOLD_LUFS = -60;
-const MIN_CHANGE_DB = 0.5;
+const MIN_CHANGE_DB = 1;
+const LUFS_STEP_DB = 0.5;
 const STATIONS_FILE = resolve(
 	dirname(fileURLToPath(import.meta.url)),
 	"../src/lib/data/stations.ts"
@@ -263,7 +265,7 @@ function applyMeasurements(
 	const changes: StationChange[] = [];
 
 	for (const r of results) {
-		const newLufs = Number(r.median.toFixed(1));
+		const newLufs = Math.round(r.median / LUFS_STEP_DB) * LUFS_STEP_DB;
 		const base = { name: r.name, newLufs, spread: r.spread };
 
 		const start = source.indexOf(`id: "${r.id}"`);

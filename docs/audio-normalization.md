@@ -20,11 +20,11 @@ Switching between stations can cause volume jumps. For example:
 
 | Station     | LUFS  | Perceived |
 | ----------- | ----- | --------- |
-| Vibe FM     | -7.7  | Very loud |
-| Bay FM      | -14.5 | Moderate  |
-| Magic Malta | -8.9  | Loud      |
+| Vibe FM     | -9.0  | Loud      |
+| Magic Malta | -9.0  | Loud      |
+| Bay FM      | -13.5 | Moderate  |
 
-Switching from Vibe FM (-7.7 LUFS) to Bay FM (-14.5 LUFS) is a 7 dB drop, roughly 1.6x quieter.
+Switching from Vibe FM (-9.0 LUFS) to Bay FM (-13.5 LUFS) is a 4.5 dB drop, roughly 1.4x quieter.
 
 ## How Spotify Handles This
 
@@ -46,8 +46,8 @@ const gainDb = TARGET_LUFS - station.lufs;
 
 For example:
 
-- Vibe FM at -7.7 LUFS → gainDb = -16 - (-7.7) = **-8.3 dB** (reduce volume)
-- Calypso Radio at -17.8 LUFS → gainDb = -16 - (-17.8) = **+1.8 dB** (boost volume)
+- Vibe FM at -9.0 LUFS -> gainDb = -16 - (-9.0) = **-7.0 dB** (reduce volume)
+- ONE Radio at -20.0 LUFS -> gainDb = -16 - (-20.0) = **+4.0 dB** (boost volume)
 
 ### How It Works
 
@@ -64,7 +64,7 @@ function calculateEffectiveVolume(userVolume, stationLufs) {
 
 ### Boosting Very Quiet Stations
 
-Some stations broadcast far below the target (Bay Retro at -29.7 LUFS needs about +14 dB). For those, `stations.ts` sets `boost: true` and playback goes through the Web Audio API instead of the element volume:
+Some stations broadcast far below the target (Bay Retro at -29.5 LUFS needs about +13.5 dB). For those, `stations.ts` sets `boost: true` and playback goes through the Web Audio API instead of the element volume:
 
 ```mermaid
 graph LR
@@ -103,34 +103,34 @@ What a run does:
 1. Samples each station several times, spaced apart, so the samples catch different songs, ads or a presenter talking rather than one 20-second window.
 2. Runs several ffmpeg processes at once so a full sweep of all stations takes about 25 minutes instead of hours.
 3. Takes the **median** of the successful samples and flags a station as **UNSTABLE** when its samples differ by more than 3 dB.
-4. Replaces the `lufs:` number of each measured station in `stations.ts` (nothing else in the file changes) and runs Prettier on it.
-5. Skips stations that failed and changes smaller than 0.5 dB, so a run only produces meaningful diffs.
+4. Replaces the `lufs:` number of each measured station in `stations.ts`, rounded to the nearest 0.5 dB (nothing else in the file changes), and runs Prettier on it.
+5. Skips stations that failed and changes smaller than 1 dB (about the smallest difference a listener notices), so a run only produces meaningful diffs.
 
 Options:
 
-| Flag                   | Default     | Meaning                                              |
-| ---------------------- | ----------- | ---------------------------------------------------- |
-| `--duration <seconds>` | 60          | Length of each sample                                |
-| `--samples <n>`        | 3           | Samples per station                                  |
-| `--spacing <seconds>`  | 90          | Minimum gap between a station's samples              |
-| `--concurrency <n>`    | 5           | Max simultaneous ffmpeg processes                    |
-| `--station <id[,id]>`  | all enabled | Measure only these station ids                       |
-| `--dry-run`            | off         | Print the old → new summary without writing the file |
+| Flag                   | Default     | Meaning                                               |
+| ---------------------- | ----------- | ----------------------------------------------------- |
+| `--duration <seconds>` | 60          | Length of each sample                                 |
+| `--samples <n>`        | 3           | Samples per station                                   |
+| `--spacing <seconds>`  | 90          | Minimum gap between a station's samples               |
+| `--concurrency <n>`    | 5           | Max simultaneous ffmpeg processes                     |
+| `--station <id[,id]>`  | all enabled | Measure only these station ids                        |
+| `--dry-run`            | off         | Print the old -> new summary without writing the file |
 
 Typical use:
 
 ```bash
-# A newly added station
-npm run loudness -- --station buzz-fm
+# A single station, for example one just added
+npm run loudness -- --station vibe-fm
 
 # Preview a full sweep without touching stations.ts
 npm run loudness -- --dry-run
 
 # A quick sanity check
-npm run loudness -- --station bay-retro --samples 2 --duration 15 --spacing 10
+npm run loudness -- --station bay-fm --samples 2 --duration 15 --spacing 10
 ```
 
-Run the full sweep occasionally (after adding stations, or when a station sounds off), not routinely: loudness drifts a little with content, and the 0.5 dB threshold absorbs that. Re-run an UNSTABLE station on its own another day before trusting its value, and review the diff before committing.
+Run the full sweep occasionally (after adding stations, or when a station sounds off), not routinely: loudness drifts a little with content, and the 1 dB threshold absorbs that. Re-run an UNSTABLE station on its own another day before trusting its value, and review the diff before committing.
 
 ### Why Radio 105 Stations Vary
 
