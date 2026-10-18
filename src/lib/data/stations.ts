@@ -443,6 +443,152 @@ export const stations: RadioStation[] = [
 		lufs: -5.5,
 	},
 	{
+		id: "radio-groove-malta",
+		name: "Radio Groove Malta",
+		fmFrequency: "89.2",
+		streamUrl: "https://listen.radioking.com/radio/792831/stream/861116",
+		image: `${basePath}/images/stations/radio_groove_malta.jpg`,
+		website: "https://www.facebook.com/p/Radio-GrooveMalta-61584764137642",
+		location: "Luqa",
+		genres: ["Pop", "Dance", "Oldies"],
+		popularity: 22,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.radioking.io/widget/radio/radio-groovemalta/track/current", // prettier-ignore
+			currentSongMethod: "radioking",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/p/Radio-GrooveMalta-61584764137642", // prettier-ignore
+		},
+		lufs: -11.5,
+	},
+	{
+		id: "buzz-fm",
+		name: "Buzz FM",
+		streamUrl: "https://stream.zeno.fm/xwki3b2h2obvv",
+		image: `${basePath}/images/stations/buzz_fm.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Dance", "Trance", "Rock"],
+		popularity: 23,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/xwki3b2h2obvv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -10.0,
+	},
+	{
+		id: "buzz-fm-trance",
+		name: "Buzz FM Trance",
+		streamUrl: "https://stream.zeno.fm/cw0dbcx67tbtv",
+		image: `${basePath}/images/stations/buzz_fm_trance.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Trance", "Electronic", "EDM"],
+		popularity: 24,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/cw0dbcx67tbtv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -8.5,
+	},
+	{
+		id: "buzz-fm-rock",
+		name: "Buzz FM Rock",
+		streamUrl: "https://stream.zeno.fm/phcdaasfpaovv",
+		image: `${basePath}/images/stations/buzz_fm_rock.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Rock", "Classic Rock", "Alternative Rock"],
+		popularity: 25,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/phcdaasfpaovv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -10.0,
+	},
+	{
+		id: "buzz-fm-divas",
+		name: "Buzz FM Divas",
+		streamUrl: "https://stream.zeno.fm/soo2ygvbeouvv",
+		image: `${basePath}/images/stations/buzz_fm_divas.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Pop", "Dance", "R&B"],
+		popularity: 26,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/soo2ygvbeouvv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -10.5,
+	},
+	{
+		id: "buzz-fm-nonstop-80s",
+		name: "Buzz FM Nonstop 80s",
+		streamUrl: "https://stream.zeno.fm/elgpl9iqbhqtv",
+		image: `${basePath}/images/stations/buzz_fm_nonstop_80s.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Classic Hits", "Oldies", "80s"],
+		popularity: 27,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/elgpl9iqbhqtv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -12.5,
+	},
+	{
+		id: "buzz-fm-country",
+		name: "Buzz FM Country",
+		streamUrl: "https://stream.zeno.fm/pwunai6sotrvv",
+		image: `${basePath}/images/stations/buzz_fm_country.jpg`,
+		website: "https://buzz-fm-radio.yourwebsitespace.com",
+		location: "Sliema",
+		genres: ["Country"],
+		popularity: 28,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.zeno.fm/mounts/metadata/subscribe/pwunai6sotrvv", // prettier-ignore
+			currentSongMethod: "zeno",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/BUZZFMRADIO1",
+			tiktok: "https://www.tiktok.com/@buzzwatches4you",
+			youtube: "https://www.youtube.com/@BuzzBeatz69",
+		},
+		lufs: -12.0,
+	},
+	{
 		id: "radio-105",
 		name: "Radio 105",
 		fmFrequency: "105.0",
@@ -451,7 +597,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Hits", "Pop", "Top 40"],
-		popularity: 22,
+		popularity: 29,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio105-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -472,7 +618,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Classic Hits", "Oldies", "Throwbacks", "70s", "80s"],
-		popularity: 23,
+		popularity: 30,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://retro-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -493,7 +639,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["60s", "Oldies", "Classic Hits"],
-		popularity: 24,
+		popularity: 31,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://sixties-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -514,7 +660,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["90s", "Classic Hits", "Pop"],
-		popularity: 25,
+		popularity: 32,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://nineties-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -535,7 +681,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Rock", "70s", "80s"],
-		popularity: 26,
+		popularity: 33,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://rock-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -556,7 +702,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Urban", "Hip Hop", "R&B"],
-		popularity: 27,
+		popularity: 34,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://urban-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -577,7 +723,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Italian", "Pop", "Romance"],
-		popularity: 28,
+		popularity: 35,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://cuore-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -598,7 +744,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Chill", "Relax"],
-		popularity: 29,
+		popularity: 36,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://mellow-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -619,7 +765,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Maltese", "Local", "Folk"],
-		popularity: 30,
+		popularity: 37,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://maltin-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -640,7 +786,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Reggae", "Dancehall"],
-		popularity: 31,
+		popularity: 38,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://reggae-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -661,7 +807,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Country", "Folk"],
-		popularity: 32,
+		popularity: 39,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://country-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -682,7 +828,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Eurovision", "Pop"],
-		popularity: 33,
+		popularity: 40,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://eurovision-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -703,7 +849,7 @@ export const stations: RadioStation[] = [
 		website: "https://radio105.mt",
 		location: "Hamrun",
 		genres: ["Christmas", "Holiday", "Seasonal"],
-		popularity: 34,
+		popularity: 41,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://xmas-radio105network.radioca.st/currentsong", // prettier-ignore
@@ -715,6 +861,25 @@ export const stations: RadioStation[] = [
 			youtube: "https://youtube.com/@radio105malta",
 		},
 		lufs: -10.0,
+	},
+	{
+		id: "christmas-radio-malta",
+		name: "Christmas Radio Malta",
+		streamUrl: "http://philae.shoutca.st:8402/stream",
+		image: `${basePath}/images/stations/christmas_radio_malta.jpg`,
+		website: "https://www.christmasradiomalta.com",
+		location: "Valletta",
+		genres: ["Christmas", "Holiday", "Seasonal"],
+		popularity: 42,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "http://philae.shoutca.st:8402/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/christmasradiomalta",
+		},
+		lufs: -11.5,
 	},
 	// Seasonal/ Special Stations
 	{
