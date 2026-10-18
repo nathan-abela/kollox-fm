@@ -18,9 +18,16 @@
  *   --spacing <seconds>    Minimum gap between a station's samples (default: 90)
  *   --concurrency <n>      Max simultaneous ffmpeg processes (default: 5)
  *   --station <id[,id]>    Analyze only these station ids
+ *   --dry-run              Print the changes to stations.ts without writing them
+ *
+ * Results are written back into stations.ts: only the `lufs:` number of each measured
+ * station changes, and changes smaller than MIN_CHANGE_DB are skipped to avoid noisy diffs.
  */
 
 import { spawn } from "child_process";
+import { readFileSync, writeFileSync } from "fs";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 import { stations } from "../src/lib/data/stations";
 import { RadioStation } from "../src/lib/types/radio";
@@ -33,9 +40,15 @@ const STATION_IDS = getArg("--station")
 	?.split(",")
 	.map((id) => id.trim())
 	.filter(Boolean);
+const DRY_RUN = process.argv.includes("--dry-run");
 
 const UNSTABLE_SPREAD_DB = 3;
 const SILENCE_THRESHOLD_LUFS = -60;
+const MIN_CHANGE_DB = 0.5;
+const STATIONS_FILE = resolve(
+	dirname(fileURLToPath(import.meta.url)),
+	"../src/lib/data/stations.ts"
+);
 
 interface AnalysisResult {
 	id: string;
@@ -44,6 +57,16 @@ interface AnalysisResult {
 	median: number | null;
 	spread: number;
 	errors: string[];
+}
+
+type MeasuredResult = AnalysisResult & { median: number };
+
+interface StationChange {
+	name: string;
+	oldLufs: number | null;
+	newLufs: number;
+	spread: number;
+	status: "changed" | "unchanged" | "missing";
 }
 
 function getArg(flag: string): string | undefined {
@@ -191,9 +214,7 @@ function printSummary(results: AnalysisResult[]) {
 	console.log("=".repeat(60));
 
 	const successful = results
-		.filter(
-			(r): r is AnalysisResult & { median: number } => r.median !== null
-		) // prettier-ignore
+		.filter((r): r is MeasuredResult => r.median !== null)
 		.sort((a, b) => b.median - a.median);
 	const failed = results.filter((r) => r.median === null);
 	const unstable = successful.filter((r) => r.spread > UNSTABLE_SPREAD_DB);
@@ -206,12 +227,6 @@ function printSummary(results: AnalysisResult[]) {
 			const samples = r.samples.map((s) => s.toFixed(1)).join(", ");
 			const flag = r.spread > UNSTABLE_SPREAD_DB ? "  UNSTABLE" : "";
 			console.log(`${r.name.padEnd(22)} ${r.median.toFixed(1).padStart(7)} ${r.spread.toFixed(1).padStart(7)}  ${samples}${flag}`); // prettier-ignore
-		}
-
-		console.log("\nCopy these values to stations.ts:\n");
-
-		for (const r of successful) {
-			console.log(`  lufs: ${r.median.toFixed(1)},  // ${r.name}`);
 		}
 
 		const loudest = successful[0];
@@ -237,6 +252,100 @@ function printSummary(results: AnalysisResult[]) {
 	}
 }
 
+/**
+ * Replaces the `lufs:` number inside each measured station's object literal.
+ * Only that number changes, so comments, formatting and `// prettier-ignore` lines survive.
+ */
+function applyMeasurements(
+	source: string,
+	results: MeasuredResult[]
+): { source: string; changes: StationChange[] } {
+	const changes: StationChange[] = [];
+
+	for (const r of results) {
+		const newLufs = Number(r.median.toFixed(1));
+		const base = { name: r.name, newLufs, spread: r.spread };
+
+		const start = source.indexOf(`id: "${r.id}"`);
+		const nextStation = start === -1 ? -1 : source.indexOf('id: "', start + 1); // prettier-ignore
+		const block = start === -1 ? "" : source.slice(start, nextStation === -1 ? undefined : nextStation); // prettier-ignore
+		const match = block.match(/lufs:\s*(-?\d+(?:\.\d+)?)/);
+
+		if (!match || match.index === undefined) {
+			changes.push({ ...base, oldLufs: null, status: "missing" });
+			continue;
+		}
+
+		const oldLufs = parseFloat(match[1]);
+
+		if (Math.abs(newLufs - oldLufs) < MIN_CHANGE_DB) {
+			changes.push({ ...base, oldLufs, status: "unchanged" });
+			continue;
+		}
+
+		const valueStart = start + match.index + match[0].length - match[1].length; // prettier-ignore
+		source =
+			source.slice(0, valueStart) +
+			newLufs.toFixed(1) +
+			source.slice(valueStart + match[1].length);
+		changes.push({ ...base, oldLufs, status: "changed" });
+	}
+
+	return { source, changes };
+}
+
+function printChanges(changes: StationChange[]) {
+	console.log(`\nChanges to stations.ts${DRY_RUN ? " (dry run, nothing written)" : ""}:`); // prettier-ignore
+
+	for (const c of changes) {
+		const name = c.name.padEnd(22);
+		const unstable = c.spread > UNSTABLE_SPREAD_DB ? `  UNSTABLE (spread ${c.spread.toFixed(1)} dB)` : ""; // prettier-ignore
+
+		if (c.status === "missing") {
+			console.log(`  ${name} no lufs value found, add it manually: ${c.newLufs.toFixed(1)}`); // prettier-ignore
+		} else if (c.status === "unchanged") {
+			console.log(`  ${name} ${c.oldLufs?.toFixed(1).padStart(6)} (unchanged, difference under ${MIN_CHANGE_DB} dB)`); // prettier-ignore
+		} else {
+			console.log(`  ${name} ${c.oldLufs?.toFixed(1).padStart(6)} -> ${c.newLufs.toFixed(1)}${unstable}`); // prettier-ignore
+		}
+	}
+
+	const count = (status: StationChange["status"]) =>
+		changes.filter((c) => c.status === status).length;
+	console.log(`\nChanged: ${count("changed")}, unchanged: ${count("unchanged")}, missing: ${count("missing")}`); // prettier-ignore
+}
+
+function runPrettier(file: string): Promise<void> {
+	return new Promise((resolve, reject) => {
+		const prettier = spawn("npx", ["prettier", "--write", file], {
+			stdio: "inherit",
+			shell: true,
+		});
+		prettier.on("close", (code) =>
+			code === 0
+				? resolve()
+				: reject(new Error(`prettier exited with code ${code}`))
+		);
+		prettier.on("error", reject);
+	});
+}
+
+async function updateStationsFile(results: AnalysisResult[]) {
+	const measured = results.filter((r): r is MeasuredResult => r.median !== null); // prettier-ignore
+	if (measured.length === 0) return;
+
+	const original = readFileSync(STATIONS_FILE, "utf8");
+	const { source, changes } = applyMeasurements(original, measured);
+
+	printChanges(changes);
+
+	if (DRY_RUN || source === original) return;
+
+	writeFileSync(STATIONS_FILE, source, "utf8");
+	await runPrettier(STATIONS_FILE);
+	console.log(`\nWrote ${STATIONS_FILE}`);
+}
+
 async function main() {
 	console.log("=".repeat(60));
 	console.log("Radio Station Loudness Analyzer");
@@ -247,7 +356,6 @@ async function main() {
 		options.some((n) => !Number.isInteger(n) || n < 1) ||
 		!(SAMPLE_SPACING >= 0)
 	) {
-		// prettier-ignore
 		console.error("ERROR: --duration, --samples and --concurrency must be positive integers, --spacing must be >= 0."); // prettier-ignore
 		process.exit(1);
 	}
@@ -293,6 +401,7 @@ async function main() {
 	);
 
 	printSummary(results);
+	await updateStationsFile(results);
 }
 
 main().catch(console.error);
