@@ -442,6 +442,26 @@ export const stations: RadioStation[] = [
 		lufs: -10.4,
 	},
 	{
+		id: "radio-groove-malta",
+		name: "Radio Groove Malta",
+		fmFrequency: "89.2",
+		streamUrl: "https://listen.radioking.com/radio/792831/stream/861116",
+		image: `${basePath}/images/stations/radio_groove_malta.jpg`,
+		website: "https://www.facebook.com/p/Radio-GrooveMalta-61584764137642",
+		location: "Luqa",
+		genres: ["Pop", "Dance", "Oldies"],
+		popularity: 22,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "https://api.radioking.io/widget/radio/radio-groovemalta/track/current", // prettier-ignore
+			currentSongMethod: "radioking",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/p/Radio-GrooveMalta-61584764137642", // prettier-ignore
+		},
+		lufs: -11.5,
+	},
+	{
 		id: "radio-105",
 		name: "Radio 105",
 		fmFrequency: "105.0",
