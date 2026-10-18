@@ -68,6 +68,7 @@ export const stations: RadioStation[] = [
 			instagram: "https://instagram.com/bayretromalta",
 		},
 		lufs: -29.7,
+		boost: true,
 	},
 	{
 		id: "bay-pride",
