@@ -735,6 +735,25 @@ export const stations: RadioStation[] = [
 		},
 		lufs: -11.7,
 	},
+	{
+		id: "christmas-radio-malta",
+		name: "Christmas Radio Malta",
+		streamUrl: "http://philae.shoutca.st:8402/stream",
+		image: `${basePath}/images/stations/christmas_radio_malta.jpg`,
+		website: "https://www.christmasradiomalta.com",
+		location: "Valletta",
+		genres: ["Christmas", "Holiday", "Seasonal"],
+		popularity: 42,
+		metadata: {
+			isEnabled: true,
+			currentSongUrl: "http://philae.shoutca.st:8402/currentsong", // prettier-ignore
+			currentSongMethod: "shoutcast",
+		},
+		socials: {
+			facebook: "https://www.facebook.com/christmasradiomalta",
+		},
+		lufs: -11.5,
+	},
 	// Seasonal/ Special Stations
 	{
 		id: "bay-xmas",
