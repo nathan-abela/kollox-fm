@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ExternalLink, Heart } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
-import { useStationMetadata } from "@/lib/hooks/use-station-metadata";
 import { RadioStation } from "@/lib/types/radio";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ interface HomeHeroProps {
  * bar already covers now-playing on phones.
  */
 export function HomeHero({ isFavourite, onToggleFavourite }: HomeHeroProps) {
-	const { currentStation, isPlaying, isLoading } = useAudioPlayer();
+	const { currentStation, currentSong, isPlaying, isLoading } = useAudioPlayer(); // prettier-ignore
 
 	return (
 		<section className="pt-6 md:pt-8">
@@ -53,6 +52,7 @@ export function HomeHero({ isFavourite, onToggleFavourite }: HomeHeroProps) {
 				{currentStation ? (
 					<NowPlaying
 						station={currentStation}
+						currentSong={currentSong}
 						isPlaying={isPlaying}
 						isLoading={isLoading}
 						isFavourite={isFavourite(currentStation.id)}
@@ -98,18 +98,19 @@ function StationTint({ station }: { station: RadioStation }) {
  */
 function NowPlaying({
 	station,
+	currentSong,
 	isPlaying,
 	isLoading,
 	isFavourite,
 	onToggleFavourite,
 }: {
 	station: RadioStation;
+	currentSong: string | null;
 	isPlaying: boolean;
 	isLoading: boolean;
 	isFavourite: boolean;
 	onToggleFavourite: () => void;
 }) {
-	const currentSong = useStationMetadata(station, isPlaying);
 	const isLive = isPlaying && !isLoading;
 
 	const status = isLoading

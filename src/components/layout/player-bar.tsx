@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
-import { useStationMetadata } from "@/lib/hooks/use-station-metadata";
 import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -44,6 +43,7 @@ import { StationPreview } from "@/components/radio/station-preview";
 export function PlayerBar() {
 	const {
 		currentStation,
+		currentSong,
 		isPlaying,
 		isLoading,
 		volume,
@@ -57,9 +57,6 @@ export function PlayerBar() {
 
 	// State to handle image loading failure
 	const [imageError, setImageError] = useState(false);
-
-	// Current song metadata shown in place of the location while available
-	const currentSong = useStationMetadata(currentStation, isPlaying);
 
 	useEffect(() => {
 		setImageError(false);

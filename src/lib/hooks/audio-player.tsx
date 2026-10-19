@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 import { stations } from "@/lib/data/stations";
 import { useDebounce } from "@/lib/hooks/use-debounce";
+import { useStationMetadata } from "@/lib/hooks/use-station-metadata";
 import { RadioStation } from "@/lib/types/radio";
 
 const TARGET_LUFS = -16;
@@ -96,6 +97,7 @@ function createBoostGraph(element: HTMLAudioElement): BoostGraph {
 
 interface AudioPlayerContextType {
 	currentStation: RadioStation | null;
+	currentSong: string | null;
 	isPlaying: boolean;
 	isLoading: boolean;
 	volume: number;
@@ -133,6 +135,10 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 	const [stationsOrder, setStationsOrder] = useState<RadioStation[]>(
 		stations.filter((s) => s.isEnabled !== false)
 	);
+
+	// Fetched once here and shared through context, so every component showing
+	// the song reuses the same request instead of starting its own
+	const currentSong = useStationMetadata(currentStation, isPlaying);
 
 	// Debounce the volume change to avoid frequent updates
 	const debouncedVolume = useDebounce(volume, 50);
@@ -386,6 +392,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		<AudioPlayerContext.Provider
 			value={{
 				currentStation,
+				currentSong,
 				isPlaying,
 				isLoading,
 				volume,
