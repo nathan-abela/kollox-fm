@@ -460,7 +460,7 @@ export const stations: RadioStation[] = [
 		socials: {
 			facebook: "https://www.facebook.com/p/Radio-GrooveMalta-61584764137642", // prettier-ignore
 		},
-		lufs: -11.5,
+		lufs: -9.5,
 	},
 	{
 		id: "buzz-fm",
@@ -481,7 +481,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -10.0,
+		lufs: -9.0,
 	},
 	{
 		id: "buzz-fm-trance",
@@ -502,7 +502,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -8.5,
+		lufs: -11.0,
 	},
 	{
 		id: "buzz-fm-rock",
@@ -523,7 +523,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -10.0,
+		lufs: -15.0,
 	},
 	{
 		id: "buzz-fm-divas",
@@ -544,7 +544,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -10.5,
+		lufs: -11.0,
 	},
 	{
 		id: "buzz-fm-nonstop-80s",
@@ -565,7 +565,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -12.5,
+		lufs: -11.0,
 	},
 	{
 		id: "buzz-fm-country",
@@ -586,7 +586,7 @@ export const stations: RadioStation[] = [
 			tiktok: "https://www.tiktok.com/@buzzwatches4you",
 			youtube: "https://www.youtube.com/@BuzzBeatz69",
 		},
-		lufs: -12.0,
+		lufs: -11.0,
 	},
 	{
 		id: "radio-105",
@@ -879,7 +879,7 @@ export const stations: RadioStation[] = [
 		socials: {
 			facebook: "https://www.facebook.com/christmasradiomalta",
 		},
-		lufs: -11.5,
+		lufs: -10.5,
 	},
 	// Seasonal/ Special Stations
 	{
