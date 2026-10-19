@@ -14,9 +14,9 @@ export const stations: RadioStation[] = [
 		popularity: 1,
 		surveyRank: 4,
 		metadata: {
-			isEnabled: false,
-			currentSongUrl: "https://stream.v3.network/proxy/897bay/currentsong", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://stream.v3.network/proxy/897bay/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		socials: {
 			facebook: "https://facebook.com/89.7Bay",
@@ -38,9 +38,9 @@ export const stations: RadioStation[] = [
 		popularity: 4,
 		surveyRank: 8,
 		metadata: {
-			isEnabled: false,
-			currentSongUrl: "https://stream.v3.network/proxy/easy/currentsong",
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://stream.v3.network/proxy/easy/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		socials: {
 			facebook: "https://facebook.com/BayEasy1002",
@@ -59,9 +59,9 @@ export const stations: RadioStation[] = [
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
 		popularity: 8,
 		metadata: {
-			isEnabled: false,
-			currentSongUrl: "https://stream.v3.network/proxy/retro/currentsong",
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://stream.v3.network/proxy/retro/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		socials: {
 			facebook: "https://facebook.com/bayretro",
@@ -82,8 +82,8 @@ export const stations: RadioStation[] = [
 		popularity: 6,
 		metadata: {
 			isEnabled: false,
-			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			currentSongUrl: "https://stream.v3.network/proxy/baypride/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		lufs: -16.0,
 	},
@@ -894,8 +894,8 @@ export const stations: RadioStation[] = [
 		genres: ["Christmas", "Holiday", "Seasonal"],
 		metadata: {
 			isEnabled: false,
-			currentSongUrl: "https://stream.v3.network/proxy/baypride/currentsong", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			currentSongUrl: "https://stream.v3.network/proxy/baypride/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		lufs: -16.0,
 	},
@@ -910,9 +910,9 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Christmas", "Holiday", "Seasonal"],
 		metadata: {
-			isEnabled: false, // No song metadata provided by station.
-			currentSongUrl: "https://s40.myradiostream.com:24046/currentsong",
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://s40.myradiostream.com:24046/stats?sid=1&json=1", // prettier-ignore
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		lufs: -16.0,
 	},
