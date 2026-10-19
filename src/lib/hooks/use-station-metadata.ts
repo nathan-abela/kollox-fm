@@ -8,6 +8,8 @@ import { RadioStation } from "@/lib/types/radio";
  * - Radio 105 appends 4-character codes like `[2zeb]` to track plays.
  *   Pattern: bracket, digit, 3 alphanumerics (ex. `[2w0j]`, `[2vvd]`).
  * - Malta Sunshine Radio prefixes titles with `Now On Air:`.
+ * - Buzz FM sometimes sends the audio file name, ending in an extension
+ *   like `.m4a` (ex. `Top Greatest Hits Full Album 2023.m4a`).
  */
 function cleanMetadata(text: string | null): string | null {
 	if (!text) return null;
@@ -15,6 +17,7 @@ function cleanMetadata(text: string | null): string | null {
 		text
 			.replace(/^now on air:\s*/i, "")
 			.replace(/\s*\[\d[a-z0-9]{3}\]$/i, "")
+			.replace(/\s*\.(m4a|mp3|aac|ogg|flac|wav)$/i, "")
 			.trim() || null
 	);
 }
