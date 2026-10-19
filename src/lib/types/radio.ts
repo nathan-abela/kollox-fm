@@ -47,6 +47,8 @@ export interface RadioStation {
  * - currentSongUrl: The URL to fetch the current song metadata.
  * - currentSongMethod: The method to use for fetching the current song.
  *   - "shoutcast": Fetches metadata using the Shoutcast protocol.
+ *   - "shoutcast-jsonp": Loads Shoutcast v2 `stats?sid=1&json=1` as JSONP, for
+ *     servers without CORS headers.
  *   - "icecast": Fetches metadata using the Icecast protocol.
  *   - "voscast": Fetches metadata using the Voscast protocol.
  *   - "radioco": Fetches metadata using the Radioco protocol.
@@ -58,6 +60,7 @@ export interface RadioStationMetadata {
 	currentSongUrl?: string;
 	currentSongMethod?:
 		| "shoutcast"
+		| "shoutcast-jsonp"
 		| "icecast"
 		| "voscast"
 		| "radioco"

@@ -23,6 +23,48 @@ function cleanMetadata(text: string | null): string | null {
 }
 
 /**
+ * Loads a JSONP endpoint through a `<script>` tag, which bypasses CORS for
+ * servers that don't send `Access-Control-Allow-Origin` but accept a
+ * `callback` parameter.
+ *
+ * A removed script still runs once loaded, so a cancelled request leaves
+ * behind a no-op callback that deletes itself instead of a missing global.
+ */
+function fetchJsonp(url: string, signal: AbortSignal): Promise<unknown> {
+	return new Promise((resolve, reject) => {
+		const callbacks = window as unknown as Record<string, unknown>;
+		const callbackName = `metadataCallback_${Math.random().toString(36).slice(2)}`;
+		const script = document.createElement("script");
+
+		const cleanup = () => {
+			callbacks[callbackName] = () => delete callbacks[callbackName];
+			script.remove();
+			signal.removeEventListener("abort", onAbort);
+		};
+		const onAbort = () => {
+			cleanup();
+			reject(signal.reason);
+		};
+
+		callbacks[callbackName] = (data: unknown) => {
+			delete callbacks[callbackName];
+			cleanup();
+			resolve(data);
+		};
+		script.onerror = () => {
+			cleanup();
+			reject(new Error("JSONP request failed"));
+		};
+		signal.addEventListener("abort", onAbort);
+
+		const src = new URL(url);
+		src.searchParams.set("callback", callbackName);
+		script.src = src.toString();
+		document.head.appendChild(script);
+	});
+}
+
+/**
  * Fetches the currently playing song title for a radio station, if supported
  * and available at stations data file.
  *
@@ -83,6 +125,14 @@ export function useStationMetadata(
 
 		const fetchMetadata = async () => {
 			try {
+				if (method === "shoutcast-jsonp") {
+					const json = (await fetchJsonp(url, controller.signal)) as {
+						songtitle?: string;
+					};
+					setCurrentSong(cleanMetadata(json.songtitle ?? null));
+					return;
+				}
+
 				const res = await fetch(url, { signal: controller.signal });
 				// `fetch` doesn't throw when the server returns an error.
 				// Without this check, the error page text would be shown as the song title.

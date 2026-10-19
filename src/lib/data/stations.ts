@@ -123,9 +123,9 @@ export const stations: RadioStation[] = [
 		popularity: 3,
 		surveyRank: 5,
 		metadata: {
-			isEnabled: false,
-			currentSongUrl: "https://s46.myradiostream.com:6076/currentsong",
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://s46.myradiostream.com:6076/stats?sid=1&json=1",
+			currentSongMethod: "shoutcast-jsonp",
 		},
 		socials: {
 			facebook: "https://facebook.com/MagicMalta917",
