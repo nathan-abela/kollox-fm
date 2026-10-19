@@ -15,6 +15,9 @@
  * @property surveyRank - (Optional) Ranking based on Broadcasting Authority survey data.
  * @property lufs - Measured loudness in LUFS (Loudness Units relative to Full Scale).
  *   				Used to calculate volume adjustment at runtime. Target is -16 LUFS.
+ * @property boost - (Optional) Route playback through Web Audio so quiet stations can be
+ *   				amplified beyond 100% volume. Only enable on streams verified (with curl)
+ *   				to send CORS headers, otherwise playback breaks.
  * @property metadata - (Optional) Metadata about the radio station.
  * @property socials - (Optional) Social media links for the station.
  */
@@ -32,6 +35,7 @@ export interface RadioStation {
 	popularity?: number;
 	surveyRank?: number;
 	lufs: number;
+	boost?: boolean;
 	metadata?: RadioStationMetadata;
 	socials?: RadioStationSocials;
 }
