@@ -357,9 +357,9 @@ export const stations: RadioStation[] = [
 		genres: ["Oldies", "Religion", "Cultural", "Pop"],
 		popularity: 17,
 		metadata: {
-			isEnabled: false, // No song metadata provided by station.
-			currentSongUrl: "http://stream.bkr.mt:90/currentsong",
-			currentSongMethod: "shoutcast",
+			isEnabled: true,
+			currentSongUrl: "https://s3.voscast.com:10893/status-json.xsl",
+			currentSongMethod: "voscast",
 		},
 		socials: {
 			facebook: "https://facebook.com/bkr945",
@@ -377,9 +377,9 @@ export const stations: RadioStation[] = [
 		genres: ["Classic Hits", "Religion", "Cultural"],
 		popularity: 18,
 		metadata: {
-			isEnabled: false, // No song metadata provided by station.
+			isEnabled: true,
 			currentSongUrl: "https://az.wannastream.com/radio/8000/status-json.xsl", // prettier-ignore
-			currentSongMethod: "shoutcast",
+			currentSongMethod: "icecast",
 		},
 		lufs: -10.5,
 	},
