@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 
+import { siteUrl } from "@/lib/config";
 import { stations } from "@/lib/data/stations";
+import { RadioStation } from "@/lib/types/radio";
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -38,6 +40,57 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default function StationLayout({ children }: LayoutProps) {
-	return children;
+/**
+ * schema.org graph for a station: the organisation, plus the FM channel that
+ * carries its frequency and genres (those properties don't exist on the
+ * organisation type). Online-only stations get the organisation alone.
+ */
+function stationJsonLd(station: RadioStation) {
+	const organisation = {
+		"@type": "RadioStation",
+		"@id": `${siteUrl}/station/${station.id}#station`,
+		name: station.name,
+		url: station.website,
+		image: new URL(station.image, siteUrl).href,
+		address: {
+			"@type": "PostalAddress",
+			addressLocality: station.location,
+			addressCountry: "MT",
+		},
+		sameAs: Object.values(station.socials ?? {}),
+	};
+	const channel = station.fmFrequency && {
+		"@type": "FMRadioChannel",
+		broadcastFrequency: `${station.fmFrequency} FM`,
+		genre: station.genres,
+		providesBroadcastService: {
+			"@type": "BroadcastService",
+			broadcastDisplayName: station.name,
+			broadcaster: { "@id": organisation["@id"] },
+		},
+	};
+	return {
+		"@context": "https://schema.org",
+		"@graph": channel ? [organisation, channel] : [organisation],
+	};
+}
+
+export default async function StationLayout({ children, params }: LayoutProps) {
+	const { id } = await params;
+	const station = stations.find((s) => s.id === id);
+
+	return (
+		<>
+			{station && (
+				<script
+					type="application/ld+json"
+					// "<" is escaped so no station text can close the script tag early
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(stationJsonLd(station)).replace(/</g, "\\u003c"), // prettier-ignore
+					}}
+				/>
+			)}
+			{children}
+		</>
+	);
 }
