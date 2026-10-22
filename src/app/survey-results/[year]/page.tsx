@@ -15,9 +15,6 @@ export async function generateMetadata({
 	return {
 		title: `Malta's ${year} Radio Survey Results`,
 		description: `View the Maltese radio survey results for ${year} - listener demographics, station popularity, and broadcasting trends in Malta.`,
-		alternates: {
-			canonical: `/survey-results/${year}`,
-		},
 	};
 }
 

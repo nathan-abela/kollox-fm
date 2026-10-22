@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 	description:
 		"Listen to all Maltese radio stations in one place. Discover, play, and enjoy live radio from Malta with Kollox FM.",
 	alternates: {
-		canonical: "/",
+		canonical: "./",
 	},
 };
 
