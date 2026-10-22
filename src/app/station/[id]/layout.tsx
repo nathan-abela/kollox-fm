@@ -35,9 +35,11 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-	return stations.map((station) => ({
-		id: station.id,
-	}));
+	return stations
+		.filter((station) => station.isEnabled !== false)
+		.map((station) => ({
+			id: station.id,
+		}));
 }
 
 /**
