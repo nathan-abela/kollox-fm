@@ -59,7 +59,7 @@ export const stations: RadioStation[] = [
 		genres: ["Classic Hits", "Oldies", "80s", "90s"],
 		popularity: 8,
 		metadata: {
-			isEnabled: true,
+			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://stream.v3.network/proxy/retro/stats?sid=1&json=1", // prettier-ignore
 			currentSongMethod: "shoutcast-jsonp",
 		},
@@ -124,7 +124,8 @@ export const stations: RadioStation[] = [
 		surveyRank: 5,
 		metadata: {
 			isEnabled: true,
-			currentSongUrl: "https://s46.myradiostream.com:6076/stats?sid=1&json=1",
+			currentSongUrl:
+				"https://s46.myradiostream.com:6076/stats?sid=1&json=1",
 			currentSongMethod: "shoutcast-jsonp",
 		},
 		socials: {
