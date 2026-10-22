@@ -30,12 +30,15 @@ interface RadioStationCardProps {
 	station: RadioStation;
 	isFavourite: boolean;
 	onToggleFavourite: () => void;
+	/** Loads the logo eagerly with a preload hint, for cards in the first row */
+	priority?: boolean;
 }
 
 export function RadioStationCard({
 	station,
 	isFavourite,
 	onToggleFavourite,
+	priority = false,
 }: RadioStationCardProps) {
 	const {
 		currentStation,
@@ -83,6 +86,7 @@ export function RadioStationCard({
 						src={station.image}
 						alt={station.name + " logo"}
 						fill
+						priority={priority}
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 						className="object-cover transition-transform duration-500 group-hover:scale-105"
 						onError={() => setImageError(true)}
