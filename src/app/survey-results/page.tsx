@@ -1,10 +1,18 @@
-"use client";
-
+import type { Metadata } from "next";
 import { FileText } from "lucide-react";
 
 import { getAllSurveys, getLatestSurvey } from "@/lib/data/surveys";
 import { SurveyCard } from "@/components/survey-results/survey-card";
 import { SurveyHero } from "@/components/survey-results/survey-hero";
+
+const surveyYears = getAllSurveys().map((survey) => survey.meta.id);
+const newestYear = surveyYears[0];
+const oldestYear = surveyYears[surveyYears.length - 1];
+
+export const metadata: Metadata = {
+	title: "Malta Radio Audience Survey Results",
+	description: `Broadcasting Authority radio audience survey results for Malta from ${oldestYear} to ${newestYear}: most followed stations, daily reach, and popular programmes.`,
+};
 
 export default function SurveyResults() {
 	const surveys = getAllSurveys();

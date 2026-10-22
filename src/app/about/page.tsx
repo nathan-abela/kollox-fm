@@ -1,8 +1,13 @@
-"use client";
-
+import type { Metadata } from "next";
 import { Globe, Headphones, Radio, Shield, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+
+export const metadata: Metadata = {
+	title: "About",
+	description:
+		"Kollox FM is a free directory of Maltese radio stations. Learn why it exists, how streams are sourced, and what makes it different.",
+};
 
 export default function About() {
 	return (
