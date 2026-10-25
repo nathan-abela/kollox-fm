@@ -35,7 +35,7 @@ export const survey2023: Survey = {
 	stations: [
 		{
 			id: "bay-fm",
-			label: "Bay FM",
+			label: "89.7 Bay",
 			fmFrequency: "89.7",
 			location: "St. Julian's",
 			mostFollowedPct: 13.3,
@@ -161,7 +161,7 @@ export const survey2023: Survey = {
 		},
 		{
 			id: "magic-malta",
-			label: "Magic Malta FM",
+			label: "Magic Malta",
 			fmFrequency: "91.7",
 			location: "Pieta",
 			mostFollowedPct: 6.1,
@@ -214,8 +214,8 @@ export const survey2023: Survey = {
 			},
 		},
 		{
-			id: "smash-fm",
-			label: "Smash FM",
+			id: "smash-radio",
+			label: "Smash Radio",
 			fmFrequency: "104.6",
 			location: "Paola",
 			mostFollowedPct: 1.7,
@@ -233,7 +233,7 @@ export const survey2023: Survey = {
 		},
 		{
 			id: "campus-fm",
-			label: "Campus FM",
+			label: "Campus 103.7",
 			fmFrequency: "103.7",
 			location: "Msida",
 			mostFollowedPct: 1.0,
@@ -328,7 +328,7 @@ export const survey2023: Survey = {
 		{
 			id: "no-preferred-programme",
 			name: "No preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 199,
 			percentage: 14.8,
 			ageDemographics: {
@@ -348,7 +348,7 @@ export const survey2023: Survey = {
 		{
 			id: "bay-breakfast-daniel-ylenia",
 			name: "Bay Breakfast with Daniel & Ylenia",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 159,
 			percentage: 11.8,
 			ageDemographics: {
@@ -368,7 +368,7 @@ export const survey2023: Survey = {
 		{
 			id: "bongu-calypso-twanny-scerri",
 			name: "Bongu Calypso ma' Twanny Scerri",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 99,
 			percentage: 7.4,
 			ageDemographics: {
@@ -388,7 +388,7 @@ export const survey2023: Survey = {
 		{
 			id: "magic-am-carlo-dorianne-ron",
 			name: "Magic AM",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 87,
 			percentage: 6.5,
 			ageDemographics: {
@@ -408,7 +408,7 @@ export const survey2023: Survey = {
 		{
 			id: "bongu-net-indri-attard",
 			name: "Bongu NET (Indri Attard)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 78,
 			percentage: 5.8,
 			ageDemographics: {
@@ -428,7 +428,7 @@ export const survey2023: Survey = {
 		{
 			id: "morning-vibe-abel-jd-martina",
 			name: "The Morning Vibe with Abel, JD & Martina",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 74,
 			percentage: 5.5,
 			ageDemographics: {
@@ -448,7 +448,7 @@ export const survey2023: Survey = {
 		{
 			id: "one-breakfast-noel-camilleri",
 			name: "ONE Breakfast (Noel Camilleri)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 59,
 			percentage: 4.4,
 			ageDemographics: {
@@ -468,7 +468,7 @@ export const survey2023: Survey = {
 		{
 			id: "radju-marija-programmes",
 			name: "Radju Marija programmes (various)",
-			station: "Radju Marija",
+			stationId: "radju-marija",
 			totalRespondents: 54,
 			percentage: 4.0,
 			ageDemographics: {
@@ -488,7 +488,7 @@ export const survey2023: Survey = {
 		{
 			id: "il-polz-tac-cittadin-tonio-bonello",
 			name: "Il-Polz tac-cittadin (Tonio Bonello)",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 51,
 			percentage: 3.8,
 			ageDemographics: {
@@ -508,7 +508,7 @@ export const survey2023: Survey = {
 		{
 			id: "news-bulletin-one",
 			name: "News Bulletin",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 50,
 			percentage: 3.7,
 			ageDemographics: {
@@ -528,7 +528,7 @@ export const survey2023: Survey = {
 		{
 			id: "drive-vibe-nate-frank-rossi",
 			name: "The Drive Vibe with Nate, Frank & Rossi",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 43,
 			percentage: 3.2,
 			ageDemographics: {
@@ -548,7 +548,7 @@ export const survey2023: Survey = {
 		{
 			id: "ghal-kulhadd-christine-delicata",
 			name: "Għal Kulħadd (Christine Delicata)",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 37,
 			percentage: 2.8,
 			ageDemographics: {
@@ -568,7 +568,7 @@ export const survey2023: Survey = {
 		{
 			id: "joe-julian-filghodu",
 			name: "Joe Julian Filgħodu - Live",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 35,
 			percentage: 2.6,
 			ageDemographics: {
@@ -588,7 +588,7 @@ export const survey2023: Survey = {
 		{
 			id: "news-bulletin-radju-malta",
 			name: "News Bulletin",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 33,
 			percentage: 2.5,
 			ageDemographics: {
@@ -608,7 +608,7 @@ export const survey2023: Survey = {
 		{
 			id: "club-101-eileen-montesin",
 			name: "Club 101 (Eileen Montesin)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 33,
 			percentage: 2.5,
 			ageDemographics: {
@@ -628,7 +628,7 @@ export const survey2023: Survey = {
 		{
 			id: "bay-drive-jamie-taryn",
 			name: "Bay Drive with Jamie and Taryn",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 31,
 			percentage: 2.3,
 			ageDemographics: {
@@ -648,7 +648,7 @@ export const survey2023: Survey = {
 		{
 			id: "andrew-azzopardi-rtk",
 			name: "Andrew Azzopardi on RTK103",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 23,
 			percentage: 1.7,
 			ageDemographics: {
@@ -668,7 +668,7 @@ export const survey2023: Survey = {
 		{
 			id: "kuntatt-dione-borg-net",
 			name: "Kuntatt (Dione Borg)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 21,
 			percentage: 1.6,
 			ageDemographics: {

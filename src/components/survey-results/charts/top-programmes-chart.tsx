@@ -11,6 +11,7 @@ import {
 	YAxis,
 } from "recharts";
 
+import { getSurveyStationLabel } from "@/lib/data/surveys";
 import { Survey } from "@/lib/types/survey";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -20,7 +21,7 @@ interface ProgrammeTooltipProps {
 		value: number;
 		payload: {
 			programme: string;
-			station: string;
+			station: string | null;
 			percentage: number;
 			totalRespondents: number;
 		};
@@ -65,7 +66,7 @@ export function TopProgrammesChart({ survey }: { survey: Survey }) {
 
 		return sortedProgrammes.map((p) => ({
 			programme: p.name,
-			station: p.station,
+			station: getSurveyStationLabel(survey, p.stationId),
 			percentage: p.percentage,
 			totalRespondents: p.totalRespondents,
 		}));

@@ -113,8 +113,8 @@ export interface TimebandSummary {
 export interface SurveyHighlights {
 	/** Most followed station in this survey. */
 	mostFollowedStation?: {
-		/** Station id. Align with the `name` property of `RadioStation`. */
-		id: string;
+		/** Station id, matching `StationSummary.id` and `RadioStation.id`. */
+		id: StationId;
 		/** % marked as most followed. */
 		mostFollowedPct?: Percent | null;
 		/** Weekly audience share %. */
@@ -188,7 +188,7 @@ export interface GenderDemographics {
  *
  * @property id - Unique programme identifier (slug).
  * @property name - Programme name.
- * @property station - Station name or identifier.
+ * @property stationId - Id of the station that airs it, matching `StationSummary.id`, null for aggregate rows.
  * @property totalRespondents - Total number of respondents who prefer this programme.
  * @property percentage - Overall preference percentage.
  * @property ageDemographics - Breakdown by age brackets.
@@ -197,7 +197,7 @@ export interface GenderDemographics {
 export interface ProgrammeSummary {
 	id: string;
 	name: string;
-	station: string | null;
+	stationId: StationId | null;
 	totalRespondents: number;
 	percentage: Percent;
 	ageDemographics?: AgeDemographics;

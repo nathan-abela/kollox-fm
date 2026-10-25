@@ -10,6 +10,7 @@ import {
 	Tooltip,
 } from "recharts";
 
+import { getSurveyStationLabel } from "@/lib/data/surveys";
 import { Survey } from "@/lib/types/survey";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -51,7 +52,8 @@ export function TopProgrammesByAgeChart({ survey }: { survey: Survey }) {
 			const programmeScores = programmes
 				.map((p) => ({
 					name: p.name,
-					station: p.station || "Unknown",
+					station:
+						getSurveyStationLabel(survey, p.stationId) || "Unknown",
 					percentage:
 						p.ageDemographics?.[bracket.key]?.percentage || 0,
 				}))

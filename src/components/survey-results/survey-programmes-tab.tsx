@@ -8,9 +8,7 @@ import { TopProgrammesChart } from "@/components/survey-results/charts/top-progr
 import { SurveyTopProgrammes } from "@/components/survey-results/survey-top-programmes";
 
 export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
-	const programmesData = survey.programmes || [];
-
-	if (!programmesData.length) {
+	if (!survey.programmes?.length) {
 		return (
 			<div className="text-muted-foreground py-8 text-center">
 				Programme preference data is not available for this survey year.
@@ -21,7 +19,7 @@ export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
 	return (
 		<>
 			{/* Top 3 Programmes */}
-			<SurveyTopProgrammes programmes={programmesData} />
+			<SurveyTopProgrammes survey={survey} />
 
 			{/* Top 15 Chart */}
 			<TopProgrammesChart survey={survey} />
@@ -33,7 +31,7 @@ export function SurveyProgrammesTab({ survey }: { survey: Survey }) {
 			<StationDemographicsHeatmapChart survey={survey} />
 
 			{/* All Programmes Table */}
-			<ProgrammesTable programmes={programmesData} />
+			<ProgrammesTable survey={survey} />
 		</>
 	);
 }

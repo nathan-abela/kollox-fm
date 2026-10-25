@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Radio } from "lucide-react";
 
+import { getSurveyStationLabel } from "@/lib/data/surveys";
 import type { AgeDemographics, Survey } from "@/lib/types/survey";
 import {
 	Card,
@@ -51,8 +52,8 @@ const getHeatmapColor = (intensity: number): string => {
  * - Cell value = summed percentage across all programmes
  *
  * @example
- * If "Bay FM" has 3 programmes with age 21-30 percentages of [15%, 10%, 8%],
- * the cell for "Bay FM / 21-30" shows 33% (15+10+8).
+ * If "89.7 Bay" has 3 programmes with age 21-30 percentages of [15%, 10%, 8%],
+ * the cell for "89.7 Bay / 21-30" shows 33% (15+10+8).
  *
  * Stations are ordered by their total demographic reach (sum of all age brackets) from highest to lowest.
  * For example, if "ONE Radio" has the highest combined percentage across all age groups,
@@ -72,7 +73,7 @@ export function StationDemographicsHeatmapChart({
 		if (!survey?.programmes) return { heatmapData: [], maxValue: 0 };
 
 		const programmes = survey.programmes.filter(
-			(p) => p.id !== "no-preferred-programme" && p.station
+			(p) => p.id !== "no-preferred-programme" && p.stationId
 		);
 
 		// Group programmes by station and aggregate demographics
@@ -82,7 +83,7 @@ export function StationDemographicsHeatmapChart({
 		>();
 
 		programmes.forEach((p) => {
-			const station = p.station!;
+			const station = p.stationId!;
 			if (!stationMap.has(station)) {
 				stationMap.set(station, {
 					count: 0,
@@ -129,7 +130,7 @@ export function StationDemographicsHeatmapChart({
 
 		// Transform into heatmap row format
 		const heatmapData = stations.map(({ station, data }) => ({
-			station,
+			station: getSurveyStationLabel(survey, station) ?? station,
 			programmeCount: data.count,
 			demographics: AGE_BRACKETS.map(({ key, label }) => ({
 				age: label,

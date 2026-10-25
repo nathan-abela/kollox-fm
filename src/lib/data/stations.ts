@@ -1,10 +1,21 @@
 import { basePath } from "@/lib/config";
 import { RadioStation } from "@/lib/types/radio";
 
+/**
+ * Frequency to print beside the station name, ex. "92.7 FM". Null for online-only
+ * stations and for names that already carry the frequency, ex. "89.7 Bay".
+ */
+export function displayFrequency(station: RadioStation): string | null {
+	if (!station.fmFrequency || station.name.includes(station.fmFrequency)) {
+		return null;
+	}
+	return `${station.fmFrequency} FM`;
+}
+
 export const stations: RadioStation[] = [
 	{
 		id: "bay-fm",
-		name: "Bay FM",
+		name: "89.7 Bay",
 		fmFrequency: "89.7",
 		streamUrl: "https://stream.v3.network/proxy/897bay/stream.mp3",
 		image: `${basePath}/images/stations/bay.jpg`,
@@ -12,7 +23,6 @@ export const stations: RadioStation[] = [
 		location: "St. Julian's",
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
-		surveyRank: 4,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://stream.v3.network/proxy/897bay/stats?sid=1&json=1", // prettier-ignore
@@ -34,9 +44,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/bay_easy.jpg`,
 		website: "https://bayeasy.mt",
 		location: "St. Julian's",
-		genres: ["Chill", "Relax", "00s", "10s"],
+		genres: ["Classic Hits", "80s", "90s", "00s"],
 		popularity: 4,
-		surveyRank: 8,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://stream.v3.network/proxy/easy/stats?sid=1&json=1", // prettier-ignore
@@ -97,7 +106,6 @@ export const stations: RadioStation[] = [
 		location: "Santa Venera",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
-		surveyRank: 6,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://vibefm.radioca.st/status-json.xsl",
@@ -113,7 +121,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "magic-malta",
-		name: "Magic Malta FM",
+		name: "Magic Malta",
 		fmFrequency: "91.7",
 		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
 		image: `${basePath}/images/stations/magic_malta.jpg`,
@@ -121,7 +129,6 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
-		surveyRank: 5,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl:
@@ -151,8 +158,8 @@ export const stations: RadioStation[] = [
 		lufs: -10.5,
 	},
 	{
-		id: "smash-fm",
-		name: "Smash FM",
+		id: "smash-radio",
+		name: "Smash Radio",
 		fmFrequency: "104.6",
 		streamUrl: "https://headend.smashmalta.com/smashradio1046fm",
 		image: `${basePath}/images/stations/smash_radio.jpg`,
@@ -160,7 +167,6 @@ export const stations: RadioStation[] = [
 		location: "Paola",
 		genres: ["Classic Hits", "House", "Rock"],
 		popularity: 5,
-		surveyRank: 10,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://radio.smashmalta.com/status-json.xsl",
@@ -182,7 +188,6 @@ export const stations: RadioStation[] = [
 		location: "Luqa",
 		genres: ["Classic Hits", "Oldies", "Throwbacks"],
 		popularity: 12,
-		surveyRank: 2,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://public.radio.co/api/v2/sf3aa4c25a/track/current", // prettier-ignore
@@ -206,7 +211,6 @@ export const stations: RadioStation[] = [
 		location: "Hamrun",
 		genres: ["Religion", "Spiritual", "Talk", "Cultural", "News"],
 		popularity: 13,
-		surveyRank: 7,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://public.radio.co/api/v2/s955b1ced9/track/current", // prettier-ignore
@@ -228,7 +232,6 @@ export const stations: RadioStation[] = [
 		location: "Marsa",
 		genres: ["Politics", "Talk", "Classic Hits", "Pop", "Rock", "House"],
 		popularity: 11,
-		surveyRank: 1,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://s10.voscast.com:8203/status-json.xsl",
@@ -251,7 +254,6 @@ export const stations: RadioStation[] = [
 		location: "Pieta",
 		genres: ["Politics", "Talk", "Religion", "Classic Hits", "Marching Band"], // prettier-ignore
 		popularity: 14,
-		surveyRank: 3,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://s2.voscast.com:11393/status-json.xsl",
@@ -266,7 +268,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "campus-fm",
-		name: "Campus FM",
+		name: "Campus 103.7",
 		fmFrequency: "103.7",
 		streamUrl: "https://campusfm.radioca.st/campusfm_live",
 		image: `${basePath}/images/stations/campus.jpg`,
@@ -274,7 +276,6 @@ export const stations: RadioStation[] = [
 		location: "Msida",
 		genres: ["Classical", "Jazz", "Talk", "Cultural", "News"],
 		popularity: 15,
-		surveyRank: 9,
 		metadata: {
 			isEnabled: false, // No song metadata provided by station.
 			currentSongUrl: "https://campusfm.radioca.st/status-json.xsl",
@@ -336,7 +337,6 @@ export const stations: RadioStation[] = [
 		location: "Mosta",
 		genres: ["Maltese", "Local", "Folk"],
 		popularity: 16,
-		surveyRank: 11,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "https://s4.voscast.com:8837/status-json.xsl",
@@ -354,7 +354,7 @@ export const stations: RadioStation[] = [
 		fmFrequency: "94.5",
 		image: `${basePath}/images/stations/bkr_radio.jpg`,
 		website: "https://bkr.mt",
-		location: "Pieta",
+		location: "Birkirkara",
 		genres: ["Oldies", "Religion", "Cultural", "Pop"],
 		popularity: 17,
 		metadata: {

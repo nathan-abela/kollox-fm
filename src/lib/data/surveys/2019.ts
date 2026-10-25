@@ -38,7 +38,7 @@ export const survey2019: Survey = {
 	stations: [
 		{
 			id: "bay-fm",
-			label: "Bay FM",
+			label: "89.7 Bay",
 			fmFrequency: "89.7",
 			location: "St. Julian's",
 			mostFollowedPct: 20.78,
@@ -215,7 +215,7 @@ export const survey2019: Survey = {
 			},
 		},
 		{
-			id: "smash-fm",
+			id: "smash-radio",
 			label: "Smash Radio",
 			fmFrequency: "104.6",
 			location: "Paola",
@@ -270,7 +270,7 @@ export const survey2019: Survey = {
 		},
 		{
 			id: "campus-fm",
-			label: "Campus FM",
+			label: "Campus 103.7",
 			fmFrequency: "103.7",
 			location: "Msida",
 			mostFollowedPct: 0.66,
@@ -288,7 +288,7 @@ export const survey2019: Survey = {
 		},
 		{
 			id: "community-station",
-			label: "Community Station",
+			label: "Community Stations",
 			mostFollowedPct: 0.51,
 			weeklySharePct: 0.4,
 			stationListeners: 2000,
@@ -304,7 +304,7 @@ export const survey2019: Survey = {
 		},
 		{
 			id: "bay-easy",
-			label: "Bay Easy (Digital Radio)",
+			label: "Bay Easy",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 0.22,
@@ -332,7 +332,7 @@ export const survey2019: Survey = {
 		{
 			id: "no-preferred-programme",
 			name: "No preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 175057,
 			percentage: 39.03,
 			ageDemographics: {
@@ -352,7 +352,7 @@ export const survey2019: Survey = {
 		{
 			id: "music-programmes",
 			name: "Music programmes",
-			station: null,
+			stationId: null,
 			totalRespondents: 117589,
 			percentage: 58.72,
 			ageDemographics: {
@@ -372,7 +372,7 @@ export const survey2019: Survey = {
 		{
 			id: "discussion-programmes",
 			name: "Discussion programmes",
-			station: null,
+			stationId: null,
 			totalRespondents: 17228,
 			percentage: 8.6,
 			ageDemographics: {
@@ -392,7 +392,7 @@ export const survey2019: Survey = {
 		{
 			id: "news-programmes",
 			name: "News programmes",
-			station: null,
+			stationId: null,
 			totalRespondents: 13131,
 			percentage: 6.56,
 			ageDemographics: {
@@ -412,7 +412,7 @@ export const survey2019: Survey = {
 		{
 			id: "prayers-religious-programmes",
 			name: "Prayers & Religious programmes",
-			station: null,
+			stationId: null,
 			totalRespondents: 12593,
 			percentage: 6.29,
 			ageDemographics: {
@@ -432,7 +432,7 @@ export const survey2019: Survey = {
 		{
 			id: "morning-vibe-abel-jd-martina",
 			name: "The Morning Vibe with Abel, JD & Martina",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 7328,
 			percentage: 15.67,
 			ageDemographics: {
@@ -452,7 +452,7 @@ export const survey2019: Survey = {
 		{
 			id: "bay-breakfast-daniel-ylenia",
 			name: "Bay Breakfast with Daniel & Ylenia",
-			station: "89.7 Bay",
+			stationId: "bay-fm",
 			totalRespondents: 6612,
 			percentage: 14.14,
 			ageDemographics: {
@@ -472,7 +472,7 @@ export const survey2019: Survey = {
 		{
 			id: "familja-wahda-lilian-maistre",
 			name: "Familja Wahda",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 12175,
 			percentage: 26.03,
 			ageDemographics: {
@@ -492,7 +492,7 @@ export const survey2019: Survey = {
 		{
 			id: "linja-diretta-emanuel-cuschieri",
 			name: "Linja Diretta",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 6327,
 			percentage: 13.53,
 			ageDemographics: {
