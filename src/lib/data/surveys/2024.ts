@@ -903,7 +903,7 @@ export const survey2024: Survey = {
 		},
 		{
 			id: "johnny-be-good-john-mallia",
-			name: "Johnny Be Good - John Mallia (Calypso)",
+			name: "Johnny Be Good - John Mallia",
 			stationId: "calypso-radio",
 			totalRespondents: 14,
 			percentage: 1.0,

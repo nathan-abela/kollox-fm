@@ -545,7 +545,7 @@ export const survey2025: Survey = {
 		},
 		{
 			id: "ryan-gail-bay",
-			name: "Ryan and Gail (Bay)",
+			name: "Ryan and Gail",
 			stationId: "bay-fm",
 			totalRespondents: 37,
 			percentage: 2.5,
