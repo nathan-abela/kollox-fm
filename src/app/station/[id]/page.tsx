@@ -398,6 +398,14 @@ export default function StationPage() {
 				</div>
 			</div>
 
+			{station.description && (
+				<div className="container mx-auto px-4 py-8">
+					<p className="text-muted-foreground max-w-3xl leading-relaxed">
+						{station.description}
+					</p>
+				</div>
+			)}
+
 			{/* Audience */}
 			{latestSurvey && latestSurveyRank && latestSurveyRow && (
 				<div className="container mx-auto px-4 py-8">

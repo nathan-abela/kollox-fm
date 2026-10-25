@@ -22,6 +22,13 @@ function stationTitle(station: RadioStation): string {
 	return `${parts.join(" ")} - Listen Live`;
 }
 
+/** The station's own about paragraph, or a generic line for stations without one. */
+function stationDescription(station: RadioStation): string {
+	if (station.description) return station.description;
+	const frequency = displayFrequency(station);
+	return `Listen to ${station.name} live from ${station.location}${frequency ? ` on ${frequency}` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
+}
+
 export async function generateMetadata({
 	params,
 }: LayoutProps): Promise<Metadata> {
@@ -34,8 +41,7 @@ export async function generateMetadata({
 		};
 	}
 
-	const frequency = displayFrequency(station);
-	const description = `Listen to ${station.name} live from ${station.location}${frequency ? ` on ${frequency}` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
+	const description = stationDescription(station);
 
 	return {
 		title: stationTitle(station),
@@ -66,6 +72,7 @@ function stationJsonLd(station: RadioStation) {
 		"@type": "RadioStation",
 		"@id": `${siteUrl}/station/${station.id}#station`,
 		name: station.name,
+		description: station.description,
 		url: station.website,
 		image: new URL(station.image, siteUrl).href,
 		address: {

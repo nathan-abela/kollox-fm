@@ -10,6 +10,7 @@
  * @property image - URL to an image representing the radio station.
  * @property website - The official website of the radio station.
  * @property location - The location of the radio station.
+ * @property description - (Optional) About paragraph shown on the station page and used as its meta description.
  * @property genres - (Optional) List of genres associated with the station.
  * @property popularity - (Optional) A numeric value representing the station popularity (mainstream ranking).
  * @property lufs - Measured loudness in LUFS (Loudness Units relative to Full Scale).
@@ -30,6 +31,7 @@ export interface RadioStation {
 	image: string;
 	website: string;
 	location: string;
+	description?: string;
 	genres?: string[];
 	popularity?: number;
 	lufs: number;

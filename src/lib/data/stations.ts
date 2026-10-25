@@ -21,6 +21,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/bay.jpg`,
 		website: "https://bay.com.mt",
 		location: "St. Julian's",
+		description:
+			"89.7 Bay is a hit music station in St Julian's, playing pop and current chart hits. Founded in 1991, it is run by Eden Leisure Group, which also operates its sister station Bay Easy. It broadcasts on FM, DAB+ and online.",
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 1,
 		metadata: {
@@ -44,6 +46,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/bay_easy.jpg`,
 		website: "https://bayeasy.mt",
 		location: "St. Julian's",
+		description:
+			"Bay Easy is the sister station of 89.7 Bay, launched by Eden Leisure Group in 2023. Billed as Malta's Greatest Hits, it plays sing-along songs from the 80s, 90s and 2000s by artists such as Whitney Houston, Elton John and Madonna. It broadcasts from St Julian's on 100.2 FM, DAB+, online and smart speakers.",
 		genres: ["Classic Hits", "80s", "90s", "00s"],
 		popularity: 4,
 		metadata: {
@@ -104,6 +108,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/vibe.jpg`,
 		website: "https://vibe.mt",
 		location: "Santa Venera",
+		description:
+			"Vibe FM is run by Capital Communications from Santa Venera, broadcasting dance, R&B and current hits on 88.7 FM. The station focuses on personality-led radio and is available on FM, DAB+, online and smart speakers.",
 		genres: ["Hits", "Pop", "Top 40", "EDM"],
 		popularity: 2,
 		metadata: {
@@ -127,6 +133,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/magic_malta.jpg`,
 		website: "https://magic.mt",
 		location: "Pieta",
+		description:
+			"Magic Malta is the music station of Public Broadcasting Services, Malta's public broadcaster, alongside Radju Malta and Radju Malta 2. It broadcasts on 91.7 FM, DAB+ and online from Pietà.",
 		genres: ["Hits", "Top 40", "Throwbacks"],
 		popularity: 3,
 		metadata: {
@@ -186,6 +194,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/calypso.jpg`,
 		website: "https://calypsomalta.com",
 		location: "Luqa",
+		description:
+			"Calypso Radio is a retro music station run by Y Ltd from Luqa, broadcasting on 101.8 FM. Its playlist centres on the 60s, 70s and 80s, from ABBA and The Beatles to Led Zeppelin and Duran Duran.",
 		genres: ["Classic Hits", "Oldies", "Throwbacks"],
 		popularity: 12,
 		metadata: {
@@ -209,6 +219,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/rtk_radio.jpg`,
 		website: "https://103.mt",
 		location: "Hamrun",
+		description:
+			"RTK 103 is the radio station of the Catholic Church in Malta, run by the Church's Beacon Media Group. Broadcasting from Ħamrun, it centres on talk, news and current affairs, and in 2025 it moved towards a stronger religious focus.",
 		genres: ["Religion", "Spiritual", "Talk", "Cultural", "News"],
 		popularity: 13,
 		metadata: {
@@ -230,6 +242,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/one_radio.jpg`,
 		website: "https://one.com.mt",
 		location: "Marsa",
+		description:
+			"ONE Radio is the radio station of ONE Productions, the media arm of Malta's Labour Party. It first went on air in 1991 as Super One Radio. Its programming combines news, current affairs and political discussion with music, broadcasting on 92.7 FM from Marsa.",
 		genres: ["Politics", "Talk", "Classic Hits", "Pop", "Rock", "House"],
 		popularity: 11,
 		metadata: {
@@ -252,6 +266,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/net.jpg`,
 		website: "https://netfm.com.mt",
 		location: "Pieta",
+		description:
+			"NET FM is the radio station of NET Media, the media arm of Malta's Nationalist Party. It first broadcast in 1991 as Radio 101 and took the name NET FM in 2018. It mixes discussion of current issues with hits from the 80s to today, broadcasting on 101.0 FM from Pietà.",
 		genres: ["Politics", "Talk", "Religion", "Classic Hits", "Marching Band"], // prettier-ignore
 		popularity: 14,
 		metadata: {
@@ -274,6 +290,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/campus.jpg`,
 		website: "https://campus1037.um.edu.mt",
 		location: "Msida",
+		description:
+			"Campus 103.7 is the University of Malta's radio station, on air since 1994 and known as Campus FM until a rebrand in 2023. Broadcasting from the university in Msida, it carries educational and cultural programming on the arts, history and social issues, with links to the BBC World Service and Classic FM. It broadcasts on FM, DAB+ and online.",
 		genres: ["Classical", "Jazz", "Talk", "Cultural", "News"],
 		popularity: 15,
 		metadata: {
@@ -335,6 +353,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/maltin_biss.jpg`,
 		website: "https://maltinbiss.mt",
 		location: "Mosta",
+		description:
+			"Maltin Biss is a station dedicated entirely to Maltese music, broadcasting on DAB+ and online.",
 		genres: ["Maltese", "Local", "Folk"],
 		popularity: 16,
 		metadata: {
@@ -355,6 +375,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/bkr_radio.jpg`,
 		website: "https://bkr.mt",
 		location: "Birkirkara",
+		description:
+			"BKR Radio is the community radio station serving Birkirkara, broadcasting on 94.5 FM and online.",
 		genres: ["Oldies", "Religion", "Cultural", "Pop"],
 		popularity: 17,
 		metadata: {
@@ -431,6 +453,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/all_rock.jpg`,
 		website: "https://allrock.mt",
 		location: "Mosta",
+		description:
+			"All Rock is a digital rock station that launched on DAB+ in 2011. It covers every rock sub-genre, from classic to modern rock.",
 		genres: ["Rock", "Classic Rock", "Metal", "Alternative"],
 		popularity: 21,
 		metadata: {
@@ -597,6 +621,8 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/radio_105.jpg`,
 		website: "https://radio105.mt",
 		location: "Hamrun",
+		description:
+			"Radio 105 broadcasts on 105.0 FM from Ħamrun and runs the Radio 105 Network, a family of themed digital channels that includes Radio 105 Maltin for Maltese music and Radio 105 Eurovision.",
 		genres: ["Hits", "Pop", "Top 40"],
 		popularity: 29,
 		metadata: {
