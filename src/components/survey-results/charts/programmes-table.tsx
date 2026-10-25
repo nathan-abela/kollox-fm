@@ -9,7 +9,8 @@ import {
 	Users,
 } from "lucide-react";
 
-import { ProgrammeSummary } from "@/lib/types/survey";
+import { getSurveyStationLabel } from "@/lib/data/surveys";
+import { Survey } from "@/lib/types/survey";
 import { Badge } from "@/components/ui/badge";
 import {
 	Card,
@@ -34,13 +35,9 @@ type SortKey = "programme" | "station" | "percentage" | "respondents";
  * Component for displaying all radio programmes with demographic breakdown in a sortable table.
  *
  * @param props - Component props
- * @param props.programmes - Array of programme data with demographic breakdowns
+ * @param props.survey - Survey edition whose programmes and station labels are shown
  */
-export function ProgrammesTable({
-	programmes,
-}: {
-	programmes: ProgrammeSummary[];
-}) {
+export function ProgrammesTable({ survey }: { survey: Survey }) {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortBy, setSortBy] = useState<{
 		key: SortKey;
@@ -52,11 +49,15 @@ export function ProgrammesTable({
 
 	const programmesWithRank = useMemo(() => {
 		// Filter out "No preferred programme" and add rank
-		return programmes
+		return (survey.programmes ?? [])
 			.filter((p) => p.id !== "no-preferred-programme")
 			.sort((a, b) => b.percentage - a.percentage)
-			.map((programme, index) => ({ ...programme, rank: index + 1 }));
-	}, [programmes]);
+			.map((programme, index) => ({
+				...programme,
+				rank: index + 1,
+				station: getSurveyStationLabel(survey, programme.stationId),
+			}));
+	}, [survey]);
 
 	const filteredProgrammes = useMemo(() => {
 		return programmesWithRank

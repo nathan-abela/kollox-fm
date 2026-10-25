@@ -346,7 +346,7 @@ export const survey2025: Survey = {
 		{
 			id: "no-preferred-programme",
 			name: "No preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 336,
 			percentage: 22.5,
 			ageDemographics: {
@@ -366,7 +366,7 @@ export const survey2025: Survey = {
 		{
 			id: "jamie-taryn-bay-breakfast",
 			name: "Jamie & Taryn on Bay Breakfast",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 91,
 			percentage: 6.1,
 			ageDemographics: {
@@ -386,7 +386,7 @@ export const survey2025: Survey = {
 		{
 			id: "magic-breakfast-abel-jd-martina-rossi",
 			name: "Magic Breakfast with Abel, JD, Martina & Rossi",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 75,
 			percentage: 5.0,
 			ageDemographics: {
@@ -406,7 +406,7 @@ export const survey2025: Survey = {
 		{
 			id: "bongu-calypso-twanny-scerri",
 			name: "Bongu Calypso ma' Twanny Scerri",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 64,
 			percentage: 4.3,
 			ageDemographics: {
@@ -426,7 +426,7 @@ export const survey2025: Survey = {
 		{
 			id: "kuntatt-dione-borg-net",
 			name: "Kuntatt (Dione Borg)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 62,
 			percentage: 4.2,
 			ageDemographics: {
@@ -446,7 +446,7 @@ export const survey2025: Survey = {
 		{
 			id: "bongu-net-indri-attard",
 			name: "Bongu NET (Indri Attard)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 59,
 			percentage: 4.0,
 			ageDemographics: {
@@ -466,7 +466,7 @@ export const survey2025: Survey = {
 		{
 			id: "one-breakfast-noel-camilleri",
 			name: "One Breakfast (Noel Camilleri)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 58,
 			percentage: 3.9,
 			ageDemographics: {
@@ -486,7 +486,7 @@ export const survey2025: Survey = {
 		{
 			id: "ghal-kulhadd-christine-delicata",
 			name: "Għal Kulħadd (Christine Delicata)",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 47,
 			percentage: 3.2,
 			ageDemographics: {
@@ -506,7 +506,7 @@ export const survey2025: Survey = {
 		{
 			id: "morning-vibe-nate-nicole-marvic",
 			name: "The Morning Vibe with Nate, Nicole & Marvic",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 40,
 			percentage: 2.7,
 			ageDemographics: {
@@ -526,7 +526,7 @@ export const survey2025: Survey = {
 		{
 			id: "radju-marija-programmes",
 			name: "Radju Marija programmes (various)",
-			station: "Radju Marija",
+			stationId: "radju-marija",
 			totalRespondents: 40,
 			percentage: 2.7,
 			ageDemographics: {
@@ -546,7 +546,7 @@ export const survey2025: Survey = {
 		{
 			id: "ryan-gail-bay",
 			name: "Ryan and Gail (Bay)",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 37,
 			percentage: 2.5,
 			ageDemographics: {
@@ -566,7 +566,7 @@ export const survey2025: Survey = {
 		{
 			id: "afternoons-pierre-cordina-magic",
 			name: "Afternoons with Pierre Cordina",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 36,
 			percentage: 2.4,
 			ageDemographics: {
@@ -586,7 +586,7 @@ export const survey2025: Survey = {
 		{
 			id: "il-polz-tac-cittadin-tonio-bonello",
 			name: "Il-Polz tac-cittadin (Tonio Bonello)",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 35,
 			percentage: 2.3,
 			ageDemographics: {
@@ -606,7 +606,7 @@ export const survey2025: Survey = {
 		{
 			id: "sibt-il-punt-manuel-micallef",
 			name: "Sibt il-Punt (Manuel Micallef)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 33,
 			percentage: 2.2,
 			ageDemographics: {
@@ -626,7 +626,7 @@ export const survey2025: Survey = {
 		{
 			id: "news-bulletin-one",
 			name: "News Bulletin",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 29,
 			percentage: 1.9,
 			ageDemographics: {
@@ -646,7 +646,7 @@ export const survey2025: Survey = {
 		{
 			id: "drive-time-dorian-john",
 			name: "Drive Time (Dorian Cassar / John Bundy)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 29,
 			percentage: 1.9,
 			ageDemographics: {
@@ -666,7 +666,7 @@ export const survey2025: Survey = {
 		{
 			id: "magic-drive-daniel-ylenia",
 			name: "Magic Drive with Daniel & Ylenia",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 24,
 			percentage: 1.6,
 			ageDemographics: {
@@ -686,7 +686,7 @@ export const survey2025: Survey = {
 		{
 			id: "calypso-drive-charles-arthur",
 			name: "Calypso Drive (Charles Fenech / Arthur Garrett)",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 22,
 			percentage: 1.5,
 			ageDemographics: {
@@ -706,7 +706,7 @@ export const survey2025: Survey = {
 		{
 			id: "club-101-eileen-montesin",
 			name: "Club 101 (Eileen Montesin)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 22,
 			percentage: 1.5,
 			ageDemographics: {
@@ -726,7 +726,7 @@ export const survey2025: Survey = {
 		{
 			id: "ma-gaffiero-one",
 			name: "Ma' Gaffiero",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 20,
 			percentage: 1.3,
 			ageDemographics: {
@@ -746,7 +746,7 @@ export const survey2025: Survey = {
 		{
 			id: "minn-jum-ghal-jum-theresa",
 			name: "Minn Jum Għal Jum (Theresa Gauci)",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 20,
 			percentage: 1.3,
 			ageDemographics: {
@@ -766,7 +766,7 @@ export const survey2025: Survey = {
 		{
 			id: "bay-easy-breakfast-kurt-galea",
 			name: "Bay Easy Breakfast with Kurt Galea",
-			station: "Bay Easy",
+			stationId: "bay-easy",
 			totalRespondents: 19,
 			percentage: 1.3,
 			ageDemographics: {
@@ -786,7 +786,7 @@ export const survey2025: Survey = {
 		{
 			id: "news-bulletin-radju-malta",
 			name: "News Bulletin",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 18,
 			percentage: 1.2,
 			ageDemographics: {
@@ -806,7 +806,7 @@ export const survey2025: Survey = {
 		{
 			id: "one-magazine-marisa-damato",
 			name: "ONE Magazine (Marisa D'Amato)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 17,
 			percentage: 1.1,
 			ageDemographics: {
@@ -826,7 +826,7 @@ export const survey2025: Survey = {
 		{
 			id: "joe-julian-filghodu",
 			name: "Joe Julian Filgħodu",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 17,
 			percentage: 1.1,
 			ageDemographics: {
@@ -846,7 +846,7 @@ export const survey2025: Survey = {
 		{
 			id: "bay-top-40-jake",
 			name: "Bay's Top 40 with Jake",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 16,
 			percentage: 1.1,
 			ageDemographics: {
@@ -866,7 +866,7 @@ export const survey2025: Survey = {
 		{
 			id: "drive-vibe-wayne-martha",
 			name: "The Drive Vibe with Wayne & Martha",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 15,
 			percentage: 1.0,
 			ageDemographics: {
@@ -886,7 +886,7 @@ export const survey2025: Survey = {
 		{
 			id: "morning-mix-one",
 			name: "Morning Mix",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 14,
 			percentage: 0.9,
 			ageDemographics: {
@@ -906,7 +906,7 @@ export const survey2025: Survey = {
 		{
 			id: "rtk-breakfast-mark-ian-george",
 			name: "RTK 103 Breakfast with Mark, Ian & George",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 14,
 			percentage: 0.9,
 			ageDemographics: {
@@ -926,7 +926,7 @@ export const survey2025: Survey = {
 		{
 			id: "news-bulletin-net",
 			name: "News Bulletin",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 13,
 			percentage: 0.9,
 			ageDemographics: {
@@ -946,7 +946,7 @@ export const survey2025: Survey = {
 		{
 			id: "news-bulletin-calypso",
 			name: "News Bulletin",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 13,
 			percentage: 0.9,
 			ageDemographics: {
@@ -966,7 +966,7 @@ export const survey2025: Survey = {
 		{
 			id: "home-run-albert-galdes",
 			name: "The Home Run with Albert Galdes",
-			station: "Bay Easy",
+			stationId: "bay-easy",
 			totalRespondents: 13,
 			percentage: 0.9,
 			ageDemographics: {
@@ -986,7 +986,7 @@ export const survey2025: Survey = {
 		{
 			id: "gianni-frank-vibe",
 			name: "Gianni & Frank",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 12,
 			percentage: 0.8,
 			ageDemographics: {
@@ -1006,7 +1006,7 @@ export const survey2025: Survey = {
 		{
 			id: "breakfast-colin-coryse-campus",
 			name: "Breakfast with Colin & Coryse",
-			station: "Campus FM",
+			stationId: "campus-fm",
 			totalRespondents: 12,
 			percentage: 0.8,
 			ageDemographics: {

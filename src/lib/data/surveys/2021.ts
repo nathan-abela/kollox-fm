@@ -365,7 +365,7 @@ export const survey2021: Survey = {
 		{
 			id: "no-preferred-programme",
 			name: "No preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 297,
 			percentage: 23.3,
 			ageDemographics: {
@@ -385,7 +385,7 @@ export const survey2021: Survey = {
 		{
 			id: "bay-breakfast-daniel-ylenia",
 			name: "Bay Breakfast with Daniel & Ylenia",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 196,
 			percentage: 15.4,
 			ageDemographics: {
@@ -405,7 +405,7 @@ export const survey2021: Survey = {
 		{
 			id: "bongu-calypso-twanny-scerri",
 			name: "Bonġu Calypso ma' Twanny Scerri",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 83,
 			percentage: 6.5,
 			ageDemographics: {
@@ -425,7 +425,7 @@ export const survey2021: Survey = {
 		{
 			id: "news-bulletin-one",
 			name: "News Bulletin",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 76,
 			percentage: 6.0,
 			ageDemographics: {
@@ -445,7 +445,7 @@ export const survey2021: Survey = {
 		{
 			id: "morning-vibe-abel-jd-martina",
 			name: "The Morning Vibe with Abel, JD & Martina",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 68,
 			percentage: 5.3,
 			ageDemographics: {
@@ -465,7 +465,7 @@ export const survey2021: Survey = {
 		{
 			id: "more-than-one-programme",
 			name: "More than one preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 63,
 			percentage: 5.0,
 			ageDemographics: {
@@ -485,7 +485,7 @@ export const survey2021: Survey = {
 		{
 			id: "news-bulletin-radju-malta",
 			name: "News Bulletin",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 44,
 			percentage: 3.5,
 			ageDemographics: {
@@ -505,7 +505,7 @@ export const survey2021: Survey = {
 		{
 			id: "club-101",
 			name: "Club 101",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 41,
 			percentage: 3.2,
 			ageDemographics: {
@@ -525,7 +525,7 @@ export const survey2021: Survey = {
 		{
 			id: "news-bulletin-net",
 			name: "News Bulletin",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 38,
 			percentage: 3.0,
 			ageDemographics: {
@@ -545,7 +545,7 @@ export const survey2021: Survey = {
 		{
 			id: "rosary",
 			name: "Rosary",
-			station: "Radju Marija",
+			stationId: "radju-marija",
 			totalRespondents: 36,
 			percentage: 2.8,
 			ageDemographics: {
@@ -565,7 +565,7 @@ export const survey2021: Survey = {
 		{
 			id: "nate-frank-rossi",
 			name: "Nate, Frank & Rossi",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 36,
 			percentage: 2.8,
 			ageDemographics: {
@@ -585,7 +585,7 @@ export const survey2021: Survey = {
 		{
 			id: "xfm-big-breakfast",
 			name: "XFM Big Breakfast",
-			station: "XFM Malta",
+			stationId: "xfm-malta",
 			totalRespondents: 27,
 			percentage: 2.1,
 			ageDemographics: {
@@ -605,7 +605,7 @@ export const survey2021: Survey = {
 		{
 			id: "carlos-breakfast-cafe",
 			name: "Carlo's Breakfast Cafe",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 25,
 			percentage: 2.0,
 			ageDemographics: {
@@ -625,7 +625,7 @@ export const survey2021: Survey = {
 		{
 			id: "bongu-kafe-joe-julian",
 			name: "Bonġu Kafe ma' Joe Julian",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 22,
 			percentage: 1.7,
 			ageDemographics: {
@@ -645,7 +645,7 @@ export const survey2021: Survey = {
 		{
 			id: "one-breakfast",
 			name: "One Breakfast",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 20,
 			percentage: 1.6,
 			ageDemographics: {

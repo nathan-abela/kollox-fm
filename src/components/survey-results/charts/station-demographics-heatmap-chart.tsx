@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Radio } from "lucide-react";
 
+import { getSurveyStationLabel } from "@/lib/data/surveys";
 import type { AgeDemographics, Survey } from "@/lib/types/survey";
 import {
 	Card,
@@ -72,7 +73,7 @@ export function StationDemographicsHeatmapChart({
 		if (!survey?.programmes) return { heatmapData: [], maxValue: 0 };
 
 		const programmes = survey.programmes.filter(
-			(p) => p.id !== "no-preferred-programme" && p.station
+			(p) => p.id !== "no-preferred-programme" && p.stationId
 		);
 
 		// Group programmes by station and aggregate demographics
@@ -82,7 +83,7 @@ export function StationDemographicsHeatmapChart({
 		>();
 
 		programmes.forEach((p) => {
-			const station = p.station!;
+			const station = p.stationId!;
 			if (!stationMap.has(station)) {
 				stationMap.set(station, {
 					count: 0,
@@ -129,7 +130,7 @@ export function StationDemographicsHeatmapChart({
 
 		// Transform into heatmap row format
 		const heatmapData = stations.map(({ station, data }) => ({
-			station,
+			station: getSurveyStationLabel(survey, station) ?? station,
 			programmeCount: data.count,
 			demographics: AGE_BRACKETS.map(({ key, label }) => ({
 				age: label,

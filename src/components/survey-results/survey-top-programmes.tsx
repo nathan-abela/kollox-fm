@@ -1,16 +1,14 @@
 import { TrendingUp, Users } from "lucide-react";
 
-import { ProgrammeSummary } from "@/lib/types/survey";
+import { getSurveyStationLabel } from "@/lib/data/surveys";
+import { Survey } from "@/lib/types/survey";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const NO_PREFERENCE_ID = "no-preferred-programme";
 
-export function SurveyTopProgrammes({
-	programmes,
-}: {
-	programmes: ProgrammeSummary[];
-}) {
+export function SurveyTopProgrammes({ survey }: { survey: Survey }) {
+	const programmes = survey.programmes ?? [];
 	const noPreferredProgramme = programmes.find(
 		(p) => p.id === NO_PREFERENCE_ID
 	);
@@ -52,7 +50,10 @@ export function SurveyTopProgrammes({
 									{programme.name || "N/A"}
 								</p>
 								<p className="text-muted-foreground text-sm">
-									{programme.station || "N/A"}
+									{getSurveyStationLabel(
+										survey,
+										programme.stationId
+									) || "N/A"}
 								</p>
 							</div>
 							<div className="text-right">

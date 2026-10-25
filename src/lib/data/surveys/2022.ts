@@ -390,7 +390,7 @@ export const survey2022: Survey = {
 		{
 			id: "bay-breakfast-daniel-ylenia",
 			name: "Bay Breakfast with Daniel & Ylenia",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 217,
 			percentage: 17.1,
 			ageDemographics: {
@@ -410,7 +410,7 @@ export const survey2022: Survey = {
 		{
 			id: "no-preferred-programme",
 			name: "No preferred programme",
-			station: null,
+			stationId: null,
 			totalRespondents: 151,
 			percentage: 11.9,
 			ageDemographics: {
@@ -430,7 +430,7 @@ export const survey2022: Survey = {
 		{
 			id: "morning-vibe-abel-jd-martina",
 			name: "The Morning Vibe with Abel, JD & Martina",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 102,
 			percentage: 8.0,
 			ageDemographics: {
@@ -450,7 +450,7 @@ export const survey2022: Survey = {
 		{
 			id: "bongu-calypso-twanny-scerri",
 			name: "Bongu Calypso ma' Twanny Scerri",
-			station: "Calypso Radio",
+			stationId: "calypso-radio",
 			totalRespondents: 97,
 			percentage: 7.7,
 			ageDemographics: {
@@ -470,7 +470,7 @@ export const survey2022: Survey = {
 		{
 			id: "radju-marija-programmes",
 			name: "Radju Marija morning shows (various)",
-			station: "Radju Marija",
+			stationId: "radju-marija",
 			totalRespondents: 60,
 			percentage: 4.7,
 			ageDemographics: {
@@ -490,7 +490,7 @@ export const survey2022: Survey = {
 		{
 			id: "drive-vibe-nate-frank-rossi",
 			name: "The Drive Vibe with Nate, Frank & Rossi",
-			station: "Vibe FM",
+			stationId: "vibe-fm",
 			totalRespondents: 60,
 			percentage: 4.7,
 			ageDemographics: {
@@ -510,7 +510,7 @@ export const survey2022: Survey = {
 		{
 			id: "ghal-kulhadd-christine-delicata",
 			name: "Għal Kulħadd (Christine Delicata)",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 47,
 			percentage: 3.7,
 			ageDemographics: {
@@ -530,7 +530,7 @@ export const survey2022: Survey = {
 		{
 			id: "linja-diretta-emanuel-cuschieri",
 			name: "Linja Diretta (Emanuel Cuschieri)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 44,
 			percentage: 3.5,
 			ageDemographics: {
@@ -550,7 +550,7 @@ export const survey2022: Survey = {
 		{
 			id: "club-101-eileen-montesin",
 			name: "Club 101 (Eileen Montesin)",
-			station: "NET FM",
+			stationId: "net-fm",
 			totalRespondents: 38,
 			percentage: 3.0,
 			ageDemographics: {
@@ -570,7 +570,7 @@ export const survey2022: Survey = {
 		{
 			id: "kartolina-alfred-zammit",
 			name: "Kartolina (Alfred Zammit)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 38,
 			percentage: 3.0,
 			ageDemographics: {
@@ -590,7 +590,7 @@ export const survey2022: Survey = {
 		{
 			id: "bay-drive-jamie-taryn",
 			name: "Bay Drive with Jamie and Taryn",
-			station: "Bay FM",
+			stationId: "bay-fm",
 			totalRespondents: 31,
 			percentage: 2.4,
 			ageDemographics: {
@@ -610,7 +610,7 @@ export const survey2022: Survey = {
 		{
 			id: "one-breakfast-noel-camilleri",
 			name: "ONE Breakfast (Noel Camilleri)",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 31,
 			percentage: 2.4,
 			ageDemographics: {
@@ -630,7 +630,7 @@ export const survey2022: Survey = {
 		{
 			id: "news-bulletin-one",
 			name: "News Bulletin",
-			station: "ONE Radio",
+			stationId: "one-radio",
 			totalRespondents: 27,
 			percentage: 2.1,
 			ageDemographics: {
@@ -650,7 +650,7 @@ export const survey2022: Survey = {
 		{
 			id: "nostalgija-john-mallia",
 			name: "Nostalgija - John Mallia",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 27,
 			percentage: 2.1,
 			ageDemographics: {
@@ -670,7 +670,7 @@ export const survey2022: Survey = {
 		{
 			id: "news-bulletin-radju-malta",
 			name: "News Bulletin",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 22,
 			percentage: 1.7,
 			ageDemographics: {
@@ -690,7 +690,7 @@ export const survey2022: Survey = {
 		{
 			id: "il-polz-tac-cittadin-tonio-bonello",
 			name: "Il-Polz tac-cittadin (Tonio Bonello)",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 22,
 			percentage: 1.7,
 			ageDemographics: {
@@ -710,7 +710,7 @@ export const survey2022: Survey = {
 		{
 			id: "joe-julian-filghodu",
 			name: "Joe Julian Filgħodu - Live",
-			station: "Radju Malta",
+			stationId: "radju-malta",
 			totalRespondents: 22,
 			percentage: 1.7,
 			ageDemographics: {
@@ -730,7 +730,7 @@ export const survey2022: Survey = {
 		{
 			id: "carlos-breakfast-cafe",
 			name: "Carlo's Breakfast Cafe",
-			station: "Magic Malta FM",
+			stationId: "magic-malta",
 			totalRespondents: 20,
 			percentage: 1.6,
 			ageDemographics: {
@@ -750,7 +750,7 @@ export const survey2022: Survey = {
 		{
 			id: "andrew-azzopardi-rtk",
 			name: "Andrew Azzopardi on RTK103",
-			station: "RTK 103",
+			stationId: "rtk-103",
 			totalRespondents: 18,
 			percentage: 1.4,
 			ageDemographics: {

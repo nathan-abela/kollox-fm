@@ -10,6 +10,7 @@ import { survey2023 } from "@/lib/data/surveys/2023";
 import { survey2024 } from "@/lib/data/surveys/2024";
 import { survey2025 } from "@/lib/data/surveys/2025";
 import {
+	StationId,
 	StationSummary,
 	StationSurveyHistoryEntry,
 	Survey,
@@ -109,4 +110,21 @@ export function getStationSurveyHistory(
 		.reverse();
 	const firstRanked = history.findIndex((entry) => entry.rank != null);
 	return firstRanked === -1 ? [] : history.slice(firstRanked);
+}
+
+/**
+ * A station's display label in one survey edition, as its station table prints it.
+ * @param {Survey} survey - The survey edition.
+ * @param {StationId | null} stationId - The station's id, ex. a programme's `stationId`.
+ * @returns {string | null} The label, or null when the id is null or not in the edition.
+ */
+export function getSurveyStationLabel(
+	survey: Survey,
+	stationId: StationId | null
+): string | null {
+	if (stationId == null) return null;
+	return (
+		survey.stations?.find((station) => station.id === stationId)?.label ??
+		null
+	);
 }

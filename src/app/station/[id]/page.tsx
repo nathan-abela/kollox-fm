@@ -127,7 +127,7 @@ export default function StationPage() {
 	// Get top 3 popular shows for this station from the latest survey
 	// prettier-ignore
 	const popularShows = latestSurvey?.programmes
-		?.filter((p) => p.station === station.name)
+		?.filter((p) => p.stationId === station.id)
 		.slice(0, 3) || [];
 
 	// prettier-ignore
