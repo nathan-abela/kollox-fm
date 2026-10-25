@@ -9,6 +9,19 @@ interface LayoutProps {
 	params: Promise<{ id: string }>;
 }
 
+/**
+ * "<name> <frequency> Malta - Listen Live", skipping the frequency when the
+ * name already carries it and "Malta" when the name already have it.
+ */
+function stationTitle(station: RadioStation): string {
+	const parts = [station.name];
+	if (station.fmFrequency && displayFrequency(station)) {
+		parts.push(station.fmFrequency);
+	}
+	if (!/malt/i.test(station.name)) parts.push("Malta");
+	return `${parts.join(" ")} - Listen Live`;
+}
+
 export async function generateMetadata({
 	params,
 }: LayoutProps): Promise<Metadata> {
@@ -25,7 +38,7 @@ export async function generateMetadata({
 	const description = `Listen to ${station.name} live from ${station.location}${frequency ? ` on ${frequency}` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
 
 	return {
-		title: `${station.name}${frequency ? ` - ${frequency}` : ""} | Maltese Radio`,
+		title: stationTitle(station),
 		description,
 		openGraph: {
 			title: `${station.name} | Kollox FM`,
