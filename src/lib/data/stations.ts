@@ -45,7 +45,7 @@ export const stations: RadioStation[] = [
 		image: `${basePath}/images/stations/bay_easy.jpg`,
 		website: "https://bayeasy.mt",
 		location: "St. Julian's",
-		genres: ["Chill", "Relax", "00s", "10s"],
+		genres: ["Classic Hits", "80s", "90s", "00s"],
 		popularity: 4,
 		surveyRank: 8,
 		metadata: {
@@ -365,7 +365,7 @@ export const stations: RadioStation[] = [
 		fmFrequency: "94.5",
 		image: `${basePath}/images/stations/bkr_radio.jpg`,
 		website: "https://bkr.mt",
-		location: "Pieta",
+		location: "Birkirkara",
 		genres: ["Oldies", "Religion", "Cultural", "Pop"],
 		popularity: 17,
 		metadata: {
