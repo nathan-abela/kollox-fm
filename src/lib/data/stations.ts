@@ -1,10 +1,21 @@
 import { basePath } from "@/lib/config";
 import { RadioStation } from "@/lib/types/radio";
 
+/**
+ * Frequency to print beside the station name, ex. "92.7 FM". Null for online-only
+ * stations and for names that already carry the frequency, ex. "89.7 Bay".
+ */
+export function displayFrequency(station: RadioStation): string | null {
+	if (!station.fmFrequency || station.name.includes(station.fmFrequency)) {
+		return null;
+	}
+	return `${station.fmFrequency} FM`;
+}
+
 export const stations: RadioStation[] = [
 	{
 		id: "bay-fm",
-		name: "Bay FM",
+		name: "89.7 Bay",
 		fmFrequency: "89.7",
 		streamUrl: "https://stream.v3.network/proxy/897bay/stream.mp3",
 		image: `${basePath}/images/stations/bay.jpg`,
@@ -113,7 +124,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "magic-malta",
-		name: "Magic Malta FM",
+		name: "Magic Malta",
 		fmFrequency: "91.7",
 		streamUrl: "https://s46.myradiostream.com:6076/listen.mp3",
 		image: `${basePath}/images/stations/magic_malta.jpg`,
@@ -151,8 +162,8 @@ export const stations: RadioStation[] = [
 		lufs: -10.5,
 	},
 	{
-		id: "smash-fm",
-		name: "Smash FM",
+		id: "smash-radio",
+		name: "Smash Radio",
 		fmFrequency: "104.6",
 		streamUrl: "https://headend.smashmalta.com/smashradio1046fm",
 		image: `${basePath}/images/stations/smash_radio.jpg`,
@@ -266,7 +277,7 @@ export const stations: RadioStation[] = [
 	},
 	{
 		id: "campus-fm",
-		name: "Campus FM",
+		name: "Campus 103.7",
 		fmFrequency: "103.7",
 		streamUrl: "https://campusfm.radioca.st/campusfm_live",
 		image: `${basePath}/images/stations/campus.jpg`,

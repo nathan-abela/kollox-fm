@@ -18,7 +18,7 @@ import {
 	Users,
 } from "lucide-react";
 
-import { stations } from "@/lib/data/stations";
+import { displayFrequency, stations } from "@/lib/data/stations";
 import {
 	getAllSurveys,
 	getLatestSurvey,
@@ -91,6 +91,7 @@ export default function StationPage() {
 
 	const isCurrentStation = currentStation?.id === station.id;
 	const favourited = isFavourite(station.id);
+	const frequency = displayFrequency(station);
 	const handlePlayClick = () => {
 		if (isCurrentStation) {
 			togglePlayPause();
@@ -224,9 +225,9 @@ export default function StationPage() {
 							</h1>
 
 							<div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:justify-start">
-								{station.fmFrequency && (
+								{frequency && (
 									<span className="font-mono text-lg font-medium">
-										{station.fmFrequency} FM
+										{frequency}
 									</span>
 								)}
 								<span className="text-muted-foreground flex items-center gap-1 text-sm">

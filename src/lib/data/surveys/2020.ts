@@ -37,7 +37,7 @@ export const survey2020: Survey = {
 	stations: [
 		{
 			id: "bay-fm",
-			label: "Bay FM",
+			label: "89.7 Bay",
 			fmFrequency: "89.7",
 			location: "St. Julian's",
 			mostFollowedPct: 20.41,
@@ -384,7 +384,7 @@ export const survey2020: Survey = {
 			},
 		},
 		{
-			id: "smash-fm",
+			id: "smash-radio",
 			label: "Smash Radio",
 			fmFrequency: "104.6",
 			location: "Paola",
@@ -450,7 +450,7 @@ export const survey2020: Survey = {
 		},
 		{
 			id: "campus-fm",
-			label: "Campus FM",
+			label: "Campus 103.7",
 			fmFrequency: "103.7",
 			location: "Msida",
 			mostFollowedPct: 1.56,

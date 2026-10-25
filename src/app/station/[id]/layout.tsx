@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { siteUrl } from "@/lib/config";
-import { stations } from "@/lib/data/stations";
+import { displayFrequency, stations } from "@/lib/data/stations";
 import { RadioStation } from "@/lib/types/radio";
 
 interface LayoutProps {
@@ -21,10 +21,11 @@ export async function generateMetadata({
 		};
 	}
 
-	const description = `Listen to ${station.name} live from ${station.location}${station.fmFrequency ? ` on ${station.fmFrequency} FM` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
+	const frequency = displayFrequency(station);
+	const description = `Listen to ${station.name} live from ${station.location}${frequency ? ` on ${frequency}` : ""}. ${station.genres?.join(", ") || "Radio"} streaming online.`;
 
 	return {
-		title: `${station.name}${station.fmFrequency ? ` - ${station.fmFrequency} FM` : ""} | Maltese Radio`,
+		title: `${station.name}${frequency ? ` - ${frequency}` : ""} | Maltese Radio`,
 		description,
 		openGraph: {
 			title: `${station.name} | Kollox FM`,

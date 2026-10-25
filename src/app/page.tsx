@@ -153,9 +153,11 @@ export default function Home() {
 		setStationsOrder(visibleStations);
 	}, [visibleStations, setStationsOrder]);
 
+	// Saved ids that no longer match a station (removed or renamed) count as nothing saved
 	// prettier-ignore
-	const showFavouritesEmpty = view === "favourites" && favourites.length === 0;
-	const showRecentEmpty = view === "recent" && recentlyPlayed.length === 0;
+	const showFavouritesEmpty = view === "favourites" && !enabledStations.some((s) => favourites.includes(s.id));
+	// prettier-ignore
+	const showRecentEmpty = view === "recent" && !enabledStations.some((s) => recentlyPlayed.includes(s.id));
 
 	return (
 		<div className="container mx-auto px-4 pb-12">

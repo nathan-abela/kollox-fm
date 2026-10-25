@@ -36,7 +36,7 @@ export const survey2021: Survey = {
 	stations: [
 		{
 			id: "bay-fm",
-			label: "Bay FM",
+			label: "89.7 Bay",
 			fmFrequency: "89.7",
 			location: "St. Julian's",
 			mostFollowedPct: 19.8,
@@ -159,7 +159,7 @@ export const survey2021: Survey = {
 		},
 		{
 			id: "magic-malta",
-			label: "Magic Malta FM",
+			label: "Magic Malta",
 			fmFrequency: "91.7",
 			location: "Pieta",
 			mostFollowedPct: 5.4,
@@ -246,8 +246,8 @@ export const survey2021: Survey = {
 			},
 		},
 		{
-			id: "smash-fm",
-			label: "Smash FM",
+			id: "smash-radio",
+			label: "Smash Radio",
 			fmFrequency: "104.6",
 			location: "Paola",
 			mostFollowedPct: 1.8,
@@ -283,7 +283,7 @@ export const survey2021: Survey = {
 		},
 		{
 			id: "campus-fm",
-			label: "Campus FM",
+			label: "Campus 103.7",
 			fmFrequency: "103.7",
 			location: "Msida",
 			mostFollowedPct: 1.3,

@@ -104,7 +104,7 @@ export const survey2024: Survey = {
 		},
 		{
 			id: "bay-fm",
-			label: "Bay FM",
+			label: "89.7 Bay",
 			fmFrequency: "89.7",
 			location: "St. Julian's",
 			mostFollowedPct: 10.9,
@@ -212,7 +212,7 @@ export const survey2024: Survey = {
 		},
 		{
 			id: "magic-malta",
-			label: "Magic Malta FM",
+			label: "Magic Malta",
 			fmFrequency: "91.7",
 			location: "Pieta",
 			mostFollowedPct: 2.9,
@@ -230,7 +230,7 @@ export const survey2024: Survey = {
 		},
 		{
 			id: "campus-fm",
-			label: "Campus FM",
+			label: "Campus 103.7",
 			fmFrequency: "103.7",
 			location: "Msida",
 			mostFollowedPct: 2.2,
@@ -263,8 +263,8 @@ export const survey2024: Survey = {
 			},
 		},
 		{
-			id: "smash-fm",
-			label: "Smash FM",
+			id: "smash-radio",
+			label: "Smash Radio",
 			fmFrequency: "104.6",
 			location: "Paola",
 			mostFollowedPct: 0.5,
@@ -1464,7 +1464,7 @@ export const survey2024: Survey = {
 		{
 			id: "ritmo-dj-sue-smash",
 			name: "Ritmo (DJ Sue)",
-			stationId: "smash-fm",
+			stationId: "smash-radio",
 			totalRespondents: 1,
 			percentage: 0.1,
 			ageDemographics: {

@@ -52,8 +52,8 @@ const getHeatmapColor = (intensity: number): string => {
  * - Cell value = summed percentage across all programmes
  *
  * @example
- * If "Bay FM" has 3 programmes with age 21-30 percentages of [15%, 10%, 8%],
- * the cell for "Bay FM / 21-30" shows 33% (15+10+8).
+ * If "89.7 Bay" has 3 programmes with age 21-30 percentages of [15%, 10%, 8%],
+ * the cell for "89.7 Bay / 21-30" shows 33% (15+10+8).
  *
  * Stations are ordered by their total demographic reach (sum of all age brackets) from highest to lowest.
  * For example, if "ONE Radio" has the highest combined percentage across all age groups,
