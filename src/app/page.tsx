@@ -4,6 +4,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { Trash2 } from "lucide-react";
 
 import { stations } from "@/lib/data/stations";
+import { getLatestSurvey, getStationSurveyRank } from "@/lib/data/surveys";
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { useStationFilters } from "@/lib/hooks/station-filters";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -37,6 +38,12 @@ const quickGenres = [
 	"Talk",
 ].filter((genre) => availableGenres.has(genre));
 
+// Unranked stations sort last
+const latestSurvey = getLatestSurvey();
+const surveyRankOf = (station: RadioStation) =>
+	(latestSurvey && getStationSurveyRank(latestSurvey, station.id)) ??
+	Number.MAX_SAFE_INTEGER;
+
 const sortComparators: Record<
 	SortOption,
 	(a: RadioStation, b: RadioStation) => number
@@ -44,9 +51,7 @@ const sortComparators: Record<
 	popularity: (a, b) =>
 		(a.popularity ?? Number.MAX_SAFE_INTEGER) -
 		(b.popularity ?? Number.MAX_SAFE_INTEGER),
-	surveyRank: (a, b) =>
-		(a.surveyRank ?? Number.MAX_SAFE_INTEGER) -
-		(b.surveyRank ?? Number.MAX_SAFE_INTEGER),
+	surveyRank: (a, b) => surveyRankOf(a) - surveyRankOf(b),
 	name: (a, b) => a.name.localeCompare(b.name),
 	location: (a, b) => a.location.localeCompare(b.location),
 	frequency: (a, b) =>
