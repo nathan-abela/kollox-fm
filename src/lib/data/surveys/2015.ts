@@ -304,7 +304,7 @@ export const survey2015: Survey = {
 			},
 		},
 		{
-			id: "bkr-digital",
+			id: "bkr-radio",
 			label: "BKR Radio",
 			fmFrequency: "DAB+",
 			mostFollowedPct: 0.2,

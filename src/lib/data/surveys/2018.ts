@@ -288,7 +288,7 @@ export const survey2018: Survey = {
 		},
 		{
 			id: "bay-easy",
-			label: "Bay Easy (Digital Radio)",
+			label: "Bay Easy",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 0.56,

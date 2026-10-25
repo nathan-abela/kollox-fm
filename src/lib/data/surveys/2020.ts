@@ -473,7 +473,7 @@ export const survey2020: Survey = {
 		},
 		{
 			id: "community-station",
-			label: "Community Station",
+			label: "Community Stations",
 			mostFollowedPct: 0.75,
 			weeklySharePct: 1.2,
 			stationListeners: 2000,
@@ -490,7 +490,7 @@ export const survey2020: Survey = {
 		},
 		{
 			id: "bay-easy",
-			label: "Bay Easy (Digital Radio)",
+			label: "Bay Easy",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 0.57,

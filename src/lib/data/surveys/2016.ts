@@ -486,7 +486,7 @@ export const survey2016: Survey = {
 		},
 		{
 			id: "bay-easy",
-			label: "Bay Easy (Digital Radio)",
+			label: "Bay Easy",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 1.62,
@@ -680,7 +680,7 @@ export const survey2016: Survey = {
 		},
 		{
 			id: "bay-retro",
-			label: "Bay Retro (Digital Radio)",
+			label: "Bay Retro",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 0.34,

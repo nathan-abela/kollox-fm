@@ -303,8 +303,8 @@ export const survey2017: Survey = {
 			},
 		},
 		{
-			id: "bkr-digital",
-			label: "BKR Digital",
+			id: "bkr-radio",
+			label: "BKR Radio",
 			fmFrequency: "DAB+",
 			mostFollowedPct: 0.17,
 			weeklySharePct: 0.2,
@@ -321,7 +321,7 @@ export const survey2017: Survey = {
 		},
 		{
 			id: "bay-easy",
-			label: "Bay Easy (Digital Radio)",
+			label: "Bay Easy",
 			fmFrequency: "DAB+",
 			location: "St. Julian's",
 			mostFollowedPct: 0.1,

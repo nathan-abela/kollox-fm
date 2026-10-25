@@ -284,8 +284,8 @@ export const survey2022: Survey = {
 			},
 		},
 		{
-			id: "radju-bkr",
-			label: "Radju BKR",
+			id: "bkr-radio",
+			label: "BKR Radio",
 			mostFollowedPct: 0.2,
 			weeklySharePct: 0.3,
 			stationListeners: 485,
