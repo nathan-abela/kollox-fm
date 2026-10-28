@@ -13,6 +13,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { MaltaSkyline } from "@/components/illustrations/malta-skyline";
+import { ScrollingText } from "@/components/scrolling-text";
 
 interface HomeHeroProps {
 	isFavourite: (stationId: string) => boolean;
@@ -148,9 +149,10 @@ function NowPlaying({
 					/>
 					{status}
 				</div>
-				<p className="truncate text-xl font-bold tracking-tight capitalize">
-					{currentSong ? currentSong.toLowerCase() : station.name}
-				</p>
+				<ScrollingText
+					text={currentSong ? currentSong.toLowerCase() : station.name} // prettier-ignore
+					className="text-xl font-bold tracking-tight capitalize"
+				/>
 				<p className="text-muted-foreground truncate text-[13px]">
 					{currentSong
 						? `${station.name} · ${station.location}`

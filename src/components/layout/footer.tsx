@@ -1,17 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import { Github, Mail, Radio, Shield } from "lucide-react";
 
-import { useAudioPlayer } from "@/lib/hooks/audio-player";
-
 export function Footer() {
-	const { currentStation } = useAudioPlayer();
-
 	return (
-		<footer
-			className={`bg-card mt-auto border-t ${currentStation ? "pb-24" : ""}`}
-		>
+		<footer className="bg-card mt-auto border-t">
 			<div className="container mx-auto px-4 py-8">
 				<div className="grid grid-cols-1 gap-12 md:grid-cols-4">
 					{/* Brand Section */}

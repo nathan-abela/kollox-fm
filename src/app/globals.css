@@ -44,6 +44,7 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 	--animate-preview-in: preview-in 0.3s cubic-bezier(0.2, 1.1, 0.4, 1);
+	--animate-scroll-text: scroll-text var(--scroll-duration, 8s) linear infinite alternate;
 }
 
 /*
@@ -152,6 +153,21 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+	/* The player bar is sized from this token, toasts sit above it while it is mounted */
+	:root {
+		--player-bar-height: 4.5rem;
+		--toast-bottom: 1rem;
+	}
+	@media (width >= 40rem) {
+		:root {
+			--player-bar-height: 5.5rem;
+		}
+	}
+	body:has([data-player-bar]) {
+		--toast-bottom: calc(
+			var(--player-bar-height) + env(safe-area-inset-bottom) + 1rem
+		);
+	}
 	/*
 	 * Tabular figures wherever mono is used, so dial frequencies, station
 	 * counts and survey tables line up column to column instead of
@@ -163,6 +179,18 @@
 }
 
 /* Hover previews rise and settle with a slight overshoot, like a lifted print */
+/* Rests at each end for a tenth of the cycle, then slides by --scroll-distance */
+@keyframes scroll-text {
+	0%,
+	10% {
+		transform: translateX(0);
+	}
+	90%,
+	100% {
+		transform: translateX(var(--scroll-distance, 0));
+	}
+}
+
 @keyframes preview-in {
 	from {
 		opacity: 0;
@@ -177,13 +205,13 @@
 }
 
 [data-sonner-toast] [data-description] {
-  margin-top: 8px;
+	margin-top: 8px;
 }
 
-[data-sonner-toast][data-styled=true] [data-button] {
-  padding: 16px !important;
+[data-sonner-toast][data-styled="true"] [data-button] {
+	padding: 16px !important;
 }
 
-[data-sonner-toast][data-styled=true] {
-  gap: 16px !important;
+[data-sonner-toast][data-styled="true"] {
+	gap: 16px !important;
 }

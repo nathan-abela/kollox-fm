@@ -26,9 +26,10 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { StationPreview } from "@/components/radio/station-preview";
+import { ScrollingText } from "@/components/scrolling-text";
 
 /**
- * Renders a fixed player bar at the bottom of the screen, displaying the current radio station information,
+ * Renders a player bar pinned to the bottom of the screen, displaying the current radio station information,
  * playback controls (play/pause, previous, next), and volume controls.
  *
  * The component uses the `useAudioPlayer` hook to access the current station, playback state, and toggle play/pause functionality.
@@ -82,12 +83,16 @@ export function PlayerBar() {
 	};
 
 	return (
-		<div className="bg-card fixed right-0 bottom-0 left-0 z-40 border-t px-6 py-4">
+		<div
+			data-player-bar
+			className="bg-card sticky bottom-0 z-40 flex h-[calc(var(--player-bar-height)+env(safe-area-inset-bottom))] items-center border-t px-4 pb-[env(safe-area-inset-bottom)] sm:px-6"
+		>
 			<div className="container mx-auto">
-				<div className="grid grid-cols-3 items-center gap-4">
+				{/* Two columns below md (station text, controls); three from md with a mirrored actions column that centres the controls */}
+				<div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:gap-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
 					{/* Station Info */}
-					<div className="flex min-w-0 items-center gap-4">
-						<div className="bg-muted relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
+					<div className="flex min-w-0 items-center gap-3 sm:gap-4">
+						<div className="bg-muted relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-14">
 							{imageError ? (
 								<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
 									<RadioTower className="h-5 w-5" />
@@ -102,23 +107,26 @@ export function PlayerBar() {
 								/>
 							)}
 						</div>
-						<div className="min-w-0 max-[425px]:hidden">
+						<div className="min-w-0">
 							<Link
 								href={`/station/${currentStation.id}`}
-								className="hover:text-primary truncate font-medium transition-colors"
+								className="hover:text-primary block truncate font-medium transition-colors"
 							>
 								{currentStation.name}
 							</Link>
-							<p className="text-muted-foreground truncate text-sm capitalize">
-								{currentSong?.toLowerCase() ??
-									currentStation.location}
-							</p>
+							<ScrollingText
+								text={
+									currentSong?.toLowerCase() ??
+									currentStation.location
+								}
+								className="text-muted-foreground text-sm capitalize"
+							/>
 						</div>
 					</div>
 
 					{/* Playback Controls */}
 					<div className="flex flex-col items-center justify-center">
-						<div className="flex items-center gap-4">
+						<div className="flex items-center gap-2 sm:gap-4">
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<Button
@@ -130,7 +138,7 @@ export function PlayerBar() {
 												? `Previous station: ${prevStation.name}`
 												: "Previous station"
 										}
-										className="cursor-pointer"
+										className="size-10 cursor-pointer"
 										disabled={isLoading}
 									>
 										<SkipBack className="h-5 w-5" />
@@ -182,7 +190,7 @@ export function PlayerBar() {
 												? `Next station: ${nextStation.name}`
 												: "Next station"
 										}
-										className="cursor-pointer"
+										className="size-10 cursor-pointer"
 										disabled={isLoading}
 									>
 										<SkipForward className="h-5 w-5" />
@@ -197,8 +205,8 @@ export function PlayerBar() {
 						</div>
 					</div>
 
-					{/* Volume & Actions */}
-					<div className="flex min-w-0 items-center justify-end gap-4">
+					{/* Website link and volume, md and up only */}
+					<div className="hidden min-w-0 items-center justify-end gap-4 md:flex">
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button
@@ -222,7 +230,7 @@ export function PlayerBar() {
 							</TooltipContent>
 						</Tooltip>
 
-						<div className="flex min-w-[100px] items-center gap-2 max-[600px]:hidden md:min-w-[140px]">
+						<div className="flex min-w-[140px] items-center gap-2">
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<Button
@@ -252,7 +260,7 @@ export function PlayerBar() {
 								max={100}
 								step={1}
 								onValueChange={(value) => setVolume(value[0])}
-								className="w-16 cursor-pointer md:w-24"
+								className="w-24 cursor-pointer"
 								aria-label="Volume control"
 							/>
 						</div>
