@@ -345,7 +345,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.facebook}
@@ -362,7 +362,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.instagram}
@@ -379,7 +379,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.tiktok}
@@ -396,7 +396,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.youtube}

@@ -214,7 +214,7 @@ export function PlayerBar() {
 									size="icon"
 									asChild
 									aria-label={`Open ${currentStation.name} website`}
-									className="cursor-pointer"
+									className="size-10 cursor-pointer"
 								>
 									<a
 										href={currentStation.website}
@@ -238,7 +238,7 @@ export function PlayerBar() {
 										size="icon"
 										onClick={toggleMute}
 										aria-label={isMuted ? "Unmute" : "Mute"}
-										className="cursor-pointer"
+										className="size-10 cursor-pointer"
 									>
 										{volume === 0 || isMuted ? (
 											<VolumeX className="h-5 w-5" />
