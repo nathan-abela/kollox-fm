@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Heart, LayoutGrid } from "lucide-react";
+import { ArrowUpDown, Clock, Heart, LayoutGrid } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -34,7 +34,7 @@ interface FilterBarProps {
 }
 
 /**
- * Sticky filter bar under the header: list view switcher, sort select,
+ * Filter bar under the header: list view switcher, sort select,
  * and a scrollable genre chip row.
  */
 export function FilterBar({
@@ -48,8 +48,8 @@ export function FilterBar({
 	onGenreChange,
 }: FilterBarProps) {
 	return (
-		<div className="bg-background sticky top-16 z-30 border-b pt-5 pb-3">
-			<div className="flex flex-wrap items-center gap-3">
+		<>
+			<div className="flex flex-wrap items-center gap-3 border-b py-3">
 				<SegmentedControl
 					aria-label="Station list"
 					value={view}
@@ -61,8 +61,8 @@ export function FilterBar({
 					]}
 				/>
 
-				<div className="flex items-center gap-2 sm:ml-auto">
-					<span className="text-muted-foreground text-xs whitespace-nowrap">
+				<div className="ml-auto flex items-center gap-2">
+					<span className="text-muted-foreground hidden text-xs whitespace-nowrap sm:inline">
 						Sort by
 					</span>
 					<Select
@@ -72,11 +72,12 @@ export function FilterBar({
 						}
 						disabled={sortDisabled}
 					>
-						<SelectTrigger
-							aria-label="Sort stations"
-							className="w-[140px]"
-						>
-							<SelectValue placeholder="Sort by" />
+						{/* Icon-only trigger below sm, selected value from sm up */}
+						<SelectTrigger aria-label="Sort stations">
+							<ArrowUpDown className="sm:hidden" />
+							<span className="hidden sm:contents">
+								<SelectValue placeholder="Sort by" />
+							</span>
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="popularity">
@@ -93,7 +94,8 @@ export function FilterBar({
 				</div>
 			</div>
 
-			<div className="mt-3 flex gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+			{/* Horizontal scroll with a fade on the right edge, the right padding ends the scroll past the fade */}
+			<div className="mt-3 flex gap-2 overflow-x-auto mask-[linear-gradient(to_right,black_calc(100%-2rem),transparent)] pr-8 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 				{genres.map((genre) => {
 					const isActive = genre === selectedGenre;
 					return (
@@ -114,6 +116,6 @@ export function FilterBar({
 					);
 				})}
 			</div>
-		</div>
+		</>
 	);
 }
