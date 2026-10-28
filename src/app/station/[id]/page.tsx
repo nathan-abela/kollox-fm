@@ -146,7 +146,7 @@ export default function StationPage() {
 			const bShared = b.genres?.filter((g) => station.genres?.includes(g)).length || 0;
 			return bShared - aShared;
 		})
-		.slice(0, 5);
+		.slice(0, 4);
 
 	const sharedGenres = station.genres?.length
 		? new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
@@ -427,18 +427,7 @@ export default function StationPage() {
 			{/* Audience */}
 			{latestSurvey && latestSurveyRank && latestSurveyRow && (
 				<div className="container mx-auto px-4 py-6 md:py-8">
-					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-						<h2 className="text-lg font-semibold">Audience</h2>
-						<a
-							href={latestSurvey.meta.rawSourcePath}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground text-sm underline"
-						>
-							Broadcasting Authority Audience Survey{" "}
-							{latestSurveyYear}
-						</a>
-					</div>
+					<h2 className="mb-4 text-lg font-semibold">Audience</h2>
 					{/* prettier-ignore */}
 					<div className={cn("grid gap-3", showTrend && "lg:grid-cols-3")}> 
 						{showTrend && (
@@ -493,6 +482,18 @@ export default function StationPage() {
 							)}
 						</div>
 					</div>
+					<p className="text-muted-foreground mt-3 text-xs">
+						Source:{" "}
+						<a
+							href={latestSurvey.meta.rawSourcePath}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-foreground underline"
+						>
+							Broadcasting Authority Audience Survey{" "}
+							{latestSurveyYear}
+						</a>
+					</p>
 				</div>
 			)}
 
@@ -502,7 +503,7 @@ export default function StationPage() {
 					<h2 className="mb-4 text-lg font-semibold">
 						Popular Shows
 					</h2>
-					<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+					<div className="grid gap-3 lg:grid-cols-3">
 						{popularShows.map((show) => (
 							<Card key={show.id} className="min-w-0 py-4">
 								<CardContent className="flex items-center gap-3 px-4 sm:px-6">
@@ -510,10 +511,7 @@ export default function StationPage() {
 										<Mic className="text-primary h-5 w-5" />
 									</div>
 									<div className="min-w-0 flex-1">
-										<p
-											className="truncate font-medium"
-											title={show.name}
-										>
+										<p className="line-clamp-2 font-medium">
 											{show.name}
 										</p>
 										{/* prettier-ignore */}
