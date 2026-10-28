@@ -139,8 +139,8 @@ export function RadioStationCard({
 				<div
 					className={cn(
 						"absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300",
-						isCurrentStation && isLoading
-							? "opacity-100" // always show loader while loading
+						isCurrentStation
+							? "opacity-100" // the current station keeps its state icon visible
 							: "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100" // show on hover or keyboard focus otherwise
 					)}
 				>
@@ -152,44 +152,20 @@ export function RadioStationCard({
 						<PlayCircle className="h-16 w-16 text-white" />
 					)}
 				</div>
-
-				{isCurrentStation && (
-					<div className="absolute top-2 left-2 z-10">
-						<Badge
-							variant="secondary"
-							className={cn(
-								"font-semibold text-white shadow-md backdrop-blur-sm",
-								isLoading
-									? "bg-yellow-500/80"
-									: isPlaying
-										? "bg-green-500/80"
-										: "bg-blue-500/80"
-							)}
-						>
-							{isLoading
-								? "Loading..."
-								: isPlaying
-									? "Playing"
-									: "Idle"}
-						</Badge>
-					</div>
-				)}
 			</button>
 
 			<CardContent className="p-3 sm:p-4">
 				<div className="flex items-start justify-between gap-2">
 					<div className="min-w-0 flex-1">
-						<div className="flex min-w-0 items-center gap-2">
-							<h3 className="min-w-0 truncate text-base font-semibold sm:text-lg">
-								<Link
-									href={`/station/${station.id}`}
-									className="hover:text-primary transition-colors"
-									onClick={(e) => e.stopPropagation()}
-								>
-									{station.name}
-								</Link>
-							</h3>
-						</div>
+						<h3 className="line-clamp-2 text-sm font-semibold sm:text-lg">
+							<Link
+								href={`/station/${station.id}`}
+								className="hover:text-primary transition-colors"
+								onClick={(e) => e.stopPropagation()}
+							>
+								{station.name}
+							</Link>
+						</h3>
 						<p className="text-muted-foreground truncate text-sm">
 							{station.location}
 						</p>
@@ -228,10 +204,10 @@ export function RadioStationCard({
 				</div>
 			</CardContent>
 
-			{/* Genres and website live on the station page too, so two-column phones drop them for density */}
-			<CardFooter className="hidden flex-wrap items-center justify-between gap-2 p-4 pt-0 sm:flex">
-				{/* One row only: chips that wrap land below the clipped height */}
-				<div className="flex max-h-7 flex-1 flex-wrap gap-2 overflow-hidden">
+			{/* Genres and website, sm and up only, pinned to the card's bottom edge */}
+			<CardFooter className="mt-auto hidden items-center justify-between gap-2 p-4 pt-0 sm:flex">
+				{/* Single row, overflow fades out at the right edge */}
+				<div className="flex min-w-0 flex-1 gap-2 overflow-hidden mask-[linear-gradient(to_right,black_calc(100%-1.5rem),transparent)]">
 					{station.genres?.slice(0, 3).map((genre) => (
 						<Badge
 							key={genre}
