@@ -5,9 +5,9 @@ export function Footer() {
 	return (
 		<footer className="bg-card mt-auto border-t">
 			<div className="container mx-auto px-4 py-8">
-				<div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+				<div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
 					{/* Brand Section */}
-					<div className="md:col-span-2">
+					<div className="col-span-2 md:col-span-1">
 						<div className="mb-4 flex items-center gap-2">
 							<div className="bg-primary flex h-8 w-8 items-center justify-center rounded-full">
 								<Radio className="text-primary-foreground h-4 w-4" />
