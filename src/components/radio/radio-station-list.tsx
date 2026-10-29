@@ -34,7 +34,7 @@ export function RadioStationList({
 	}
 
 	return (
-		<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 2xl:grid-cols-5">
+		<div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4 2xl:grid-cols-5">
 			{stations.map((station, index) => (
 				<RadioStationCard
 					key={station.id}

@@ -11,6 +11,7 @@ import {
 	Loader2,
 	MapPin,
 	Mic,
+	Music2,
 	Pause,
 	Play,
 	RadioTower,
@@ -44,6 +45,7 @@ import {
 	YouTubeIcon,
 } from "@/components/icons/social";
 import { RadioStationList } from "@/components/radio/radio-station-list";
+import { ScrollingText } from "@/components/scrolling-text";
 import { MostFollowedTrendChart } from "@/components/survey-results/charts/most-followed-trend-chart";
 import { SurveyMetricCard } from "@/components/survey-results/survey-metric-card";
 
@@ -76,6 +78,7 @@ export default function StationPage() {
 
 	const {
 		currentStation,
+		currentSong,
 		isPlaying,
 		isLoading,
 		setStation,
@@ -143,7 +146,7 @@ export default function StationPage() {
 			const bShared = b.genres?.filter((g) => station.genres?.includes(g)).length || 0;
 			return bShared - aShared;
 		})
-		.slice(0, 5);
+		.slice(0, 4);
 
 	const sharedGenres = station.genres?.length
 		? new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
@@ -169,38 +172,19 @@ export default function StationPage() {
 					</div>
 				)}
 
-				<div className="relative container mx-auto px-4 py-6 md:py-10">
-					<div className="mb-6 flex items-center justify-between gap-4">
-						<Link
-							href="/"
-							className="text-muted-foreground hover:text-foreground inline-flex shrink-0 items-center gap-2 text-sm transition-colors"
-						>
-							<ArrowLeft className="h-4 w-4" />
-							<span className="hidden sm:inline">
-								Back to all stations
-							</span>
-							<span className="sm:hidden">Back</span>
-						</Link>
-						{latestSurveyRank && latestSurveyYear && (
-							<Button variant="outline" size="sm" asChild>
-								{/* prettier-ignore */}
-								<Link href={`/survey-results/${latestSurveyYear}`}>
-									<Trophy className="h-4 w-4 text-yellow-500" />
-									<span className="hidden sm:inline">
-										#{latestSurveyRank} in {latestSurveyYear} Audience Survey
-									</span>
-									<span className="sm:hidden">
-										#{latestSurveyRank} in {latestSurveyYear}
-									</span>
-								</Link>
-							</Button>
-						)}
-					</div>
+				<div className="relative container mx-auto px-4 py-5 md:py-10">
+					<Link
+						href="/"
+						className="text-muted-foreground hover:text-foreground mb-4 inline-flex items-center gap-2 text-sm transition-colors sm:mb-6"
+					>
+						<ArrowLeft className="h-4 w-4" />
+						Back to all stations
+					</Link>
 
-					{/* Station Info Row */}
-					<div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+					{/* Below sm: a two-column grid, artwork beside the title block with full-width rows under them. From sm: one flex row. */}
+					<div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-4 sm:flex sm:gap-6">
 						{/* Station Image */}
-						<div className="relative mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-xl shadow-2xl sm:mx-0 sm:h-48 sm:w-48">
+						<div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl shadow-2xl sm:h-48 sm:w-48">
 							{imageError ? (
 								<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
 									<RadioTower className="h-16 w-16" />
@@ -218,24 +202,54 @@ export default function StationPage() {
 						</div>
 
 						{/* Station Details */}
-						<div className="flex-1 text-center sm:text-left">
-							<h1 className="mb-1 text-3xl font-bold md:text-4xl lg:text-5xl">
-								{station.name}
-							</h1>
+						<div className="contents sm:block sm:min-w-0 sm:flex-1">
+							<div className="min-w-0">
+								<h1 className="mb-1 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
+									{station.name}
+								</h1>
 
-							<div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:justify-start">
-								{station.fmFrequency && (
-									<span className="font-mono text-lg font-medium">
-										{station.fmFrequency} FM
+								<div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+									{station.fmFrequency && (
+										<span className="font-mono text-lg font-medium">
+											{station.fmFrequency} FM
+										</span>
+									)}
+									<span className="text-muted-foreground flex items-center gap-1 text-sm">
+										<MapPin className="h-4 w-4" />
+										{station.location}
 									</span>
+									{latestSurveyRank && latestSurveyYear && (
+										<Button
+											variant="outline"
+											size="sm"
+											asChild
+										>
+											{/* prettier-ignore */}
+											<Link href={`/survey-results/${latestSurveyYear}`}>
+												<Trophy className="h-4 w-4 text-yellow-500" />
+												<span className="hidden sm:inline">
+													#{latestSurveyRank} in {latestSurveyYear} Audience Survey
+												</span>
+												<span className="sm:hidden">
+													#{latestSurveyRank} in {latestSurveyYear}
+												</span>
+											</Link>
+										</Button>
+									)}
+								</div>
+
+								{isCurrentStation && currentSong && (
+									<div className="mt-2 flex items-center gap-1.5 text-sm">
+										<Music2 className="h-4 w-4 shrink-0 text-purple-500" />
+										<ScrollingText
+											text={currentSong.toLowerCase()}
+											className="capitalize"
+										/>
+									</div>
 								)}
-								<span className="text-muted-foreground flex items-center gap-1 text-sm">
-									<MapPin className="h-4 w-4" />
-									{station.location}
-								</span>
 							</div>
 
-							<div className="mb-4 flex flex-wrap justify-center gap-2 sm:justify-start">
+							<div className="col-span-2 flex flex-wrap gap-2 sm:mt-3">
 								{station.genres?.map((genre) => (
 									<Badge
 										key={genre}
@@ -247,12 +261,12 @@ export default function StationPage() {
 								))}
 							</div>
 
-							{/* Actions */}
-							<div className="flex flex-wrap justify-center gap-3 sm:justify-start">
+							{/* Below sm the play button fills the row and website/favourite are icon-only */}
+							<div className="col-span-2 flex gap-3 sm:mt-4">
 								<Button
 									size="lg"
 									onClick={handlePlayClick}
-									className="cursor-pointer gap-2"
+									className="h-11 flex-1 cursor-pointer gap-2 sm:h-10 sm:flex-none"
 								>
 									{isCurrentStation && isLoading ? (
 										<>
@@ -276,15 +290,18 @@ export default function StationPage() {
 									variant="outline"
 									size="lg"
 									asChild
-									className="gap-2"
+									className="h-11 w-11 shrink-0 gap-2 px-0 sm:h-10 sm:w-auto sm:px-4"
 								>
 									<a
 										href={station.website}
 										target="_blank"
 										rel="noopener noreferrer"
+										aria-label="Official Website"
 									>
 										<ExternalLink className="h-4 w-4" />
-										Official Website
+										<span className="hidden sm:inline">
+											Official Website
+										</span>
 									</a>
 								</Button>
 
@@ -302,7 +319,7 @@ export default function StationPage() {
 													? "Remove from favourites"
 													: "Add to favourites"
 											}
-											className="h-10 w-10 cursor-pointer"
+											className="h-11 w-11 shrink-0 cursor-pointer sm:h-10 sm:w-10"
 										>
 											<Heart
 												className={
@@ -322,13 +339,13 @@ export default function StationPage() {
 							</div>
 
 							{station.socials && (
-								<div className="mt-4 flex justify-center gap-2 sm:justify-start">
+								<div className="col-span-2 flex flex-wrap gap-2 sm:mt-4">
 									{station.socials.facebook && (
 										<Button
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.facebook}
@@ -345,7 +362,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.instagram}
@@ -362,7 +379,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.tiktok}
@@ -379,7 +396,7 @@ export default function StationPage() {
 											variant="ghost"
 											size="icon"
 											asChild
-											className="h-9 w-9"
+											className="size-10"
 										>
 											<a
 												href={station.socials.youtube}
@@ -399,7 +416,8 @@ export default function StationPage() {
 			</div>
 
 			{station.description && (
-				<div className="container mx-auto px-4 py-8">
+				<div className="container mx-auto px-4 py-6 md:py-8">
+					<h2 className="mb-4 text-lg font-semibold">About</h2>
 					<p className="text-muted-foreground max-w-3xl leading-relaxed">
 						{station.description}
 					</p>
@@ -408,19 +426,8 @@ export default function StationPage() {
 
 			{/* Audience */}
 			{latestSurvey && latestSurveyRank && latestSurveyRow && (
-				<div className="container mx-auto px-4 py-8">
-					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-						<h2 className="text-lg font-semibold">Audience</h2>
-						<a
-							href={latestSurvey.meta.rawSourcePath}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground text-sm underline"
-						>
-							Broadcasting Authority Audience Survey{" "}
-							{latestSurveyYear}
-						</a>
-					</div>
+				<div className="container mx-auto px-4 py-6 md:py-8">
+					<h2 className="mb-4 text-lg font-semibold">Audience</h2>
 					{/* prettier-ignore */}
 					<div className={cn("grid gap-3", showTrend && "lg:grid-cols-3")}> 
 						{showTrend && (
@@ -475,27 +482,36 @@ export default function StationPage() {
 							)}
 						</div>
 					</div>
+					<p className="text-muted-foreground mt-3 text-xs">
+						Source:{" "}
+						<a
+							href={latestSurvey.meta.rawSourcePath}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-foreground underline"
+						>
+							Broadcasting Authority Audience Survey{" "}
+							{latestSurveyYear}
+						</a>
+					</p>
 				</div>
 			)}
 
 			{/* Popular Shows */}
 			{popularShows.length > 0 && (
-				<div className="container mx-auto px-4 py-8">
+				<div className="container mx-auto px-4 py-6 md:py-8">
 					<h2 className="mb-4 text-lg font-semibold">
 						Popular Shows
 					</h2>
-					<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+					<div className="grid gap-3 lg:grid-cols-3">
 						{popularShows.map((show) => (
 							<Card key={show.id} className="min-w-0 py-4">
-								<CardContent className="flex items-center gap-3">
-									<div className="bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+								<CardContent className="flex items-center gap-3 px-4 sm:px-6">
+									<div className="bg-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full sm:h-10 sm:w-10">
 										<Mic className="text-primary h-5 w-5" />
 									</div>
 									<div className="min-w-0 flex-1">
-										<p
-											className="truncate font-medium"
-											title={show.name}
-										>
+										<p className="line-clamp-2 font-medium">
 											{show.name}
 										</p>
 										{/* prettier-ignore */}
@@ -524,7 +540,7 @@ export default function StationPage() {
 
 			{/* Similar Stations */}
 			{similarStations.length > 0 && (
-				<div className="container mx-auto px-4 py-8">
+				<div className="container mx-auto px-4 py-6 md:py-8">
 					<div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
 						<h2 className="text-lg font-semibold">
 							Similar Stations

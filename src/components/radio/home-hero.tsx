@@ -13,6 +13,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { MaltaSkyline } from "@/components/illustrations/malta-skyline";
+import { ScrollingText } from "@/components/scrolling-text";
 
 interface HomeHeroProps {
 	isFavourite: (stationId: string) => boolean;
@@ -37,7 +38,7 @@ export function HomeHero({ isFavourite, onToggleFavourite }: HomeHeroProps) {
 					<MaltaSkyline className="absolute inset-y-0 right-0 hidden h-full w-auto max-w-[55%] [mask-image:linear-gradient(to_right,transparent,black_35%)] md:block" />
 				)}
 
-				<div className="relative min-w-0 md:basis-96">
+				<div className="relative min-w-0 md:shrink-0 md:basis-64 lg:basis-96">
 					<h1 className="text-foreground text-2xl font-bold tracking-tight">
 						Explore Malta&apos;s Radio Stations
 					</h1>
@@ -136,7 +137,7 @@ function NowPlaying({
 			<div className="min-w-0 flex-1">
 				<div
 					className={cn(
-						"flex items-center gap-2 text-xs font-medium",
+						"flex items-center gap-2 text-xs font-medium whitespace-nowrap",
 						isLive ? "text-green-500" : "text-muted-foreground"
 					)}
 				>
@@ -148,9 +149,10 @@ function NowPlaying({
 					/>
 					{status}
 				</div>
-				<p className="truncate text-xl font-bold tracking-tight capitalize">
-					{currentSong ? currentSong.toLowerCase() : station.name}
-				</p>
+				<ScrollingText
+					text={currentSong ? currentSong.toLowerCase() : station.name} // prettier-ignore
+					className="text-xl font-bold tracking-tight capitalize"
+				/>
 				<p className="text-muted-foreground truncate text-[13px]">
 					{currentSong
 						? `${station.name} · ${station.location}`

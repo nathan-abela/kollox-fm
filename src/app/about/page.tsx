@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function About() {
 	return (
 		<div className="container mx-auto px-4 py-8 md:py-12">
-			<div className="mx-auto max-w-3xl space-y-16">
+			<div className="mx-auto max-w-3xl space-y-12">
 				<section className="space-y-4 text-center">
 					<div className="flex justify-center">
 						<div className="bg-primary flex h-12 w-12 items-center justify-center rounded-full">
@@ -52,7 +52,7 @@ export default function About() {
 				</section>
 
 				<section className="space-y-6">
-					<h2 className="text-center text-2xl font-semibold">
+					<h2 className="text-2xl font-semibold">
 						What Makes It Different?
 					</h2>
 					<div className="grid gap-4 sm:grid-cols-2">
@@ -129,13 +129,11 @@ export default function About() {
 				</section>
 
 				<section className="space-y-6">
-					<h2 className="text-center text-2xl font-semibold">
-						Tech Stack
-					</h2>
-					<p className="text-muted-foreground text-center">
+					<h2 className="text-2xl font-semibold">Tech Stack</h2>
+					<p className="text-muted-foreground">
 						Fully responsive and optimized for fast loading.
 					</p>
-					<div className="flex flex-wrap justify-center gap-2">
+					<div className="flex flex-wrap gap-2">
 						<Badge variant="secondary">Next.js</Badge>
 						<Badge variant="secondary">TypeScript</Badge>
 						<Badge variant="secondary">Tailwind CSS</Badge>

@@ -61,7 +61,11 @@ export default function RootLayout({
 							<PlayerBar />
 						</AudioPlayerProvider>
 					</StationFiltersProvider>
-					<Toaster richColors />
+					<Toaster
+						richColors
+						offset={{ bottom: "var(--toast-bottom)" }}
+						mobileOffset={{ bottom: "var(--toast-bottom)" }}
+					/>
 				</ThemeProvider>
 				<BreakpointIndicator />
 			</body>
