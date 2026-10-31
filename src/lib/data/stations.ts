@@ -409,7 +409,7 @@ export const stations: RadioStation[] = [
 	{
 		id: "mics-radio",
 		name: "MICS Radio",
-		isEnabled: false, // CORS
+		isEnabled: false, // HTTP only, blocked as mixed content
 		streamUrl: "http://micsradio.ddns.net:90/;",
 		image: `${basePath}/images/stations/mics_radio.jpg`,
 		website: "http://micsradiomalta.com",
@@ -889,15 +889,16 @@ export const stations: RadioStation[] = [
 		},
 		lufs: -10.0,
 	},
+	// Seasonal/ Special Stations
 	{
 		id: "christmas-radio-malta",
 		name: "Christmas Radio Malta",
+		isEnabled: false, // HTTP only, blocked as mixed content
 		streamUrl: "http://philae.shoutca.st:8402/stream",
 		image: `${basePath}/images/stations/christmas_radio_malta.jpg`,
 		website: "https://www.christmasradiomalta.com",
 		location: "Valletta",
 		genres: ["Christmas", "Holiday", "Seasonal"],
-		popularity: 42,
 		metadata: {
 			isEnabled: true,
 			currentSongUrl: "http://philae.shoutca.st:8402/currentsong", // prettier-ignore
@@ -908,7 +909,6 @@ export const stations: RadioStation[] = [
 		},
 		lufs: -10.5,
 	},
-	// Seasonal/ Special Stations
 	{
 		id: "bay-xmas",
 		name: "Bay Xmas",
