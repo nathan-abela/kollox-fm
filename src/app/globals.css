@@ -191,6 +191,88 @@
 	}
 }
 
+/* Three level-meter shapes, each bar picks one and runs it at its own speed and offset */
+@keyframes live-bar-1 {
+	0% {
+		transform: scaleY(0.3);
+	}
+	14% {
+		transform: scaleY(0.9);
+	}
+	28% {
+		transform: scaleY(0.5);
+	}
+	42% {
+		transform: scaleY(1);
+	}
+	57% {
+		transform: scaleY(0.35);
+	}
+	71% {
+		transform: scaleY(0.7);
+	}
+	85% {
+		transform: scaleY(0.45);
+	}
+	100% {
+		transform: scaleY(0.3);
+	}
+}
+
+@keyframes live-bar-2 {
+	0% {
+		transform: scaleY(0.6);
+	}
+	14% {
+		transform: scaleY(0.25);
+	}
+	28% {
+		transform: scaleY(0.8);
+	}
+	42% {
+		transform: scaleY(0.4);
+	}
+	57% {
+		transform: scaleY(1);
+	}
+	71% {
+		transform: scaleY(0.3);
+	}
+	85% {
+		transform: scaleY(0.55);
+	}
+	100% {
+		transform: scaleY(0.6);
+	}
+}
+
+@keyframes live-bar-3 {
+	0% {
+		transform: scaleY(0.4);
+	}
+	14% {
+		transform: scaleY(0.7);
+	}
+	28% {
+		transform: scaleY(0.3);
+	}
+	42% {
+		transform: scaleY(0.95);
+	}
+	57% {
+		transform: scaleY(0.6);
+	}
+	71% {
+		transform: scaleY(0.2);
+	}
+	85% {
+		transform: scaleY(0.85);
+	}
+	100% {
+		transform: scaleY(0.4);
+	}
+}
+
 @keyframes preview-in {
 	from {
 		opacity: 0;
