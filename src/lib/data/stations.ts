@@ -12,6 +12,27 @@ export function displayFrequency(station: RadioStation): string | null {
 	return `${station.fmFrequency} FM`;
 }
 
+/**
+ * Enabled stations that share a genre with `station`, those sharing the most
+ * genres first.
+ */
+export function getSimilarStations(
+	station: RadioStation,
+	count: number
+): RadioStation[] {
+	const sharedGenres = (s: RadioStation) =>
+		s.genres?.filter((g) => station.genres?.includes(g)).length ?? 0;
+	return stations
+		.filter(
+			(s) =>
+				s.id !== station.id &&
+				s.isEnabled !== false &&
+				sharedGenres(s) > 0
+		)
+		.sort((a, b) => sharedGenres(b) - sharedGenres(a))
+		.slice(0, count);
+}
+
 export const stations: RadioStation[] = [
 	{
 		id: "bay-fm",

@@ -1,30 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { MouseEvent, useRef, useState } from "react";
 import Link from "next/link";
 import {
+	ChevronUp,
 	ExternalLink,
 	Loader2,
+	Maximize2,
 	Pause,
 	Play,
-	RadioTower,
 	SkipBack,
 	SkipForward,
-	Volume1,
-	Volume2,
-	VolumeX,
 } from "lucide-react";
 
 import { useAudioPlayer } from "@/lib/hooks/audio-player";
 import { RadioStation } from "@/lib/types/radio";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { NowPlayingDrawer } from "@/components/layout/now-playing-drawer";
+import { VolumeControl } from "@/components/layout/volume-control";
+import { StationArtwork } from "@/components/radio/station-artwork";
 import { StationPreview } from "@/components/radio/station-preview";
 import { ScrollingText } from "@/components/scrolling-text";
 
@@ -36,10 +35,9 @@ import { ScrollingText } from "@/components/scrolling-text";
  * It also displays station details, including an image, name, and location.
  *
  * Features:
- * - Station info with image, name, and location.
+ * - Station info with image, name, and location. Below `md` the whole block opens the now-playing drawer.
  * - Playback controls: previous, play/pause, next.
- * - External link to the station's website.
- * - Volume control slider and mute button.
+ * - From `md`: expand button for the now-playing drawer, external link to the station's website, volume control.
  */
 export function PlayerBar() {
 	const {
@@ -47,21 +45,17 @@ export function PlayerBar() {
 		currentSong,
 		isPlaying,
 		isLoading,
-		volume,
-		isMuted,
 		stationsOrder,
 		setStation,
 		togglePlayPause,
-		setVolume,
-		toggleMute,
 	} = useAudioPlayer();
+	const [drawerOpen, setDrawerOpen] = useState(false);
+	const drawerOpenerRef = useRef<HTMLElement | null>(null);
 
-	// State to handle image loading failure
-	const [imageError, setImageError] = useState(false);
-
-	useEffect(() => {
-		setImageError(false);
-	}, [currentStation?.image]);
+	const openDrawer = (e: MouseEvent<HTMLElement>) => {
+		drawerOpenerRef.current = e.currentTarget;
+		setDrawerOpen(true);
+	};
 
 	if (!currentStation) {
 		return null;
@@ -73,6 +67,8 @@ export function PlayerBar() {
 	const nextIdx = getRelativeStationIndex(currentStation.id, stationsOrder, 1);
 	const prevStation = prevIdx === null ? null : stationsOrder[prevIdx];
 	const nextStation = nextIdx === null ? null : stationsOrder[nextIdx];
+
+	const songOrLocation = currentSong?.toLowerCase() ?? currentStation.location; // prettier-ignore
 
 	const handlePrevStation = () => {
 		if (prevStation) setStation(prevStation);
@@ -87,26 +83,44 @@ export function PlayerBar() {
 			data-player-bar
 			className="bg-card sticky bottom-0 z-40 flex h-[calc(var(--player-bar-height)+env(safe-area-inset-bottom))] items-center border-t px-4 pb-[env(safe-area-inset-bottom)] sm:px-6"
 		>
+			<NowPlayingDrawer
+				open={drawerOpen}
+				onOpenChange={setDrawerOpen}
+				returnFocusRef={drawerOpenerRef}
+				prevStation={prevStation}
+				nextStation={nextStation}
+			/>
 			<div className="container mx-auto">
 				{/* Two columns below md (station text, controls); three from md with a mirrored actions column that centres the controls */}
 				<div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:gap-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
-					{/* Station Info */}
-					<div className="flex min-w-0 items-center gap-3 sm:gap-4">
-						<div className="bg-muted relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-14">
-							{imageError ? (
-								<div className="bg-muted text-muted-foreground flex h-full w-full items-center justify-center">
-									<RadioTower className="h-5 w-5" />
-								</div>
-							) : (
-								<Image
-									src={currentStation.image}
-									alt={currentStation.name}
-									fill
-									className="object-cover"
-									onError={() => setImageError(true)}
-								/>
-							)}
+					{/* Station Info: opens the drawer below md, links to the station page from md */}
+					<button
+						type="button"
+						onClick={openDrawer}
+						aria-haspopup="dialog"
+						aria-expanded={drawerOpen}
+						className="focus-visible:ring-ring/50 flex min-w-0 cursor-pointer items-center gap-3 rounded-md text-left outline-none focus-visible:ring-[3px] sm:gap-4 md:hidden"
+					>
+						<StationArtwork
+							station={currentStation}
+							className="size-12 rounded-md sm:size-14"
+						/>
+						<div className="min-w-0 flex-1">
+							<div className="truncate font-medium">
+								{currentStation.name}
+							</div>
+							<ScrollingText
+								text={songOrLocation}
+								className="text-muted-foreground text-sm capitalize"
+							/>
 						</div>
+						<ChevronUp className="text-muted-foreground size-5 shrink-0" />
+					</button>
+					<div className="hidden min-w-0 items-center gap-4 md:flex">
+						<StationArtwork
+							station={currentStation}
+							className="size-14 rounded-md"
+						/>
 						<div className="min-w-0">
 							<Link
 								href={`/station/${currentStation.id}`}
@@ -115,10 +129,7 @@ export function PlayerBar() {
 								{currentStation.name}
 							</Link>
 							<ScrollingText
-								text={
-									currentSong?.toLowerCase() ??
-									currentStation.location
-								}
+								text={songOrLocation}
 								className="text-muted-foreground text-sm capitalize"
 							/>
 						</div>
@@ -205,8 +216,26 @@ export function PlayerBar() {
 						</div>
 					</div>
 
-					{/* Website link and volume, md and up only */}
+					{/* Expand, website link and volume, md and up only */}
 					<div className="hidden min-w-0 items-center justify-end gap-4 md:flex">
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									size="icon"
+									onClick={openDrawer}
+									aria-haspopup="dialog"
+									aria-expanded={drawerOpen}
+									aria-label="Now playing"
+									className="size-10 cursor-pointer"
+								>
+									<Maximize2 className="h-5 w-5" />
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent side="top">
+								Now playing
+							</TooltipContent>
+						</Tooltip>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button
@@ -230,40 +259,7 @@ export function PlayerBar() {
 							</TooltipContent>
 						</Tooltip>
 
-						<div className="flex min-w-[140px] items-center gap-2">
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<Button
-										variant="ghost"
-										size="icon"
-										onClick={toggleMute}
-										aria-label={isMuted ? "Unmute" : "Mute"}
-										className="size-10 cursor-pointer"
-									>
-										{volume === 0 || isMuted ? (
-											<VolumeX className="h-5 w-5" />
-										) : volume < 40 ? (
-											<Volume1 className="h-5 w-5" />
-										) : (
-											<Volume2 className="h-5 w-5" />
-										)}
-									</Button>
-								</TooltipTrigger>
-								<TooltipContent side="top">
-									{isMuted || volume === 0
-										? "Unmute"
-										: "Mute"}
-								</TooltipContent>
-							</Tooltip>
-							<Slider
-								value={[isMuted ? 0 : volume]}
-								max={100}
-								step={1}
-								onValueChange={(value) => setVolume(value[0])}
-								className="w-24 cursor-pointer"
-								aria-label="Volume control"
-							/>
-						</div>
+						<VolumeControl />
 					</div>
 				</div>
 			</div>

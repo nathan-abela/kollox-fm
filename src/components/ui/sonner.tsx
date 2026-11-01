@@ -15,6 +15,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
 					"--normal-bg": "var(--popover)",
 					"--normal-text": "var(--popover-foreground)",
 					"--normal-border": "var(--border)",
+					// Below the drawer overlay so a toast never sits on the now-playing view
+					zIndex: 40,
 				} as React.CSSProperties
 			}
 			{...props}

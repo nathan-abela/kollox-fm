@@ -19,7 +19,7 @@ import {
 	Users,
 } from "lucide-react";
 
-import { stations } from "@/lib/data/stations";
+import { getSimilarStations, stations } from "@/lib/data/stations";
 import {
 	getAllSurveys,
 	getLatestSurvey,
@@ -133,20 +133,7 @@ export default function StationPage() {
 		?.filter((p) => p.stationId === station.id)
 		.slice(0, 3) || [];
 
-	// prettier-ignore
-	const similarStations = stations
-		.filter((s) => {
-			if (s.id === station.id) return false;
-			if (s.isEnabled === false) return false;
-			const sharedGenres = s.genres?.filter((g) => station.genres?.includes(g)) || [];
-			return sharedGenres.length > 0;
-		})
-		.sort((a, b) => {
-			const aShared = a.genres?.filter((g) => station.genres?.includes(g)).length || 0;
-			const bShared = b.genres?.filter((g) => station.genres?.includes(g)).length || 0;
-			return bShared - aShared;
-		})
-		.slice(0, 4);
+	const similarStations = getSimilarStations(station, 4);
 
 	const sharedGenres = station.genres?.length
 		? new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
