@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { displayFrequency, getSimilarStations } from "@/lib/data/stations";
 import { RadioStation } from "@/lib/types/radio";
 import { cn } from "@/lib/utils";
@@ -15,17 +13,11 @@ const COUNT = 3;
  */
 export function SimilarStations({
 	station,
-	totalCount,
 	onPick,
-	onViewAll,
 	className,
 }: {
 	station: RadioStation;
-	/** Shown in the link to the full station list */
-	totalCount: number;
 	onPick: (station: RadioStation) => void;
-	/** Called when the full-list link is followed, ex. to close a drawer */
-	onViewAll?: () => void;
 	className?: string;
 }) {
 	const similar = getSimilarStations(station, COUNT);
@@ -33,16 +25,7 @@ export function SimilarStations({
 
 	return (
 		<section className={cn("min-w-0 text-left", className)}>
-			<div className="mb-2 flex items-baseline justify-between">
-				<h2 className="font-medium">Similar stations</h2>
-				<Link
-					href="/"
-					onClick={onViewAll}
-					className="text-muted-foreground hover:text-primary text-sm transition-colors"
-				>
-					All {totalCount} stations
-				</Link>
-			</div>
+			<h2 className="mb-2 font-medium">Similar stations</h2>
 			<ul className="grid grid-cols-3 gap-2 xl:grid-cols-1">
 				{similar.map((s) => (
 					<li key={s.id}>

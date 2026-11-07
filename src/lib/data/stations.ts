@@ -12,6 +12,19 @@ export function displayFrequency(station: RadioStation): string | null {
 	return `${station.fmFrequency} FM`;
 }
 
+/** "88.7 FM · Santa Venera" and the first three genres, for the lines under a station name */
+export function describeStation(station: RadioStation): {
+	subtitle: string;
+	genres: string | undefined;
+} {
+	return {
+		subtitle: [displayFrequency(station), station.location]
+			.filter(Boolean)
+			.join(" · "),
+		genres: station.genres?.slice(0, 3).join(", "),
+	};
+}
+
 /**
  * Enabled stations that share a genre with `station`, those sharing the most
  * genres first.
