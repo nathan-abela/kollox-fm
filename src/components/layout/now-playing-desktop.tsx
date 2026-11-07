@@ -117,7 +117,10 @@ export function NowPlayingDesktop({
 								<Kbd>Space</Kbd> play / stop
 							</span>
 							<span>
-								<Kbd>←</Kbd> <Kbd>→</Kbd> switch station
+								<Kbd>←</Kbd> <Kbd>→</Kbd> station
+							</span>
+							<span>
+								<Kbd>R</Kbd> random
 							</span>
 							<span>
 								<Kbd>F</Kbd> favourite

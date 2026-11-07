@@ -105,6 +105,8 @@ interface AudioPlayerContextType {
 	recentlyPlayed: string[];
 	stationsOrder: RadioStation[];
 	setStation: (station: RadioStation) => void;
+	/** Plays a station from the current order other than the one playing */
+	playRandomStation: () => void;
 	togglePlayPause: () => void;
 	setVolume: (volume: number) => void;
 	toggleMute: () => void;
@@ -343,6 +345,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 		[currentStation, togglePlayPause, ensureBoostGraph]
 	);
 
+	const playRandomStation = useCallback(() => {
+		const others = stationsOrder.filter((s) => s.id !== currentStation?.id);
+		if (others.length === 0) return;
+		setStation(others[Math.floor(Math.random() * others.length)]);
+	}, [stationsOrder, currentStation, setStation]);
+
 	// Toggles the mute state
 	const toggleMute = useCallback(() => {
 		setIsMuted((prev) => !prev);
@@ -400,6 +408,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 				recentlyPlayed,
 				stationsOrder,
 				setStation,
+				playRandomStation,
 				togglePlayPause,
 				setVolume,
 				toggleMute,

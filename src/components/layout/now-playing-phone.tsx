@@ -12,6 +12,7 @@ import {
 	DrawerDescription,
 	DrawerTitle,
 } from "@/components/ui/drawer";
+import { FavouriteButton } from "@/components/radio/favourite-button";
 import { LiveBars } from "@/components/radio/live-bars";
 import { PlaybackControls } from "@/components/radio/playback-controls";
 import { SimilarStations } from "@/components/radio/similar-stations";
@@ -118,7 +119,12 @@ export function NowPlayingPhone({
 								prevStation={prevStation}
 								nextStation={nextStation}
 								playButtonRef={playButtonRef}
-							/>
+							>
+								<FavouriteButton
+									station={station}
+									className="size-12 rounded-full"
+								/>
+							</PlaybackControls>
 							<StationActions
 								station={station}
 								onViewStation={onClose}
@@ -175,7 +181,12 @@ export function NowPlayingPhone({
 							prevStation={prevStation}
 							nextStation={nextStation}
 							playButtonRef={playButtonRef}
-						/>
+						>
+							<FavouriteButton
+								station={station}
+								className="size-12 rounded-full"
+							/>
+						</PlaybackControls>
 						<StationActions
 							station={station}
 							onViewStation={onClose}

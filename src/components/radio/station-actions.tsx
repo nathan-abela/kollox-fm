@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, Heart } from "lucide-react";
+import { ExternalLink, Share2 } from "lucide-react";
+import { toast } from "sonner";
 
-import { useFavourites } from "@/lib/hooks/use-favourites";
+import { siteUrl } from "@/lib/config";
 import { RadioStation } from "@/lib/types/radio";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { FavouriteButton } from "@/components/radio/favourite-button";
 
-/** Favourite, station page link and website link. Icon-only below `md`, labelled from `md`. */
+/**
+ * Station page link, website link and share, with favourite from `md`
+ * (phones carry it in the playback controls). Icon-only below `md`,
+ * labelled from `md`.
+ */
 export function StationActions({
 	station,
 	onViewStation,
@@ -17,29 +22,36 @@ export function StationActions({
 	/** Called when the station page link is followed, ex. to close a drawer */
 	onViewStation?: () => void;
 }) {
-	const { isFavourite, toggleFavourite } = useFavourites();
-	const favourited = isFavourite(station.id);
+	// Native share sheet where there is one, otherwise the link goes to the clipboard
+	const share = async () => {
+		const url = `${siteUrl}/station/${station.id}`;
+		if (navigator.share) {
+			await navigator.share({ title: station.name, url }).catch(() => {});
+			return;
+		}
+		try {
+			await navigator.clipboard.writeText(url);
+			toast("Link copied");
+		} catch {
+			toast("Couldn't copy the link");
+		}
+	};
 
 	return (
 		<div className="flex w-full max-w-sm gap-2 md:max-w-none md:flex-wrap">
+			<FavouriteButton
+				station={station}
+				label
+				className="hidden h-10 px-4 md:inline-flex"
+			/>
 			<Button
 				variant="outline"
-				onClick={() => toggleFavourite(station.id)}
-				aria-pressed={favourited}
-				aria-label={
-					favourited ? "Remove from favourites" : "Add to favourites"
-				}
-				className="size-10 cursor-pointer px-0 md:w-auto md:px-4"
+				onClick={share}
+				aria-label={`Share ${station.name}`}
+				className="order-first size-10 cursor-pointer px-0 md:order-last md:w-auto md:px-4"
 			>
-				<Heart
-					className={cn(
-						"size-5",
-						favourited && "fill-current text-red-500"
-					)}
-				/>
-				<span className="hidden md:inline">
-					{favourited ? "Favourited" : "Favourite"}
-				</span>
+				<Share2 className="size-5" />
+				<span className="hidden md:inline">Share</span>
 			</Button>
 			<Button
 				variant="outline"

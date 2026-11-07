@@ -24,8 +24,8 @@ const PHONE_SNAP_POINTS: (string | number)[] = ["448px", 1];
  * Now-playing view opened from the player bar. On phones it opens as a half
  * sheet that drags up to a full screen; from `md` it opens full screen
  * straight away. Owns the drawer shell: snap points, focus, keyboard
- * shortcuts (← → station, F favourite, M mute, Esc close) and closing by
- * swipe, Escape, the close button or a station link.
+ * shortcuts (← → station, R random, F favourite, M mute, Esc close) and
+ * closing by swipe, Escape, the close button or a station link.
  */
 export function NowPlayingDrawer({
 	open,
@@ -41,7 +41,7 @@ export function NowPlayingDrawer({
 	prevStation: RadioStation | null;
 	nextStation: RadioStation | null;
 }) {
-	const { currentStation, isLoading, setStation, toggleMute } = useAudioPlayer(); // prettier-ignore
+	const { currentStation, isLoading, setStation, playRandomStation, toggleMute } = useAudioPlayer(); // prettier-ignore
 	const { toggleFavourite } = useFavourites();
 	const isPhone = !useMediaQuery(MD_QUERY);
 	const [snap, setSnap] = useState<string | number | null>(PHONE_SNAP_POINTS[0]); // prettier-ignore
@@ -64,6 +64,7 @@ export function NowPlayingDrawer({
 		onOpenChange(next);
 	};
 	const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+		if (e.metaKey || e.ctrlKey || e.altKey) return;
 		if ((e.target as HTMLElement).closest("[role=slider]")) return;
 		switch (e.key) {
 			case "ArrowLeft":
@@ -77,6 +78,9 @@ export function NowPlayingDrawer({
 				break;
 			case "m":
 				toggleMute();
+				break;
+			case "r":
+				if (!isLoading) playRandomStation();
 				break;
 		}
 	};
